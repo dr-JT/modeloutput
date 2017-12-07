@@ -90,7 +90,8 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     }
   }
 
-  plot <- ggplot2::theme(plot.margin = ggplot2::unit(c(.5,2,.5,.5), "cm"),
+  plot <- plot +
+    ggplot2::theme(plot.margin = ggplot2::unit(c(.5,2,.5,.5), "cm"),
                          panel.background = ggplot2::element_blank(),
                          panel.grid.major = ggplot2::element_line(color = "gray96"),
                          plot.background = ggplot2::element_rect(fill="white", color = NA),
