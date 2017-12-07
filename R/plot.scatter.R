@@ -17,6 +17,7 @@
 #' @param caption Add a plot caption
 #' @param grp What is the grouping variable?
 #' @param point.show Show data points?
+#' @param show.corr Show correlation value in the figure?
 #' @export plot.scatter
 #' @examples
 #' plot.scatter(data, x = "x.variable", y = "y.variable", se = TRUE, x.lim = c(NA,3), y.lim = c(0,100))
@@ -24,7 +25,7 @@
 plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
                          line.color = "dodgerblue4", point.color = "black",
                          x.lim = "", y.lim = "", x.by = 1, y.by = 1, title = "",
-                         subtitle = "", caption = "", grp = "", point.show = TRUE){
+                         subtitle = "", caption = "", grp = "", point.show = TRUE, show.corr = FALSE){
 
   xy.scale <- function(plot, x.lim = "", y.lim = "", x.by = "", y.by = ""){
     if (length(x.lim)==2 & length(y.lim)==2){
@@ -45,6 +46,49 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     return(plot)
   }
 
+  if (point.show==FALSE){
+    point.color = "white"
+  }
+  if (grp==""){
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y) )) +
+      ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption) +
+      ggplot2::geom_point(shape=19, position = "jitter", color = point.color) +
+      ggplot2::geom_smooth(method=lm,se=se, color = line.color) +
+      ggplot2::annotation_custom(label)
+    plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
+
+    if (show.corr==TRUE){
+      r <- sub("0.", ".", round(psych::corr.test(df[c(x,y)])$r[2],2))
+      p <- psych::corr.test(df[c(x,y)])$p[2]
+      if (p < p.value){
+        text <- paste("r = ", r, "*", sep = "")
+      } else {
+        text <- paste("r = ", r, sep = "")
+      }
+      label <- grid::grobTree(grid::textGrob(text, x=1.01, y=.90,
+                                             check.overlap = FALSE,
+                                             just = c("left", "top"),
+                                             gp = grid::gpar(fontfamily = "Arial",
+                                                             col="black",
+                                                             fontsize = 14,
+                                                             fontface = "bold")))
+      plot <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
+      plot$layout$clip[plot$layout$name=="panel"] <- "off"
+    }
+
+
+  } else {
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = get(grp))) +
+      ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption, color = grp) +
+      ggplot2::geom_smooth(method=lm,se=se)
+    plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
+    if (point.show==TRUE){
+      plot <- plot + ggplot2::geom_point(shape=19, position = "jitter")
+    } else {
+      plot <- plot + ggplot2::geom_point(shape=19, position = "jitter", color = point.color)
+    }
+  }
+
   plot <- ggplot2::theme(plot.margin = ggplot2::unit(c(.5,2,.5,.5), "cm"),
                          panel.background = ggplot2::element_blank(),
                          panel.grid.major = ggplot2::element_line(color = "gray96"),
@@ -57,48 +101,5 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
                          axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t=18)),
                          axis.title.y = ggplot2::element_text(margin = ggplot2::margin(r=18), angle = 90))
 
-  if (point.show==FALSE){
-    point.color = "white"
-  }
-  if (grp==""){
-    r <- sub("0.", ".", round(psych::corr.test(df[c(x,y)])$r[2],2))
-    p <- psych::corr.test(df[c(x,y)])$p[2]
-    if (p < p.value){
-      text <- paste("r = ", r, "*", sep = "")
-    } else {
-      text <- paste("r = ", r, sep = "")
-    }
-
-    label <- grid::grobTree(grid::textGrob(text, x=1.01, y=.90,
-                                           check.overlap = FALSE,
-                                           just = c("left", "top"),
-                                           gp = grid::gpar(fontfamily = "Arial",
-                                                           col="black",
-                                                           fontsize = 14,
-                                                           fontface = "bold")))
-
-    plot <- plot +
-      ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y) )) +
-      ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption) +
-      ggplot2::geom_point(shape=19, position = "jitter", color = point.color) +
-      ggplot2::geom_smooth(method=lm,se=se, color = line.color) +
-      ggplot2::annotation_custom(label)
-    plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
-
-  } else {
-    plot <- plot +
-      ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = get(grp))) +
-      ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption, color = grp) +
-      ggplot2::geom_smooth(method=lm,se=se)
-    plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
-    if (point.show==TRUE){
-      plot <- plot + ggplot2::geom_point(shape=19, position = "jitter")
-    } else {
-      plot <- plot + ggplot2::geom_point(shape=19, position = "jitter", color = point.color)
-    }
-  }
-
-  plot <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
-  plot$layout$clip[plot$layout$name=="panel"] <- "off"
   plot(plot)
 }

@@ -7,7 +7,7 @@
 \method{plot}{scatter}(df, x = "", y = "", p.value = 0.05, se = FALSE,
   line.color = "dodgerblue4", point.color = "black", x.lim = "",
   y.lim = "", x.by = 1, y.by = 1, title = "", subtitle = "",
-  caption = "", grp = "", point.show = TRUE)
+  caption = "", grp = "", point.show = TRUE, show.corr = FALSE)
 }
 \arguments{
 \item{df}{dataframe}
@@ -41,6 +41,8 @@
 \item{grp}{What is the grouping variable?}
 
 \item{point.show}{Show data points?}
+
+\item{show.corr}{Show correlation value in the figure?}
 }
 \description{
 This function will print a scatter plot with the correlation value in the upper right
