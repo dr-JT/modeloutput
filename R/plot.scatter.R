@@ -53,8 +53,7 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y) )) +
       ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption) +
       ggplot2::geom_point(shape=19, position = "jitter", color = point.color) +
-      ggplot2::geom_smooth(method=lm,se=se, color = line.color) +
-      ggplot2::annotation_custom(label)
+      ggplot2::geom_smooth(method=lm,se=se, color = line.color)
     plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
 
     if (show.corr==TRUE){
@@ -72,6 +71,8 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
                                                              col="black",
                                                              fontsize = 14,
                                                              fontface = "bold")))
+
+      plot <- plot + ggplot2::annotation_custom(label)
       plot <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
       plot$layout$clip[plot$layout$name=="panel"] <- "off"
     }
