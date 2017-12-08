@@ -27,6 +27,19 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
                          x.lim = "", y.lim = "", x.by = 1, y.by = 1, title = "",
                          subtitle = "", caption = "", grp = "", point.show = TRUE, show.corr = FALSE){
 
+  plot <- plot +
+    ggplot2::theme(plot.margin = ggplot2::unit(c(.5,2,.5,.5), "cm"),
+                   panel.background = ggplot2::element_blank(),
+                   panel.grid.major = ggplot2::element_line(color = "gray96"),
+                   plot.background = ggplot2::element_rect(fill="white", color = NA),
+                   legend.background = ggplot2::element_rect(fill="transparent", color = NA),
+                   legend.key = ggplot2::element_rect(fill="transparent", color = NA),
+                   panel.border = ggplot2::element_rect(fill="transparent", color = NA),
+                   axis.line = ggplot2::element_line(color = "black"),
+                   axis.title = ggplot2::element_text(face="bold"),
+                   axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t=18)),
+                   axis.title.y = ggplot2::element_text(margin = ggplot2::margin(r=18), angle = 90))
+
   xy.scale <- function(plot, x.lim = "", y.lim = "", x.by = "", y.by = ""){
     if (length(x.lim)==2 & length(y.lim)==2){
       plot <- plot +
@@ -50,7 +63,7 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     point.color = "white"
   }
   if (grp==""){
-    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y) )) +
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y))) +
       ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption) +
       ggplot2::geom_point(shape=19, position = "jitter", color = point.color) +
       ggplot2::geom_smooth(method=lm,se=se, color = line.color)
@@ -90,18 +103,7 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     }
   }
 
-  plot <- plot +
-    ggplot2::theme(plot.margin = ggplot2::unit(c(.5,2,.5,.5), "cm"),
-                         panel.background = ggplot2::element_blank(),
-                         panel.grid.major = ggplot2::element_line(color = "gray96"),
-                         plot.background = ggplot2::element_rect(fill="white", color = NA),
-                         legend.background = ggplot2::element_rect(fill="transparent", color = NA),
-                         legend.key = ggplot2::element_rect(fill="transparent", color = NA),
-                         panel.border = ggplot2::element_rect(fill="transparent", color = NA),
-                         axis.line = ggplot2::element_line(color = "black"),
-                         axis.title = ggplot2::element_text(face="bold"),
-                         axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t=18)),
-                         axis.title.y = ggplot2::element_text(margin = ggplot2::margin(r=18), angle = 90))
+
 
   plot(plot)
 }
