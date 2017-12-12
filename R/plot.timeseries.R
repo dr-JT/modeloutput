@@ -42,12 +42,12 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
   }
 
   if (grp==""){
-    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y)))
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y)))
   } else {
-    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
   }
 
-  plot <- ggplot2::geom_line(na.rm = TRUE)
+  plot <- plot + ggplot2::geom_line(na.rm = TRUE)
 
   if (se!=""){
     plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = (get(y)-get(grp)),
