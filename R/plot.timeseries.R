@@ -44,9 +44,9 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
   }
 
   if (grp==""){
-    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = x, y = y))
+    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y)))
   } else {
-    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = x, y = y, color = factor(get(grp))))
+    plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
   }
 
   if (se!=""){
