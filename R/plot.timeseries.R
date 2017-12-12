@@ -14,13 +14,15 @@
 #' @param caption Add a plot caption
 #' @param grp What is the grouping variable?
 #' @param se.transparency The level of transparance of error bars. 0 = completely transparent
+#' @param grp.cont Is the grouping variable continous
 #' @export plot.timeseries
 #' @examples
 #' plot.timeseries(data, x = "x.variable", y = "y.variable", se = TRUE, x.lim = c(NA,3), y.lim = c(0,100))
 
 plot.timeseries <- function(df, x = "", y = "", se = "",
                          x.lim = "", y.lim = "", x.by = 1, y.by = 1, title = "",
-                         subtitle = "", caption = "", grp = "", se.transparency = .1){
+                         subtitle = "", caption = "", grp = "", se.transparency = .1,
+                         grp.cont = FALSE){
 
   xy.scale <- function(plot, x.lim = "", y.lim = "", x.by = "", y.by = ""){
     if (length(x.lim)==2 & length(y.lim)==2){
@@ -43,8 +45,10 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
 
   if (grp==""){
     plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y)))
-  } else {
+  } else if (grp.cont==FALSE){
     plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
+  } else if (grp.cont==TRUE){
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = get(grp)))
   }
 
   plot <- plot +

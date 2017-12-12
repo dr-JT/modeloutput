@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{timeseries}(df, x = "", y = "", se = "", x.lim = "",
   y.lim = "", x.by = 1, y.by = 1, title = "", subtitle = "",
-  caption = "", grp = "", se.transparency = 0.1)
+  caption = "", grp = "", se.transparency = 0.1, grp.cont = FALSE)
 }
 \arguments{
 \item{df}{dataframe}
@@ -34,6 +34,8 @@
 \item{grp}{What is the grouping variable?}
 
 \item{se.transparency}{The level of transparance of error bars. 0 = completely transparent}
+
+\item{grp.cont}{Is the grouping variable continous}
 }
 \description{
 This function will print a scatter plot with the correlation value in the upper right
