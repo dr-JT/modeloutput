@@ -50,8 +50,8 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
   plot <- plot + ggplot2::geom_line(na.rm = TRUE)
 
   if (se!=""){
-    plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = (get(y)-get(grp)),
-                                     ymax = (get(y)+get(grp))),
+    plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = (get(y)-get(se)),
+                                     ymax = (get(y)+get(se))),
                                  alpha = se.transparency)
   }
   plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
