@@ -3,3 +3,4 @@
 export(bivariate.corr)
 export(data.display)
 export(plot.scatter)
+export(plot.timeseries)
