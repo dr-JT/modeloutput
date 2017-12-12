@@ -54,6 +54,6 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
                                      ymax = (get(y)+get(grp))),
                                  alpha = se.transparency)
   }
-  plot <- plot + xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
+  plot <- xy.scale(plot, x.lim = x.lim, y.lim = y.lim, x.by = x.by, y.by = y.by)
   return(plot)
 }
