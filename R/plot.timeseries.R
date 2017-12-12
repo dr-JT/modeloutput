@@ -22,8 +22,6 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
                          x.lim = "", y.lim = "", x.by = 1, y.by = 1, title = "",
                          subtitle = "", caption = "", grp = "", se.transparency = .1){
 
-  plot <- ggplot2::geom_line(na.rm = TRUE)
-
   xy.scale <- function(plot, x.lim = "", y.lim = "", x.by = "", y.by = ""){
     if (length(x.lim)==2 & length(y.lim)==2){
       plot <- plot +
@@ -48,6 +46,8 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
   } else {
     plot <- plot + ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
   }
+
+  plot <- ggplot2::geom_line(na.rm = TRUE)
 
   if (se!=""){
     plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = (get(y)-get(grp)),
