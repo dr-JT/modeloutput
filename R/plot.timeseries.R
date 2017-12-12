@@ -47,7 +47,9 @@ plot.timeseries <- function(df, x = "", y = "", se = "",
     plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y), color = factor(get(grp))))
   }
 
-  plot <- plot + ggplot2::geom_line(na.rm = TRUE)
+  plot <- plot +
+    ggplot2::geom_line(na.rm = TRUE) +
+    ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption, color = grp)
 
   if (se!=""){
     plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = (get(y)-get(se)),
