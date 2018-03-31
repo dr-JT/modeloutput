@@ -105,5 +105,5 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
 
 
 
-  return(r)
+  return(plot)
 }
