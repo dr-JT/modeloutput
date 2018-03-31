@@ -63,8 +63,7 @@ plot.scatter <- function(df, x = "", y = "", p.value = .05, se = FALSE,
     point.color = "white"
   }
   if (grp==""){
-    plot <- plot +
-      ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y))) +
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = get(x), y = get(y))) +
       ggplot2::labs(x = x, y = y, title = title, subtitle = subtitle, caption = caption) +
       ggplot2::geom_point(shape=19, position = "jitter", color = point.color) +
       ggplot2::geom_smooth(method=lm,se=se, color = line.color)
