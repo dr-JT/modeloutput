@@ -29,5 +29,4 @@ plot.freq <- function(x){
     plot[[i]]
     i <- i + 1
   }
-  return(plot)
 }
