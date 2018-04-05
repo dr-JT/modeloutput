@@ -13,5 +13,5 @@
 This function will print out frequency distribution historgrams for each variable in a dataframe
 }
 \examples{
-plot.freq(data, x = "x.variable", y = "y.variable", se = TRUE, x.lim = c(NA,3), y.lim = c(0,100))
+plot.freq(data)
 }

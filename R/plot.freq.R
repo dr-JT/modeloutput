@@ -2,8 +2,9 @@
 #'
 #' This function will print out frequency distribution historgrams for each variable in a dataframe
 #' @param x dataframe
+#' @export plot.freq
 #' @examples
-#' plot.freq(data, x = "x.variable", y = "y.variable", se = TRUE, x.lim = c(NA,3), y.lim = c(0,100))
+#' plot.freq(data)
 
 plot.freq <- function(x){
   set_theme(geom.outline.color = "black", geom.outline.size = .15)
