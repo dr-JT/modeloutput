@@ -7,7 +7,7 @@
 #' descriptives(x)
 
 descriptives <- function(x){
-  x <- dplyr::gather(x, "Variable", "value")
+  x <- tidyr::gather(x, "Variable", "value")
   x <- dplyr::group_by(x, Variable)
   x <- dplyr::summarise(n = n(),
                         Mean = mean(value, na.rm=TRUE),
