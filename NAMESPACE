@@ -2,6 +2,7 @@
 
 export(bivariate.corr)
 export(data.display)
+export(descriptives)
 export(plot.freq)
 export(plot.scatter)
 export(plot.timeseries)
