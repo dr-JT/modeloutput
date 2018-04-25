@@ -1,0 +1,52 @@
+---
+title: ""
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    code_folding: hide
+    fig_width: 8
+    fig_height: 8
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = FALSE, out.width = "200%")
+```
+
+# Document Title {.tabset .tabset-pills}
+
+## Results
+
+Required Packages
+```{r, echo=TRUE}
+library(resultsoutput)
+library(tidyverse)
+```
+
+Import Data
+```{r, echo=TRUE}
+
+```
+
+---
+
+---
+
+
+### Descriptives
+```{r}
+
+```
+
+
+---
+
+---
+
+## Session Info
+```{r}
+citation()
+sessionInfo()
+```
+
