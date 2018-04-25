@@ -16,6 +16,5 @@ descriptives <- function(x){
                         max = max(value, na.rm=TRUE),
                         '% Missing' = 100*(length(which(is.na(value)))/n()))
   x <- knitr::kable(x, digits=2, format="html", caption="Descriptive Statistics")
-  x <- knitr::kable_styling(x)
-  return(x)
+  kable_styling(x)
 }
