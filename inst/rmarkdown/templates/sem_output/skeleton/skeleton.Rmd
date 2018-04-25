@@ -1,0 +1,97 @@
+---
+title: ""
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    code_folding: hide
+    fig_width: 8
+    fig_height: 8
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(out.width = "200%", error = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Document Title {.tabset .tabset-pills}
+
+## Results
+
+Required Packages
+```{r}
+library(tidyverse)
+library(datatransform)
+library(resultsoutput)
+library(lavaan)
+library(sjPlot)
+```
+
+
+Import Data
+```{r}
+## Import Data
+data <- read_delim("filepath", escape_double = FALSE, trim_ws = TRUE) %>% 
+```
+
+---
+
+---
+
+### Descriptives 
+
+```{r}
+
+```
+
+---
+
+### First-order Correlations {.tabset .tabset-pills}
+
+#### Correlation Matrix
+
+```{r}
+sjt.corr(data)
+```
+
+#### Correlation Plot
+```{r}
+
+```
+
+---
+
+### CFA {.tabset .tabset-pills}
+
+```{r warning=TRUE}
+model <- 
+fit <- cfa(model=model, data=data, mimic = "EQS", missing="fiml", std.lv = TRUE)
+```
+
+#### Summary Output
+```{r}
+
+```
+
+#### Residual Correlation Matrix
+```{r}
+
+```
+
+
+#### Full Output
+```{r}
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+modificationIndices(fit, sort.=TRUE, minimum.value=3)
+```
+
+---
+
+---
+
+## Session Info
+```{r}
+citation("lavaan")
+citation()
+sessionInfo()
+```
