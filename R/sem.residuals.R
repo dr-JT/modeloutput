@@ -10,7 +10,7 @@ sem.residuals <- function(x){
   resid <- lavaan::residuals(x, type="cor")$cor
   resid[upper.tri(resid)] <- NA
   diag(resid) <- NA
-  options(knitr.kable.NA='')
+  options(knitr::knitr.kable.NA='')
   table <- knitr::kable(resid, digits=2, format="html") %>%
   table <- kableExtra::kable_styling(table, full_width=FALSE, position = "left")
   return(table)
