@@ -10,7 +10,7 @@
 cor.plot <- function(x, use = "pairwise"){
   table_r <- cor(x, use = use)
   table_p <- corrplot::cor.mtest(x)$p
-  print(corrplot::corrplot(table_r, method = "color", type="upper", number.cex = .7,
+  return(corrplot::corrplot(table_r, method = "color", type="upper", number.cex = .7,
                              tl.cex = .6, addCoef.col = "black", tl.col = "black", tl.srt = 90,
                              p.mat = table_p,  sig.level = .05, insig = "blank", diag = FALSE,
                              number.digits = 2))
