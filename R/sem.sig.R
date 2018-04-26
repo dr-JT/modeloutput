@@ -7,7 +7,7 @@
 #' sem.sig(x)
 
 sem.sig <- function(x){
-  stats <- lavaan::fitMeasures(fit, c("ntotal", "chisq", "pvalue", "df"))
+  stats <- lavaan::fitMeasures(x, c("ntotal", "chisq", "pvalue", "df"))
   table <- data.frame('Sample Size'=stats[["ntotal"]], 'Chi-Square'=stats[["chisq"]], df=stats[["df"]], 'p-value'=stats[["pvalue"]])
   table <- knitr::kable(table, digits=3, format="html", caption="Model Significance", row.names = FALSE)
   table <- kableExtra::kable_styling(table, full_width=FALSE, position = "left")
