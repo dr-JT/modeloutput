@@ -4,9 +4,9 @@
 #' @param x results from a cfa() or sem() lavaan model
 #' @export
 #' @examples
-#' sem.sig(x)
+#' sem.fitmeasures(x)
 
-sem.sig <- function(x){
+sem.fitmeasures <- function(x){
   stats <- lavaan::fitMeasures(x, c("cfi", "rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "aic", "bic"))
   table <- data.frame(CFI=stats[["cfi"]], RMSEA=stats[["rmsea"]], 'RMSEA Lower'=stats[["rmsea.ci.lower"]],
                       'RMSEA Upper'=stats[["rmsea.ci.upper"]], AIC=stats[["aic"]], BIC=stats[["bic"]])
