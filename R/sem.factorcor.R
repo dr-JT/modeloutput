@@ -10,7 +10,7 @@
 
 sem.factorcor <- function(x, standardized = TRUE, factors = c()){
   x <- lavaan::parameterEstimates(x, standardized = standardized)
-  x <- dplyr::filter(x, op=="=~", lhs %in% factors, !is.na(pvalue))
+  x <- dplyr::filter(x, op=="~~", lhs %in% factors, !is.na(pvalue))
   x <- dplyr::mutate(x, stars = ifelse(pvalue < .001, "***",
                                        ifelse(pvalue < .01, "**",
                                               ifelse(pvalue < .05, "*", ""))))
