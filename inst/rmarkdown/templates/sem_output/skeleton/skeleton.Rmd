@@ -41,7 +41,7 @@ data <- read_delim("filepath", escape_double = FALSE, trim_ws = TRUE) %>%
 ### Descriptives 
 
 ```{r}
-
+descriptives(data)
 ```
 
 ---
