@@ -11,7 +11,7 @@ sem.residuals <- function(x){
   resid[upper.tri(resid)] <- NA
   diag(resid) <- NA
   options(knitr.kable.NA='')
-  table <- knitr::kable(resid, digits=2, format="html") %>%
+  table <- knitr::kable(resid, digits=2, format="html")
   table <- kableExtra::kable_styling(table, full_width=FALSE, position = "left")
   return(table)
 }
