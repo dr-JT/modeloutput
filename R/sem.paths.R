@@ -13,7 +13,7 @@ sem.paths <- function(x, standardized = TRUE){
   x <- dplyr::mutate(x, stars = ifelse(pvalue < .001, "***",
                                        ifelse(pvalue < .01, "**",
                                               ifelse(pvalue < .05, "*", ""))))
-  x <- dplyr::select(x, DV=lhs, IV=rhs, Beta=std.all, B=est, SE=se, z, 'sig'=stars)
+  x <- dplyr::select(x, DV=lhs, Predictor=rhs, Beta=std.all, B=est, SE=se, z, 'sig'=stars)
   table <- knitr::kable(x, digits=3, format="html", caption="Regression Paths")
   table <- kableExtra::kable_styling(table)
   return(table)
