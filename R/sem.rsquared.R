@@ -12,6 +12,6 @@ sem.rsquared <- function(x){
   x <- tibble::rownames_to_column(x)
   colnames(x) <- c("Variable", "R-Squared")
   table <- knitr::kable(x, digits=3, format="html", caption="R-Squared Values", row.names = FALSE)
-  table <- kableExtra::kable_styling(table)
+  table <- kableExtra::kable_styling(table, full_width=FALSE, position="left")
   return(table)
 }
