@@ -9,8 +9,9 @@
 sem.rsquared <- function(x){
   x <- lavaan::inspect(x, 'r2')
   x <- data.frame(x)
+  x <- tibble::rownames_to_column(x)
   colnames(x) <- c("Variable", "R-Squared")
-  table <- knitr::kable(x, digits=3, format="html", caption="R-Squared Values")
+  table <- knitr::kable(x, digits=3, format="html", caption="R-Squared Values", row.names = FALSE)
   table <- kableExtra::kable_styling(table)
   return(table)
 }
