@@ -21,7 +21,6 @@ knitr::opts_chunk$set(out.width = "200%", error = TRUE, message = FALSE, warning
 Required Packages
 ```{r}
 library(tidyverse)
-library(datatransform)
 library(resultsoutput)
 library(lavaan)
 library(sjPlot)
@@ -66,7 +65,7 @@ cor.plot(data)
 ```{r warning=TRUE}
 factors <- c()
 model <- 
-fit <- cfa(model=model, data=data, mimic = "EQS", missing="fiml", std.lv = TRUE)
+fit <- cfa(model=model, data=data, mimic = "EQS", missing="listwise", std.lv = TRUE)
 ```
 
 #### Summary Output
@@ -75,6 +74,7 @@ sem.sig(fit)
 sem.fitmeasures(fit)
 sem.factorloadings(fit)
 sem.factorcor(fit, factors = factors)
+sem.rsquared(fit)
 ```
 
 #### Residual Correlation Matrix
@@ -89,6 +89,47 @@ summary(fit, fit.measures=TRUE, standardized=TRUE)
 modificationIndices(fit, sort.=TRUE, minimum.value=3)
 ```
 
+---
+---
+
+### SEM {.tabset .tabset-pills}
+
+```{r warning=TRUE}
+factors <- c()
+model <- '
+# measurement model
+
+# regressions
+
+# covariances
+
+# variances
+
+ '
+fit <- sem(model=model, data=data, mimic = "EQS", missing="listwise", std.lv = FALSE)
+```
+
+#### Summary Output
+```{r}
+sem.sig(fit)
+sem.fitmeasures(fit)
+sem.factorloadings(fit)
+sem.paths(fit)
+sem.factorcor(fit, factors = factors)
+sem.rsquared(fit)
+```
+
+#### Residual Correlation Matrix
+```{r}
+sem.residuals(fit)
+```
+
+
+#### Full Output
+```{r}
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+modificationIndices(fit, sort.=TRUE, minimum.value=3)
+```
 ---
 
 ---
