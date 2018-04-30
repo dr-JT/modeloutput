@@ -21,11 +21,10 @@ lmer.output <- function(x, random_effects = "Subject"){
   random <- kableExtra::kable_styling(random, full_width=FALSE, position="left")
   fixed <- as.data.frame(x.summary$coefficients)
   fixed <- knitr::kable(fixed, digits=3, format="html")
-  fixed <- kableExtra::kable_styling(fixed, full_width=FALSE, position="left")
+  kableExtra::kable_styling(fixed, full_width=FALSE, position="left")
 
 
   print(title)
   print(n)
   print(random)
-  print(fixed)
 }
