@@ -17,14 +17,17 @@ lmer.output <- function(x, random_effects = "Subject"){
   n <- knitr::kable(n, digits=3, format="html")
   n <- kableExtra::kable_styling(n, full_width=FALSE, position="left")
   random <- as.data.frame(VarCorr(x))
+  colnames(random) <- c("Group", "Variable 1", "Variable 2", "Variance", "Std Deviation")
   random <- knitr::kable(random, digits=3, format="html")
   random <- kableExtra::kable_styling(random, full_width=FALSE, position="left")
   fixed <- as.data.frame(x.summary$coefficients)
+  colnames(fixed) <- c("Estimate", "Std.Error", "df", "t", "p-value")
   fixed <- knitr::kable(fixed, digits=3, format="html")
-  kableExtra::kable_styling(fixed, full_width=FALSE, position="left")
+  fixed <- kableExtra::kable_styling(fixed, full_width=FALSE, position="left")
 
 
   print(title)
   print(n)
   print(random)
+  print(fixed)
 }
