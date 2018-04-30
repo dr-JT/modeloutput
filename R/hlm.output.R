@@ -17,7 +17,6 @@ lmer.output <- function(x, random_effects = "Subject"){
   n <- knitr::kable(n, digits=3, format="html")
   n <- kableExtra::kable_styling(n, full_width=FALSE, position="left")
   random <- as.data.frame(VarCorr(x))
-  colnames(random) <- c("Group", "Variable1", "Variable2", "Variance", "StdDeviation")
   random <- knitr::kable(random, digits=3, format="html")
   random <- kableExtra::kable_styling(random, full_width=FALSE, position="left")
   fixed <- as.data.frame(x.summary$coefficients)
