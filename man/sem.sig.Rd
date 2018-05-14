@@ -4,10 +4,12 @@
 \alias{sem.sig}
 \title{A Results Output Function}
 \usage{
-sem.sig(x)
+sem.sig(x, print = TRUE)
 }
 \arguments{
 \item{x}{results from a cfa() or sem() lavaan model}
+
+\item{print}{Create a knitr table for displaying as html table (default = TRUE)}
 }
 \description{
 This function will display a table of Model significance tests

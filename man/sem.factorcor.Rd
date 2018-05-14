@@ -4,7 +4,7 @@
 \alias{sem.factorcor}
 \title{A Results Output Function}
 \usage{
-sem.factorcor(x, standardized = TRUE, factors = c())
+sem.factorcor(x, standardized = TRUE, factors = c(), print = TRUE)
 }
 \arguments{
 \item{x}{results from a cfa() or sem() lavaan model}
@@ -12,6 +12,8 @@ sem.factorcor(x, standardized = TRUE, factors = c())
 \item{standardized}{logical whether to include standardized loadings (default = TRUE)}
 
 \item{factors}{list c() of factors included in the model}
+
+\item{print}{Create a knitr table for displaying as html table (default = TRUE)}
 }
 \description{
 This function will display a table of Latent factor correlations
