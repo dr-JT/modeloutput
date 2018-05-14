@@ -21,6 +21,7 @@ lmer.output <- function(x, random_effects = "Subject"){
   random <- knitr::kable(random, digits=3, format="html")
   random <- kableExtra::kable_styling(random, full_width=FALSE, position="left")
   fixed <- as.data.frame(x.summary$coefficients)
+  colnames(fixed) <- c("Estimate", "Std.Error", "df", "t", "p-value")
   fixed <- knitr::kable(fixed, digits=3, format="html")
   fixed <- kableExtra::kable_styling(fixed, full_width=FALSE, position="left")
 
