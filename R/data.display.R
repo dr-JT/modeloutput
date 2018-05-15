@@ -14,7 +14,7 @@ data.display <- function(x){
                            pageLength = length(x[[1]]),
                            dom = 't',
                            scrollX = TRUE,
-                           scrollY = "400px",
+                           scrollY = "800px",
                            fixedColumns = list(leftColumns = 2)))
   return(table)
 }
