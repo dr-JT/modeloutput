@@ -19,6 +19,8 @@ sem.factorloadings <- function(x, standardized = TRUE, print = TRUE){
   if (print==TRUE){
     table <- knitr::kable(table, digits=3, format="html", caption="Factor Loadings")
     table <- kableExtra::kable_styling(table)
+  } else if (print==FALSE){
+    table <- as.data.frame(table)
   }
 
   return(table)

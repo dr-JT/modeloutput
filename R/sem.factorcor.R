@@ -20,6 +20,8 @@ sem.factorcor <- function(x, standardized = TRUE, factors = c(), print = TRUE){
   if (print==TRUE){
     table <- knitr::kable(table, digits=3, format="html", caption="Latent Factor Correlations")
     table <- kableExtra::kable_styling(table, full_width = FALSE, position = "left")
+  } else if (print==FALSE){
+    table <- as.data.frame(table)
   }
 
   return(table)
