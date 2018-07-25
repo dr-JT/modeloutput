@@ -8,6 +8,8 @@ output:
     code_folding: hide
     fig_width: 8
     fig_height: 8
+params:
+  data: "../../Data Files/Study1/Data_Study1.txt"
 ---
 
 ```{r setup, include=FALSE}
