@@ -11,22 +11,28 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = FALSE, out.width = "200%")
+knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE, out.width = "200%")
 ```
 
 # Document Title {.tabset .tabset-pills}
 
+Last updated: `r format(Sys.Date(), "%B %d %Y")`
+
 ## Results
 
+### Setup
+
 Required Packages
-```{r, echo=TRUE}
+```{r warning = FALSE}
 library(resultsoutput)
 library(tidyverse)
 ```
 
 Import Data
-```{r, echo=TRUE}
 
+Data file: `r params$data`
+```{r, warning = FALSE}
+data <- read_delim(params$data, "\t", escape_double = FALSE, trim_ws = TRUE)
 ```
 
 ---
@@ -44,8 +50,13 @@ Import Data
 
 ---
 
-## Session Info
 ```{r}
+rm(data)
+```
+
+
+## Session Info
+```{r comment = ""}
 citation()
 sessionInfo()
 ```
