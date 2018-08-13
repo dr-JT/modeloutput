@@ -23,7 +23,7 @@ scatterplots.pairs <- function(x, id.label = ""){
         t <- knitr::kable(t, format="html")
         t <- kableExtra::kable_styling(t, full_width = FALSE, position = "right")
         grid::grid.newpage()
-        print(t)
+        knitr::kable(t)
 
         # Calculate correlation statistics
         corr <- stats::cor.test(x[[variable.list[i]]], x[[variable.list[k]]])
