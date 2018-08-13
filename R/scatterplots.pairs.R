@@ -20,9 +20,7 @@ scatterplots.pairs <- function(x, id.label = ""){
 
         # Print a table of variable pair. This is handy to use Ctrl+F search
         grid::grid.newpage()
-        t <- data.frame(x = variable.list[i], y = variable.list[k])
-        t <- knitr::kable(t, format="html")
-        kableExtra::kable_styling(t, full_width = FALSE, position = "right")
+        print(c(variable.list[i], variable.list[k]))
 
         # Calculate correlation statistics
         corr <- stats::cor.test(x[[variable.list[i]]], x[[variable.list[k]]])
