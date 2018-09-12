@@ -20,13 +20,15 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   if (is.null(withinvars)){
     if (length(betweenvars)==1){
       group <- ""
+      fill <- bar.color
     } else {
-      bar.color <- betweenvars[2]
+      fill <- betweenvars[2]
       group <- betweenvars[2]
     }
 
     x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), group = group, fill = bar.color))
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
+                                            group = group, fill = fill))
 
     if (is.null(x.label)){
       x.label <- betweenvars
@@ -35,17 +37,20 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
         group <- ""
+        fill <- bar.color
       } else {
-        bar.color <- withinvars[2]
+        fill <- withinvars[2]
         group <- withinvars[2]
       }
     } else {
       group <- betweenvars
-      bar.color <- betweenvars
+      fill <- betweenvars
     }
 
-    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars, idvar = idvar, na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), group = group, fill = bar.color))
+    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
+                                idvar = idvar, na.rm = TRUE)
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar),
+                                            group = group, fill = fill))
 
     if (is.null(x.label)){
       x.label <- withinvars
@@ -56,8 +61,9 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   }
 
   plot <- plot +
-    ggplot2::geom_bar(stat = "identity") +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
+    ggplot2::geom_bar(stat = "identity", fill = fill) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
+                           width = .5, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
   if (group == ""){
