@@ -1,6 +1,6 @@
 #' A Results Output Function
 #'
-#' This function will display a graph and table for between, within, or between-within mean group(s) comparison
+#' This function will display a bar graph for between, within, or between-within mean group(s) comparison
 #' @param x dataframe
 #' @param measurevar a
 #' @param withinvars a
@@ -33,7 +33,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       colnames(x)[which(colnames(x)==betweenvars)] <- x.label
       betweenvars[1] <- x.label
     }
-    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
+    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
 
@@ -54,7 +54,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       colnames(x)[which(colnames(x)==withinvars[1])] <- x.label
       withinvars[1] <- x.label
     }
-    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars[1], betweenvars = betweenvars[1],
+    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
                                 idvar = idvar, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
@@ -71,15 +71,5 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
-
-  colnames(x)[which(colnames(x)=="N")] <- "n"
-  colnames(x)[which(colnames(x)==measurevar)] <- "Mean"
-  colnames(x)[which(colnames(x)=="sd")] <- "SD"
-  colnames(x)[which(colnames(x)=="se")] <- "SE"
-  colnames(x)[which(colnames(x)=="ci")] <- "CI"
-
-  x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
-  x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
-  output <- list(plot = plot, table = x)
-  return(output)
+  return(plot)
 }

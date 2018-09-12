@@ -31,7 +31,7 @@
 \item{x.abel}{a}
 }
 \description{
-This function will display a graph and table for between, within, or between-within mean group(s) comparison
+This function will display a bar graph for between, within, or between-within mean group(s) comparison
 }
 \examples{
 plot.means(x)
