@@ -15,11 +15,11 @@
 #' @examples
 #' plot.means(x)
 
-plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = NULL, idvar = "",
-                       errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = "", y.label = ""){
-  if (withinvars==""){
+plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idvar = NULL,
+                       errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = NULL, y.label = NULL){
+  if (is.null(withinvars)){
     if (length(betweenvars)==1){
-      group <- ""
+      group <- NULL
     } else {
       bar.color <- betweenvars[2]
       group <- betweenvars[2]
@@ -28,13 +28,13 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = NULL, 
     x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), group = group, fill = bar.color))
 
-    if (x.label==""){
+    if (is.null(x.label)){
       x.label <- betweenvars
     }
   } else {
-    if (betweenvars==""){
+    if (is.null(betweenvars)){
       if (length(withinvars)==1){
-        group <- ""
+        group <- NULL
       } else {
         bar.color <- withinvars[2]
         group <- withinvars[2]
@@ -47,11 +47,11 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = NULL, 
     x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars, idvar = idvar, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), group = group, fill = bar.color))
 
-    if (x.label==""){
+    if (is.null(x.label)){
       x.label <- withinvars
     }
   }
-  if (y.label==""){
+  if (is.null(y.label)){
     y.label <- measurevar
   }
 
@@ -60,7 +60,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = NULL, 
     ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
-  if (group==""){
+  if (is.null(group)){
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
