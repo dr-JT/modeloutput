@@ -19,13 +19,14 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
                        errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = "", y.label = ""){
   if (withinvars==""){
     if (length(betweenvars)==1){
-      fill <- bar.color
+      group <- ""
     } else {
-      fill <- betweenvars[2]
+      bar.color <- betweenvars[2]
+      group <- betweenvars[2]
     }
 
     x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), fill = fill))
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), group = group, color = bar.color))
 
     if (x.label==""){
       x.label <- betweenvars
@@ -33,16 +34,18 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
   } else {
     if (betweenvars==""){
       if (length(withinvars)==1){
-        fill <- bar.color
+        group <- ""
       } else {
-        fill <- withinvars[2]
+        bar.color <- withinvars[2]
+        group <- withinvars[2]
       }
     } else {
-      fill = betweenvars
+      group <- betweenvars
+      bar.color <- betweenvars
     }
 
     x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars, idvar = idvar, na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), fill = fill))
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), group = group, color = bar.color))
 
     if (x.label==""){
       x.label <- withinvars
