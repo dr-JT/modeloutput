@@ -56,7 +56,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
   }
 
   plot <- plot +
-    ggplot2::geom_bar(stat = "identity", fill = bar.color) +
+    ggplot2::geom_bar(stat = "identity") +
     ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
