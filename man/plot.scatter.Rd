@@ -4,10 +4,11 @@
 \alias{plot.scatter}
 \title{A Data Output Function}
 \usage{
-\method{plot}{scatter}(df, x = "", y = "", p.value = 0.05, se = FALSE,
-  line.color = "dodgerblue4", point.color = "black", x.lim = "",
-  y.lim = "", x.by = 1, y.by = 1, title = "", subtitle = "",
-  caption = "", grp = "", point.show = TRUE, show.corr = FALSE)
+\method{plot}{scatter}(df, x = "", y = "", p.value = 0.05,
+  se = FALSE, line.color = "dodgerblue4", point.color = "black",
+  x.lim = "", y.lim = "", x.by = 1, y.by = 1, title = "",
+  subtitle = "", caption = "", grp = "", point.show = TRUE,
+  show.corr = FALSE)
 }
 \arguments{
 \item{df}{dataframe}

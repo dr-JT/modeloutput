@@ -15,6 +15,8 @@ descriptives <- function(x){
                         SD = sd(value, na.rm=TRUE),
                         min = min(value, na.rm=TRUE),
                         max = max(value, na.rm=TRUE),
+                        Skewness = e1071::skewness(value, na.rm = TRUE, type = 2),
+                        Kurtosis = e1071::kurtosis(value, na.rm = TRUE, type = 2),
                         '% Missing' = 100*(length(which(is.na(value)))/n()))
   x <- knitr::kable(x, digits=2, format="html", caption="Descriptive Statistics")
   x <- kableExtra::kable_styling(x)
