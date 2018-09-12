@@ -14,7 +14,7 @@
 #' @examples
 #' plot.means(x)
 
-plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "", errorbars = "se", errorbars.color = "", bar.color = "", y.label = ""){
+plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "", errorbars = "se", errorbars.color = "black", bar.color = "", y.label = ""){
   x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, idvar = idvar, na.rm = TRUE)
   plot <- ggplot(x, aes(x = get(withinvars), y = get(measurevar), group = 1)) +
     geom_bar(stat = "identity", fill = bar.color) +
@@ -23,5 +23,5 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
   x <- kableExtra::kable_styling(x)
   print(plot)
-  print(x)
+  return(x)
 }
