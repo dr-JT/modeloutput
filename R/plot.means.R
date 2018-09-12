@@ -80,6 +80,6 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
 
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
   x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
-  print(plot)
   return(x)
+  return(plot)
 }

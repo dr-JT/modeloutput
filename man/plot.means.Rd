@@ -4,10 +4,10 @@
 \alias{plot.means}
 \title{A Results Output Function}
 \usage{
-\method{plot}{means}(x, measurevar = "", withinvars = "",
-  betweenvars = NULL, idvar = "", errorbars = "se",
-  errorbars.color = "black", bar.color = "grey", x.label = "",
-  y.label = "")
+\method{plot}{means}(x, measurevar, withinvars = NULL,
+  betweenvars = NULL, idvar = NULL, errorbars = "se",
+  errorbars.color = "black", bar.color = "grey", x.label = NULL,
+  y.label = NULL)
 }
 \arguments{
 \item{x}{dataframe}
