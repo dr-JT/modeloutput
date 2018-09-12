@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{means}(x, measurevar = "", withinvars = "",
   betweenvars = "", idvar = "", errorbars = "se",
-  errorbars.color = "black", bar.color = "gray", y.label = "")
+  errorbars.color = "black", bar.color = "gray", x.label = "",
+  y.label = "")
 }
 \arguments{
 \item{x}{dataframe}
@@ -26,6 +27,8 @@
 \item{bar.color}{a}
 
 \item{y.label}{a}
+
+\item{x.abel}{a}
 }
 \description{
 This function will display a graph and table for between, within, or between-within mean group(s) comparison

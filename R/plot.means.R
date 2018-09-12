@@ -9,13 +9,14 @@
 #' @param errorbars a
 #' @param errorbars.color a
 #' @param bar.color a
+#' @param x.abel a
 #' @param y.label a
 #' @export plot.means
 #' @examples
 #' plot.means(x)
 
 plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "",
-                       errorbars = "se", errorbars.color = "black", bar.color = "gray", y.label = ""){
+                       errorbars = "se", errorbars.color = "black", bar.color = "gray", x.label = "", y.label = ""){
   if (withinvars==""){
     if (length(betweenvars)==1){
       fill <- ""
