@@ -15,7 +15,7 @@
 #' @examples
 #' plot.means(x)
 
-plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "",
+plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = NULL, idvar = "",
                        errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = "", y.label = ""){
   if (withinvars==""){
     if (length(betweenvars)==1){

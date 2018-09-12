@@ -5,8 +5,8 @@
 \title{A Results Output Function}
 \usage{
 \method{plot}{means}(x, measurevar = "", withinvars = "",
-  betweenvars = "", idvar = "", errorbars = "se",
-  errorbars.color = "black", bar.color = "gray", x.label = "",
+  betweenvars = NULL, idvar = "", errorbars = "se",
+  errorbars.color = "black", bar.color = "grey", x.label = "",
   y.label = "")
 }
 \arguments{
