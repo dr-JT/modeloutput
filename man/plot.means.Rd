@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{means}(x, measurevar = "", withinvars = "",
   betweenvars = "", idvar = "", errorbars = "se",
-  errorbars.color = "", bar.color = "", y.label = "")
+  errorbars.color = "black", bar.color = "gray", y.label = "")
 }
 \arguments{
 \item{x}{dataframe}
