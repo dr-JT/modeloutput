@@ -11,7 +11,7 @@
 #' @param bar.color a
 #' @param x.abel a
 #' @param y.label a
-#' @export plot.means
+#' @export
 #' @examples
 #' table.means(x)
 
