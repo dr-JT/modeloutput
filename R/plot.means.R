@@ -60,7 +60,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
     ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
-  if (fill==bar.color){
+  if (group==""){
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
