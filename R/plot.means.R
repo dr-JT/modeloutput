@@ -26,7 +26,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
     }
 
     x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), group = group, color = bar.color))
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), group = group, fill = bar.color))
 
     if (x.label==""){
       x.label <- betweenvars
@@ -45,7 +45,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
     }
 
     x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars, idvar = idvar, na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), group = group, color = bar.color))
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), group = group, fill = bar.color))
 
     if (x.label==""){
       x.label <- withinvars
