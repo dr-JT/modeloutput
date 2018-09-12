@@ -14,14 +14,22 @@
 #' @examples
 #' plot.means(x)
 
-plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "", errorbars = "se", errorbars.color = "black", bar.color = "", y.label = ""){
-  x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, idvar = idvar, na.rm = TRUE)
+plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "",
+                       errorbars = "se", errorbars.color = "black", bar.color = "gray", y.label = ""){
+  if (withinvars==""){
+    x <- Rmsic::summarySE(x, measurevar = measurevar, groupvars = betweenvars)
+  } else {
+    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, idvar = idvar, na.rm = TRUE)
+  }
+  if (y.label==""){
+    y.label <- measurevar
+  }
   plot <- ggplot(x, aes(x = get(withinvars), y = get(measurevar), group = 1)) +
-    geom_bar(stat = "identity", fill = bar.color) +
+    geom_bar(stat = "identity", color = bar.color) +
     geom_errorbar(aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     labs(x = withinvars, y = y.label)
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
-  x <- kableExtra::kable_styling(x)
+  x <- kableExtra::kable_styling(x, full_width = FALSE)
   print(plot)
   return(x)
 }
