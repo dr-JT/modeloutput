@@ -72,6 +72,12 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       ggplot2::theme(legend.position = "none")
   }
 
+  colnames(x)[which(colnames(x)=="N")] <- "n"
+  colnames(x)[which(colnames(x)==measurevar)] <- "Mean"
+  colnames(x)[which(colnames(x)=="sd")] <- "SD"
+  colnames(x)[which(colnames(x)=="se")] <- "SE"
+  colnames(x)[which(colnames(x)=="ci")] <- "CI"
+
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
   x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
   print(plot)
