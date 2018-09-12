@@ -29,7 +29,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
     geom_errorbar(aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     labs(x = withinvars, y = y.label)
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
-  x <- kableExtra::kable_styling(x, full_width = FALSE)
+  x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
   print(plot)
   return(x)
 }
