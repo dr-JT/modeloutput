@@ -18,7 +18,7 @@
 plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idvar = NULL,
                        errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = NULL, y.label = NULL){
   if (!is.null(y.label)){
-    colnames(x)[which(colnames(x)==measurvar)] <- y.label
+    colnames(x)[which(colnames(x)==measurevar)] <- y.label
     measurevar <- y.label
   }
   if (is.null(withinvars)){
