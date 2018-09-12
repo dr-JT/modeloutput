@@ -17,17 +17,44 @@
 plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "",
                        errorbars = "se", errorbars.color = "black", bar.color = "gray", y.label = ""){
   if (withinvars==""){
-    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars)
+    if (length(betweenvars)==1){
+      fill <- ""
+    } else {
+      fill <- betweenvars[2]
+    }
+
+    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1])
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), fill = fill))
+
+    if (x.label==""){
+      x.label <- betweenvars
+    }
   } else {
-    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, idvar = idvar, na.rm = TRUE)
+    if (betweenvars==""){
+      if (length(withinvars)==1){
+        fill <- ""
+      } else {
+        fill <- withinvars[2]
+      }
+    } else {
+      fill = betweenvars
+    }
+
+    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars, idvar = idvar, na.rm = TRUE)
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar), fill = fill))
+
+    if (x.label==""){
+      x.label <- withinvars
+    }
   }
   if (y.label==""){
     y.label <- measurevar
   }
-  plot <- ggplot(x, aes(x = get(withinvars), y = get(measurevar), group = 1)) +
-    geom_bar(stat = "identity", color = bar.color) +
-    geom_errorbar(aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
-    labs(x = withinvars, y = y.label)
+
+  plot <- plot +
+    ggplot2::geom_bar(stat = "identity", color = bar.color) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
+    ggplot2::labs(x = x.label, y = y.label)
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
   x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
   print(plot)
