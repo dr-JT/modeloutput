@@ -17,6 +17,10 @@
 
 plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idvar = NULL,
                        errorbars = "se", errorbars.color = "black", bar.color = "grey", x.label = NULL, y.label = NULL){
+  if (!is.null(y.label)){
+    colnames(x)[which(colnames(x)==measurvar)] <- y.label
+    measurevar <- y.label
+  }
   if (is.null(withinvars)){
     if (length(betweenvars)==1){
       group <- ""
@@ -25,14 +29,14 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       fill <- betweenvars[2]
       group <- betweenvars[2]
     }
-
+    if (!is.null(x.label)){
+      colnames(x)[which(colnames(x)==betweenvars)] <- x.label
+      betweenvars[1] <- x.label
+    }
     x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
 
-    if (is.null(x.label)){
-      x.label <- betweenvars
-    }
   } else {
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
@@ -46,18 +50,15 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       group <- betweenvars
       fill <- betweenvars
     }
-
-    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
+    if (!is.null(x.label)){
+      colnames(x)[which(colnames(x)==withinvars[1])] <- x.label
+      withinvars[1] <- x.label
+    }
+    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars[1], betweenvars = betweenvars[1],
                                 idvar = idvar, na.rm = TRUE)
-    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars), y = get(measurevar),
+    plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
 
-    if (is.null(x.label)){
-      x.label <- withinvars
-    }
-  }
-  if (is.null(y.label)){
-    y.label <- measurevar
   }
 
   plot <- plot +
