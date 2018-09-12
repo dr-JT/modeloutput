@@ -17,7 +17,7 @@
 plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", idvar = "",
                        errorbars = "se", errorbars.color = "black", bar.color = "gray", y.label = ""){
   if (withinvars==""){
-    x <- Rmsic::summarySE(x, measurevar = measurevar, groupvars = betweenvars)
+    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars)
   } else {
     x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, idvar = idvar, na.rm = TRUE)
   }
