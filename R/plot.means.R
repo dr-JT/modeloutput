@@ -19,12 +19,12 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
                        errorbars = "se", errorbars.color = "black", bar.color = "gray", x.label = "", y.label = ""){
   if (withinvars==""){
     if (length(betweenvars)==1){
-      fill <- ""
+      fill <- bar.color
     } else {
       fill <- betweenvars[2]
     }
 
-    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1])
+    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars[1], na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar), fill = fill))
 
     if (x.label==""){
@@ -33,7 +33,7 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
   } else {
     if (betweenvars==""){
       if (length(withinvars)==1){
-        fill <- ""
+        fill <- bar.color
       } else {
         fill <- withinvars[2]
       }
@@ -56,6 +56,12 @@ plot.means <- function(x, measurevar = "", withinvars = "", betweenvars = "", id
     ggplot2::geom_bar(stat = "identity", color = bar.color) +
     ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)), width = .5, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
+
+  if (fill==bar.color){
+    plot <- plot +
+      ggplot2::theme(legend.position = "none")
+  }
+
   x <- knitr::kable(x, digits=2, format="html", caption="Mean Comparisons")
   x <- kableExtra::kable_styling(x, full_width = FALSE, position = "left")
   print(plot)
