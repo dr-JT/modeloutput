@@ -16,7 +16,7 @@
 #' plot.means(x)
 
 plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idvar = NULL,
-                       errorbars = "se", bar.color = "black", point.color = "darkgrey", errorbars.color = "black",
+                       errorbars = "se", bar.color = "black", point.color = "gray40", errorbars.color = "black",
                        x.label = NULL, y.label = NULL, type = "scatter"){
 
   if (!is.null(y.label)){
