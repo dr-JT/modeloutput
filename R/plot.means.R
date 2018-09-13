@@ -79,7 +79,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
 
   if (type=="bar"){
     plot <- plot +
-      ggplot2::geom_bar(stat = "identity", fill = color)
+      ggplot2::geom_bar(stat = "identity", fill = color, width = .5)
   }
 
   if (type=="scatter"){
