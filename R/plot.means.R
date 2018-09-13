@@ -75,8 +75,6 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   }
 
   plot <- ggplot2::ggplot(x.sum, ggplot2::aes(x = get(xaxis), y = get(measurevar), group = group)) +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
-                           width = .15, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
   if (type=="bar"){
@@ -90,6 +88,9 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       ggplot2::geom_point(data = x.sum,
                           ggplot2::aes(x = get(xaxis), y = get(measurevar)), shape = 18, size = 4, color = errorbars.color)
   }
+
+  plot <- plot + ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
+                                        width = .15, color = errorbars.color)
 
   if (legend==FALSE){
     plot <- plot +
