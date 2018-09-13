@@ -23,7 +23,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   }
   if (is.null(withinvars)){
     if (length(betweenvars)==1){
-      group <- ""
+      group <- betweenvars
       fill <- bar.color
     } else {
       fill <- betweenvars[2]
@@ -40,7 +40,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   } else {
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
-        group <- ""
+        group <- withinvars
         fill <- bar.color
       } else {
         fill <- withinvars[2]
