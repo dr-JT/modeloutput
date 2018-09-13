@@ -13,6 +13,10 @@
 #' @examples
 #' geom_flat_violin(x)
 
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
+
 GeomFlatViolin <-
   ggplot2::ggproto("GeomFlatViolin", ggplot2::Geom,
           setup_data = function(data, params) {
