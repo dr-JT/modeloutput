@@ -36,7 +36,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     }
     x.sum <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
-                                            group = get(group), color = color))
+                                            group = group, color = color))
 
   } else {
     if (is.null(betweenvars)){
@@ -60,7 +60,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     x.sum <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
                                     idvar = idvar, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                            group = get(group), color = color))
+                                            group = group, color = color))
 
   }
 
