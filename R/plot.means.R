@@ -35,7 +35,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   if (is.null(withinvars)){
     if (length(betweenvars)==1){
       legend <- FALSE
-      group <- ""
+      group <- color
     } else {
       legend <- TRUE
       color <- betweenvars[2]
@@ -53,7 +53,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
         legend <- FALSE
-        group <- ""
+        group <- color
       } else {
         legend <- TRUE
         color <- withinvars[2]
@@ -79,7 +79,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
 
   if (type=="bar"){
     plot <- plot +
-      ggplot2::geom_bar(stat = "identity", fill = color, width = .5)
+      ggplot2::geom_bar(stat = "identity", fill = group, width = .5)
   }
 
   if (type=="scatter"){
