@@ -42,7 +42,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
         legend <- FALSE
-        group <- ""
+        group <- color
       } else {
         legend <- TRUE
         color <- withinvars[2]
