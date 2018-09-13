@@ -35,7 +35,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     }
     x.sum <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
-                                            group = group, fill = fill))
+                                            group = get(group), fill = fill))
 
   } else {
     if (is.null(betweenvars)){
@@ -57,13 +57,12 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     x.sum <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
                                     idvar = idvar, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                            group = group, fill = fill))
+                                            group = get(group), fill = fill))
 
   }
 
   plot <- plot +
-    geom_flat_violin(data = x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                  group = group, fill = fill), position = ggplot2::position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5) +
+    geom_flat_violin(position = ggplot2::position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5) +
     ggplot2::geom_point(position = ggplot2::position_jitter(width = .05), size = .25, shape = 20, alpha = 0.4)+
     ggplot2::geom_point(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                           group = group, fill = fill), shape = 18, position = ggplot2::position_nudge(x = .05, y = 0)) +
