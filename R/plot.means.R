@@ -33,7 +33,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       colnames(x)[which(colnames(x)==betweenvars)] <- x.label
       betweenvars[1] <- x.label
     }
-    x <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars, na.rm = TRUE)
+    x.sum <- Rmisc::summarySE(x, measurevar = measurevar, groupvars = betweenvars, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(betweenvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
 
@@ -54,17 +54,20 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
       colnames(x)[which(colnames(x)==withinvars[1])] <- x.label
       withinvars[1] <- x.label
     }
-    x <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
-                                idvar = idvar, na.rm = TRUE)
+    x.sum <- Rmisc::summarySEwithin(x, measurevar = measurevar, withinvars = withinvars, betweenvars = betweenvars,
+                                    idvar = idvar, na.rm = TRUE)
     plot <- ggplot2::ggplot(x, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                             group = group, fill = fill))
 
   }
 
   plot <- plot +
-    ggplot2::geom_bar(stat = "identity", fill = fill) +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
-                           width = .5, color = errorbars.color) +
+    ggplot2::geom_flat_violin(aes(fill = group),position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5, colour = NA) +
+    ggplot2::geom_point(aes(x = as.numeric(time)-.15, y = score, colour = group),position = position_jitter(width = .05), size = 1, shape = 20) +
+    ggplot2::scale_colour_brewer(palette = "Dark2") +
+    ggplot2::scale_fill_brewer(palette = "Dark2") +
+    ggplot2::geom_errorbar(data = x.sum, ggplot2::aes(ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
+                           position = position_nudge(.25), width = 0.1, size = 0.8, color = errorbars.color) +
     ggplot2::labs(x = x.label, y = y.label)
 
   if (group == ""){
