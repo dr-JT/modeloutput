@@ -42,7 +42,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
         legend <- FALSE
-        group <- color
+        group <- ""
       } else {
         legend <- TRUE
         color <- withinvars[2]
@@ -66,11 +66,11 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
 
   plot <- plot +
     ggplot2::geom_point(position = ggplot2::position_jitter(width = .05), size = .5, shape = 20, alpha = 0.4)+
-    ggplot2::geom_point(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                          group = group, color = "black"), shape = 18, size = 4) +
-    ggplot2::geom_errorbar(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                                      group = group, color = "black",
-                                                      ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
+    ggplot2::geom_point(data = x.sum,
+                        ggplot2::aes(x = get(withinvars[1]), y = get(measurevar), color = "black"), shape = 18, size = 4) +
+    ggplot2::geom_errorbar(data = x.sum,
+                           ggplot2::aes(x = get(withinvars[1]), y = get(measurevar), color = "black",
+                                        ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
                            width = .15)+
     ggplot2::labs(x = x.label, y = y.label)
 
