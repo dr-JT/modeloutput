@@ -6,9 +6,8 @@
 \usage{
 \method{plot}{means}(x, measurevar, withinvars = NULL,
   betweenvars = NULL, idvar = NULL, errorbars = "se",
-  bar.color = "gray40", point.color = "gray40",
-  errorbars.color = "black", x.label = NULL, y.label = NULL,
-  type = "scatter")
+  color = "gray40", errorbars.color = "black", x.label = NULL,
+  y.label = NULL, type = "scatter")
 }
 \arguments{
 \item{x}{dataframe}
@@ -23,11 +22,11 @@
 
 \item{errorbars}{a}
 
-\item{bar.color}{a}
-
 \item{errorbars.color}{a}
 
 \item{y.label}{a}
+
+\item{bar.color}{a}
 
 \item{x.abel}{a}
 }
