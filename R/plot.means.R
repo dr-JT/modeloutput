@@ -65,11 +65,11 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     geom_flat_violin(position = ggplot2::position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5) +
     ggplot2::geom_point(position = ggplot2::position_jitter(width = .05), size = .25, shape = 20, alpha = 0.4)+
     ggplot2::geom_point(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
-                                          group = group, fill = fill), shape = 18, position = ggplot2::position_nudge(x = .05, y = 0)) +
+                                          group = group, fill = fill), shape = 18, size = .5, position = ggplot2::position_nudge(x = .1, y = 0)) +
     ggplot2::geom_errorbar(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                                       group = group, fill = fill,
                                                       ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
-                           width = .05, position = ggplot2::position_nudge(x = .05, y = 0))+
+                           width = .2, position = ggplot2::position_nudge(x = .1, y = 0))+
     ggplot2::scale_colour_brewer(palette = "Dark2")+
     ggplot2::scale_fill_brewer(palette = "Dark2") +
     ggplot2::labs(x = x.label, y = y.label)
