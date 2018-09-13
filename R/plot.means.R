@@ -65,7 +65,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   }
 
   plot <- plot +
-    ggplot2::geom_point(position = ggplot2::position_jitter(width = .05), size = .5, shape = 20, alpha = 0.4, color = group)+
+    ggplot2::geom_point(position = ggplot2::position_jitter(width = .05), size = 1, shape = 20, alpha = 0.4, color = group)+
     ggplot2::geom_point(data = x.sum,
                         ggplot2::aes(x = get(withinvars[1]), y = get(measurevar)), shape = 18, size = 4, color = "black") +
     ggplot2::geom_errorbar(data = x.sum,
