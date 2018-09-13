@@ -62,7 +62,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   }
 
   plot <- plot +
-    geom_flat_violin(aes(fill = fill),position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5, colour = NA) +
+    geom_flat_violin(position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5, colour = NA) +
     ggplot2::geom_point(aes(x = as.numeric(time)-.15, y = score, colour = group),position = position_jitter(width = .05), size = 1, shape = 20) +
     ggplot2::scale_colour_brewer(palette = "Dark2") +
     ggplot2::scale_fill_brewer(palette = "Dark2") +
