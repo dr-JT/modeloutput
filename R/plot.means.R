@@ -24,7 +24,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
   if (is.null(withinvars)){
     if (length(betweenvars)==1){
       legend <- FALSE
-      group <- betweenvars
+      group <- ""
     } else {
       legend <- TRUE
       color <- betweenvars[2]
@@ -42,7 +42,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     if (is.null(betweenvars)){
       if (length(withinvars)==1){
         legend <- FALSE
-        group <- withinvars
+        group <- ""
       } else {
         legend <- TRUE
         color <- withinvars[2]
@@ -71,7 +71,7 @@ plot.means <- function(x, measurevar, withinvars = NULL, betweenvars = NULL, idv
     ggplot2::geom_errorbar(data = x.sum, ggplot2::aes(x = get(withinvars[1]), y = get(measurevar),
                                                       group = group, color = "black",
                                                       ymin = get(measurevar)-get(errorbars), ymax = get(measurevar)+get(errorbars)),
-                           width = .2)+
+                           width = .15)+
     ggplot2::labs(x = x.label, y = y.label)
 
   if (legend==FALSE){
