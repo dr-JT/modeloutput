@@ -9,7 +9,7 @@ output:
     fig_width: 8
     fig_height: 8
 params:
-  data: "../../Data Files/Study1/Data_Study1.txt"
+  data: ""
 ---
 
 ```{r setup, include=FALSE}
@@ -42,7 +42,10 @@ data <- read_delim(params$data, "\t", escape_double = FALSE, trim_ws = TRUE)
 ---
 
 
-### Descriptives
+### Section Titles
+
+#### Sub section titles
+
 ```{r}
 
 ```
@@ -53,7 +56,7 @@ data <- read_delim(params$data, "\t", escape_double = FALSE, trim_ws = TRUE)
 ---
 
 ```{r}
-rm(data)
+rm(list=ls())
 ```
 
 
