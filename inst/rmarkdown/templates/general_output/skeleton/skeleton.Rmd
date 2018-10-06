@@ -8,8 +8,6 @@ output:
     code_folding: hide
     fig_width: 8
     fig_height: 8
-params:
-  data: ""
 ---
 
 ```{r setup, include=FALSE}
@@ -26,15 +24,13 @@ Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
 Required Packages
 ```{r warning = FALSE}
-library(resultsoutput)
-library(tidyverse)
+library(readr)
 ```
 
 Import Data
 
-Data file: `r params$data`
 ```{r, warning = FALSE}
-data <- read_delim(params$data, "\t", escape_double = FALSE, trim_ws = TRUE)
+data <- read_delim("filepath", "\t", escape_double = FALSE, trim_ws = TRUE)
 ```
 
 ---
