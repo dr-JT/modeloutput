@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Document Title"
 output: 
   html_document:
     toc: true
@@ -14,13 +14,13 @@ output:
 knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE, out.width = "200%")
 ```
 
-# Document Title {.tabset .tabset-pills}
+# {.tabset .tabset-pills}
 
 Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
 ## Results
 
-### Setup
+**Setup**
 
 Required Packages
 ```{r warning = FALSE}

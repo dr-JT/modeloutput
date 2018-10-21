@@ -1,0 +1,61 @@
+---
+title: "Document Title"
+output: 
+  html_document:
+    code_folding: hide
+    fig_width: 8
+    fig_height: 8
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE, out.width = "200%")
+```
+
+# {.tabset .tabset-pills}
+
+Last updated: `r format(Sys.Date(), "%B %d %Y")`
+
+## Results {.tabset .tabset-pills}
+
+**Setup**
+
+Required Packages
+```{r warning = FALSE}
+library(readr)
+```
+
+Import Data
+
+```{r, warning = FALSE}
+data <- read_delim("filepath", "\t", escape_double = FALSE, trim_ws = TRUE)
+```
+
+---
+
+---
+
+
+### Section Titles
+
+#### Sub section titles
+
+```{r}
+
+```
+
+
+---
+
+---
+
+```{r}
+rm(list=ls())
+```
+
+
+## Session Info
+```{r comment = ""}
+citation()
+sessionInfo()
+```
+
