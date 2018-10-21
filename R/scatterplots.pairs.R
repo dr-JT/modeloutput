@@ -36,7 +36,7 @@ scatterplots.pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
         }
 
         # Create main scatter plot. Add text annotation
-        p <- ggplot2::ggplot(data, ggplot2::aes(data = get(x[i]), y = get(y[k]))) +
+        p <- ggplot2::ggplot(data, ggplot2::aes(x = get(x[i]), y = get(y[k]))) +
           ggplot2::xlab(x[i]) + ggplot2::ylab(y[k]) +
           ggplot2::geom_point() +
           ggplot2::geom_smooth(method="lm") +
@@ -81,7 +81,7 @@ scatterplots.pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
           }
 
           # Create main scatter plot. Add text annotation
-          p <- ggplot2::ggplot(data, ggplot2::aes(data = get(variable.list[i]), y = get(variable.list[k]))) +
+          p <- ggplot2::ggplot(data, ggplot2::aes(x = get(variable.list[i]), y = get(variable.list[k]))) +
             ggplot2::xlab(variable.list[i]) + ggplot2::ylab(variable.list[k]) +
             ggplot2::geom_point() +
             ggplot2::geom_smooth(method="lm") +
