@@ -10,23 +10,23 @@ plot.freq <- function(x){
   set_theme(geom.outline.color = "black", geom.outline.size = .15)
   variableList <- colnames(x)
   i <- 1
-  plot <- list()
+  p <- list()
   for (variable in variableList){
     if (range(x[[variable]], na.rm = TRUE)[1]<1 & range(x[[variable]], na.rm = TRUE)[1]>=0 & range(x[[variable]], na.rm = TRUE)[2]<=1 & range(x[[variable]], na.rm = TRUE)[2]>0) {
       data.hist <- x[[variable]]
-      plot[[i]] <- sjp.frq(data.hist,
+      p[[i]] <- sjp.frq(data.hist,
                            type = "hist",
                            geom.size = .10,
                            axis.title = variable,
                            xlim = c(0,1))
     } else {
       data.hist <- x[[variable]]
-      plot[[i]] <- sjp.frq(data.hist,
+      p[[i]] <- sjp.frq(data.hist,
                            type = "hist",
                            axis.title = variable,
                            xlim = c(min(x[[variable]], na.rm = TRUE), max(x[[variable]], na.rm = TRUE)))
     }
-    plot[[i]]
+    plot(p[[i]])
     i <- i + 1
   }
 }
