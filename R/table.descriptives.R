@@ -4,9 +4,9 @@
 #' @param x dataframe
 #' @export
 #' @examples
-#' descriptives(x)
+#' table.descriptives(x)
 
-descriptives <- function(x){
+table.descriptives <- function(x){
   x <- tidyr::gather(x, "Variable", "value")
   x <- dplyr::group_by(x, Variable)
   x <- dplyr::summarise(x,
