@@ -4,12 +4,17 @@
 \alias{scatterplots.pairs}
 \title{A Data Output Function}
 \usage{
-scatterplots.pairs(x, id.label = "")
+scatterplots.pairs(data, x = c(), y = c(), all.pairs = FALSE)
 }
 \arguments{
-\item{x}{dataframe}
+\item{data}{dataframe}
 
-\item{id.label}{column that contains subject IDs}
+\item{x}{X-axis variables}
+
+\item{y}{Y-axis variables}
+
+\item{all.pairs}{Logical. If TRUE then will overwrite x, and y parameters
+and just print out all combinations of paris in the dataframe. (Default: FALSE)}
 }
 \description{
 This function will print out scatterplots of all pairs of variables in a dataframe.
