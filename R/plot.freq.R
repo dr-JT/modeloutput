@@ -15,16 +15,16 @@ plot.freq <- function(x){
     if (range(x[[variable]], na.rm = TRUE)[1]<1 & range(x[[variable]], na.rm = TRUE)[1]>=0 & range(x[[variable]], na.rm = TRUE)[2]<=1 & range(x[[variable]], na.rm = TRUE)[2]>0) {
       data.hist <- x[[variable]]
       p[[i]] <- sjp.frq(data.hist,
-                           type = "hist",
-                           geom.size = .10,
-                           axis.title = variable,
-                           xlim = c(0,1))
+                        type = "hist",
+                        geom.size = .10,
+                        axis.title = variable,
+                        xlim = c(0,1))
     } else {
       data.hist <- x[[variable]]
       p[[i]] <- sjp.frq(data.hist,
-                           type = "hist",
-                           axis.title = variable,
-                           xlim = c(min(x[[variable]], na.rm = TRUE), max(x[[variable]], na.rm = TRUE)))
+                        type = "hist",
+                        axis.title = variable,
+                        xlim = c(min(x[[variable]], na.rm = TRUE), max(x[[variable]], na.rm = TRUE)))
     }
     plot(p[[i]])
     i <- i + 1
