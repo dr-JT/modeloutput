@@ -2,21 +2,11 @@
 #'
 #' This function will display basic descriptive statistics for a dataframe
 #' @param x dataframe
-#'
-#' @templateVar fun table.descriptives
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old table.descriptives
-#' @templateVar new table_descriptives
-#' @template template-depr_pkg
-#'
 #' @export
 #' @examples
-#' table.descriptives(x)
+#' table_descriptives(x)
 
-table.descriptives <- function(x){
-  .Deprecated("table_descriptives")
+table_descriptives <- function(x){
   x <- tidyr::gather(x, "Variable", "value")
   x <- dplyr::group_by(x, Variable)
   x <- dplyr::summarise(x,
