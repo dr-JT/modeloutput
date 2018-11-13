@@ -2,21 +2,11 @@
 #'
 #' This function will print out frequency distribution historgrams for each variable in a dataframe
 #' @param x dataframe
-#'
-#' @templateVar fun plot.freq
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old plot.freq
-#' @templateVar new plot_freq
-#' @template template-depr_pkg
-#'
-#' @export plot.freq
+#' @export plot_freq
 #' @examples
-#' plot.freq(data)
+#' plot_freq(data)
 
-plot.freq <- function(x){
-  .Deprecated("plot_freq")
+plot_freq <- function(x){
   set_theme(geom.outline.color = "black", geom.outline.size = .15)
   variableList <- colnames(x)
   i <- 1

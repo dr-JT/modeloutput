@@ -3,5 +3,6 @@
 export(data.display)
 export(data_display)
 export(plot.freq)
+export(plot_freq)
 export(scatterplots.pairs)
 export(table.descriptives)
