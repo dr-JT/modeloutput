@@ -8,21 +8,12 @@
 #' @param y Y-axis variables
 #' @param all.pairs Logical. If TRUE then will overwrite x, and y parameters
 #' and just print out all combinations of paris in the dataframe. (Default: FALSE)
-#'
-#' @templateVar fun scatterplots.pairs
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old scatterplots.pairs
-#' @templateVar new scatterplot_pairs
-#' @template template-depr_pkg
-#'
 #' @export
 #' @examples
-#' scatterplots.pairs(x, variable.list = colnames(x))
+#' scatterplot_pairs(x, variable.list = colnames(x))
 
-scatterplots.pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
-  .Deprecated("scatterpolot_pairs")
+scatterplot_pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
+
   if (all.pairs==FALSE){
     for (i in seq_along(x)){
       for (k in seq_along(y)){
