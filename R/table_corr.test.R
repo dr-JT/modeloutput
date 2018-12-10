@@ -2,11 +2,11 @@
 #'
 #' This function will display basic descriptive statistics for a dataframe
 #' @param x an object from psych::corr.test()
-#' @export
+#' @export table_corr.test
 #' @examples
-#' table_descriptives(x)
+#' table_corr.test(x)
 
-table_descriptives <- function(x){
+table_corr.test <- function(x){
   r <- x$r
   n <- x$n
   p <- x$p
