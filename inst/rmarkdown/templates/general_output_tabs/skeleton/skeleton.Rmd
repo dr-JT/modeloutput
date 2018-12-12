@@ -3,12 +3,13 @@ title: "Document Title"
 output: 
   html_document:
     code_folding: hide
-    fig_width: 8
-    fig_height: 8
+    code_download: yes
+    fontsize: 8pt
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE, out.width = "200%")
+knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE)
 ```
 
 # {.tabset .tabset-pills}
