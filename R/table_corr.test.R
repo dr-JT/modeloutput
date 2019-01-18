@@ -19,7 +19,11 @@ table_corr.test <- function(x){
 
     for (pair in names(r[,name])){
       table[which(table$parameter=="r" & table$Variable==pair), name] <- round(r[pair,name], 2)
-      table[which(table$parameter=="n" & table$Variable==pair), name] <- round(n[pair,name], 2)
+      if (length(n)==1){
+        table[which(table$parameter=="n" & table$Variable==pair), name] <- n
+      } else {
+        table[which(table$parameter=="n" & table$Variable==pair), name] <- round(n[pair,name], 2)
+      }
       table[which(table$parameter=="p" & table$Variable==pair), name] <- round(p[pair,name], 2)
     }
   }
