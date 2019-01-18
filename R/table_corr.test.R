@@ -14,6 +14,9 @@ table_corr.test <- function(x){
   table <- data.frame(Variable = rep(rownames(r), each = 3), parameter = rep(c("r", "n", "p"), nrow(r)))
 
   for (name in rownames(r)){
+    r[name,][name] <- NA
+    n[name,][name] <- NA
+    p[name,][name] <- NA
     p[which(lower.tri(p))] <- p[which(upper.tri(p))]
 
     for (pair in names(r[,name])){
