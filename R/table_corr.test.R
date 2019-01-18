@@ -17,6 +17,7 @@ table_corr.test <- function(x){
     r[name,][name] <- NA
     n[name,][name] <- NA
     p[name,][name] <- NA
+    
     p[which(lower.tri(p))] <- p[which(upper.tri(p))]
 
     for (pair in names(r[,name])){
