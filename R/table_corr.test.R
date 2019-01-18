@@ -21,7 +21,6 @@ table_corr.test <- function(x){
       table[which(table$parameter=="n" & table$Variable==pair), name] <- round(n[pair,name], 2)
       table[which(table$parameter=="p" & table$Variable==pair), name] <- round(p[pair,name], 2)
     }
-    table[which(is.na(table[,name])),name] <- ""
   }
 
   table <- knitr::kable(table, digits=2, format="html", caption="Correlations")
