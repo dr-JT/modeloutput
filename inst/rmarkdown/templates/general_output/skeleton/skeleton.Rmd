@@ -27,12 +27,13 @@ Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
 Required Packages
 ```{r}
+library(here)
 library(readr)
 ```
 
 Import Data
 ```{r}
-import <- read_csv(params$data)
+import <- read_csv(here(params$data))
 ```
 
 ---
