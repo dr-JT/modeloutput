@@ -2,13 +2,15 @@
 title: "Document Title"
 output: 
   html_document:
-    code_download: yes
-    fontsize: 8pt
-    theme: flatly
     toc: true
     toc_float:
       collapsed: false
     code_folding: hide
+    code_download: true
+    fig_width: 8
+    fig_height: 8
+params:
+  data: "filepath/filename.csv"
 ---
 
 ```{r setup, include=FALSE}
@@ -24,14 +26,13 @@ Last updated: `r format(Sys.Date(), "%B %d %Y")`
 **Setup**
 
 Required Packages
-```{r warning = FALSE}
+```{r}
 library(readr)
 ```
 
 Import Data
-
-```{r, warning = FALSE}
-data <- read_delim("filepath", "\t", escape_double = FALSE, trim_ws = TRUE)
+```{r}
+import <- read_csv(params$data)
 ```
 
 ---
