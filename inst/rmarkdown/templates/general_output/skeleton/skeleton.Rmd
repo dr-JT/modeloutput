@@ -23,7 +23,7 @@ Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
 ## Results
 
-**Setup**
+### Setup
 
 Required Packages
 ```{r}
@@ -43,7 +43,31 @@ import <- read_csv(here(params$data))
 
 ### Section Titles
 
-#### Sub section titles
+```{r}
+
+```
+
+### Section Titles with tabs {.tabset .tabset-pills}
+
+Model
+```{r}
+
+```
+
+#### Tables
+
+```{r}
+
+```
+
+
+#### Figures
+
+```{r}
+
+```
+
+#### Summary Output
 
 ```{r}
 
