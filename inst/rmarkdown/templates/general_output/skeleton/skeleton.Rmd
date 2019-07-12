@@ -7,8 +7,6 @@ output:
       collapsed: false
     code_folding: hide
     code_download: true
-    fig_width: 8
-    fig_height: 8
 params:
   data: "filepath/filename.csv"
 ---
