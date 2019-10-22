@@ -7,8 +7,8 @@
 
 table_descriptives <- function(x) {
   x <- tidyr::gather(x, "Variable", "value")
-  table <- dplyr::group_by(x, Variable)
-  table <- dplyr::summarise(table,
+  x <- dplyr::group_by(x, Variable)
+  table <- dplyr::summarise(x,
                             n = length(which(!is.na(value))),
                             Mean = mean(value, na.rm=TRUE),
                             SD = sd(value, na.rm=TRUE),
@@ -21,12 +21,13 @@ table_descriptives <- function(x) {
                             '% Missing' =
                               100 * (length(which(is.na(value))) / dplyr::n()))
 
-  N <- dplyr::summarise(table, N.total = dplyr::n())
+  N <- dplyr::summarise(x, N.total = dplyr::n())
   N <- N$N.total[1]
   table <- dplyr::ungroup(table)
   table <- knitr::kable(table, digits=2, format="html",
                         caption="Descriptive Statistics")
   table <- kableExtra::kable_styling(table)
-  table <- kableExtra::footnote(table, general = paste("N = ", N, sep = ""))
+  table <- kableExtra::footnote(table, general_title = " ",
+                                general = paste("Total N = ", N, sep = ""))
   return(table)
 }
