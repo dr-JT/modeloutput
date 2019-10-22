@@ -27,7 +27,7 @@ table_descriptives <- function(x) {
   table <- knitr::kable(table, digits=2, format="html",
                         caption="Descriptive Statistics")
   table <- kableExtra::kable_styling(table)
-  table <- kableExtra::footnote(table, general_title = "----------",
-                                general = paste("Total N = ", N, sep = ""))
+  table <- kableExtra::footnote(table, general_title = "Total",
+                                general = paste("N = ", N, sep = ""))
   return(table)
 }
