@@ -3,8 +3,7 @@
 #' This function will display basic descriptive statistics for a dataframe
 #' @param x dataframe
 #' @export
-#' @examples
-#' table_descriptives(x)
+#'
 
 table_descriptives <- function(x){
   x <- tidyr::gather(x, "Variable", "value")
@@ -22,7 +21,7 @@ table_descriptives <- function(x){
                             '% Missing' =
                               100 * (length(which(is.na(value))) / dplyr::n()))
   table <- dplyr::ungroup(table)
-  N <- nrows(x)
+  N <- nrow(x)
   table <- knitr::kable(table, digits=2, format="html",
                         caption="Descriptive Statistics")
   table <- kableExtra::kable_styling(table)
