@@ -20,12 +20,13 @@ table_descriptives <- function(x) {
                               e1071::kurtosis(value, na.rm = TRUE, type = 2),
                             '% Missing' =
                               100 * (length(which(is.na(value))) / dplyr::n()))
+
+  N <- dplyr::summarise(table, N.total = dplyr::n())
+  N <- N$N.total[1]
   table <- dplyr::ungroup(table)
-  N <- nrow(x)
   table <- knitr::kable(table, digits=2, format="html",
                         caption="Descriptive Statistics")
   table <- kableExtra::kable_styling(table)
-  table <- kableExtra::footnote(table, general_title = "",
-                                general = paste("N = ", N, sep = ""))
+  table <- kableExtra::footnote(table, general = paste("N = ", N, sep = ""))
   return(table)
 }
