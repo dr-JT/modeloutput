@@ -8,17 +8,25 @@
 
 table_descriptives <- function(x){
   x <- tidyr::gather(x, "Variable", "value")
-  x <- dplyr::group_by(x, Variable)
-  x <- dplyr::summarise(x,
-                        n = n(),
-                        Mean = mean(value, na.rm=TRUE),
-                        SD = sd(value, na.rm=TRUE),
-                        min = min(value, na.rm=TRUE),
-                        max = max(value, na.rm=TRUE),
-                        Skewness = e1071::skewness(value, na.rm = TRUE, type = 2),
-                        Kurtosis = e1071::kurtosis(value, na.rm = TRUE, type = 2),
-                        '% Missing' = 100*(length(which(is.na(value)))/n()))
-  x <- knitr::kable(x, digits=2, format="html", caption="Descriptive Statistics")
-  x <- kableExtra::kable_styling(x)
-  return(x)
+  table <- dplyr::group_by(x, Variable)
+  table <- dplyr::summarise(table,
+                            n = length(which(is.na(value))),
+                            Mean = mean(value, na.rm=TRUE),
+                            SD = sd(value, na.rm=TRUE),
+                            min = min(value, na.rm=TRUE),
+                            max = max(value, na.rm=TRUE),
+                            Skewness =
+                              e1071::skewness(value, na.rm = TRUE, type = 2),
+                            Kurtosis =
+                              e1071::kurtosis(value, na.rm = TRUE, type = 2),
+                            '% Missing' =
+                              100 * (length(which(is.na(value))) / dplyr::n()))
+  table <- dplyr::ungroup(table)
+  N <- nrows(x)
+  table <- knitr::kable(table, digits=2, format="html",
+                        caption="Descriptive Statistics")
+  table <- kableExtra::kable_styling(table)
+  table <- kableExtra::footnote(table, general_title = "",
+                                general = paste("N = ", N, sep = ""))
+  return(table)
 }
