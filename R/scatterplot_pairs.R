@@ -96,6 +96,11 @@ scatterplot_pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
           # Print plot
           grid::grid.newpage()
           grid::grid.draw(p)
+
+          rm(corr)
+          rm(corr.r)
+          rm(corr.p)
+          rm(corr.n)
         }
       }
     }
