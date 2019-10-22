@@ -12,6 +12,3 @@ table_descriptives(x)
 \description{
 This function will display basic descriptive statistics for a dataframe
 }
-\examples{
-table_descriptives(x)
-}

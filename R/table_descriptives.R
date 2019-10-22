@@ -5,11 +5,11 @@
 #' @export
 #'
 
-table_descriptives <- function(x){
+table_descriptives <- function(x) {
   x <- tidyr::gather(x, "Variable", "value")
   table <- dplyr::group_by(x, Variable)
   table <- dplyr::summarise(table,
-                            n = length(which(is.na(value))),
+                            n = length(which(!is.na(value))),
                             Mean = mean(value, na.rm=TRUE),
                             SD = sd(value, na.rm=TRUE),
                             min = min(value, na.rm=TRUE),
