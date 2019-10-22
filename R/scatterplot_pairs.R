@@ -31,6 +31,8 @@ scatterplot_pairs <- function(data, x = c(), y = c(), all.pairs = FALSE){
           stats <- paste("r(", corr.n, ") = ", corr.r, ", ", "p < .001", sep = "")
         } else if (corr.p < .01) {
           stats <- paste("r(", corr.n, ") = ", corr.r, ", ", "p < .01", sep = "")
+        } else if (corr.p < .05) {
+          stats <- paste("r(", corr.n, ") = ", corr.r, ", ", "p < .05", sep = "")
         } else if (corr.p >= .05) {
           stats <- paste("r(", corr.n, ") = ", corr.r, ", ", "p > .05", sep = "")
         }
