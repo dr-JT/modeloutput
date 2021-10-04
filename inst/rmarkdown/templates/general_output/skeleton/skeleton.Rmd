@@ -7,21 +7,15 @@ output:
       collapsed: false
     code_folding: hide
     code_download: true
-params:
-  data: "filepath/filename.csv"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE)
 ```
 
-# {.tabset .tabset-pills}
-
 Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
-## Results
-
-### Setup
+# Setup
 
 Required Packages
 ```{r}
@@ -31,7 +25,7 @@ library(readr)
 
 Import Data
 ```{r}
-import <- read_csv(here(params$data))
+import <- read_csv(here("folder_path", "filename"))
 ```
 
 ---
@@ -39,33 +33,33 @@ import <- read_csv(here(params$data))
 ---
 
 
-### Section Titles
+# Section Titles
 
 ```{r}
 
 ```
 
-### Section Titles with tabs {.tabset .tabset-pills}
+# Section Titles with tabs {.tabset .tabset-pills}
 
 Model
 ```{r}
 
 ```
 
-#### Tables
+## Tables
 
 ```{r}
 
 ```
 
 
-#### Figures
+## Figures
 
 ```{r}
 
 ```
 
-#### Summary Output
+## Summary Output
 
 ```{r}
 
@@ -81,7 +75,7 @@ rm(list=ls())
 ```
 
 
-## Session Info
+# Session Info
 ```{r comment = ""}
 citation()
 sessionInfo()
