@@ -3,29 +3,28 @@ title: "Document Title"
 output: 
   html_document:
     toc: true
-    toc_float:
-      collapsed: false
+    toc_float: true
+    toc_depth: 1
     code_folding: hide
     code_download: true
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE)
-```
 
 Last updated: `r format(Sys.Date(), "%B %d %Y")`
 
 # Setup
 
 Required Packages
-```{r}
+
+```{r setup}
+knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE)
+
 library(here)
 library(readr)
 ```
 
 Import Data
 ```{r}
-import <- read_csv(here("folder_path", "filename"))
+data_import <- read_csv(here("folder_path", "filename"))
 ```
 
 ---
