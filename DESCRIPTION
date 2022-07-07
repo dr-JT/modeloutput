@@ -1,12 +1,31 @@
 Package: resultsoutput
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.1)
+Type: Package
+Title: Convenient functions and templates to create nicer looking output
+Version: 0.0.1
+Authors@R: c(
+    person("Jason", "Tsukahara", ,"jason.tsukahara@gatech.edu", role = c("aut", "cre"),
+    comment = c(ORCID = 0000-0003-3570-1977))
+    )
+Description: Convenient functions and templates to create nicer looking output.
+    The RMarkdown template provided by this package makes it easier to start
+    a new analysis rather than starting from a blank RMarkdown document. There 
+    are also convenient functions to quickly create output for common or overly
+    complex tables and plots.
 Imports:
     sjPlot,
-License: What license is it under?
+    grid,
+    ggplot2,
+    ggExtra,
+    tidyr,
+    dplyr,
+    e1071,
+    knitr,
+    kableExtra,
+    car,
+    parameters,
+    insight,
+    broom
+URL: https://github.com/dr-JT/resultsoutput, https://dr-jt.github.io/resultsoutput/index.html
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2

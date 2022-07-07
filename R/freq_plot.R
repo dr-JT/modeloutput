@@ -1,18 +1,22 @@
-#' A Data Output Function
+#' Frequency distribution histograms for all variables
 #'
-#' This function will print out frequency distribution historgrams for each variable in a dataframe
+#' This function will print out frequency distribution historgrams for each
+#' variable in a dataframe
 #' @param x dataframe
-#' @export plot_freq
+#' @export freq_plot
 #' @examples
-#' plot_freq(data)
+#' freq_plot(data)
 
-plot_freq <- function(x){
+freq_plot <- function(x) {
   sjPlot::set_theme(geom.outline.color = "black", geom.outline.size = .15)
   variableList <- colnames(x)
   i <- 1
   p <- list()
-  for (variable in variableList){
-    if (range(x[[variable]], na.rm = TRUE)[1]<1 & range(x[[variable]], na.rm = TRUE)[1]>=0 & range(x[[variable]], na.rm = TRUE)[2]<=1 & range(x[[variable]], na.rm = TRUE)[2]>0) {
+  for (variable in variableList) {
+    if (range(x[[variable]], na.rm = TRUE)[1] < 1 &
+        range(x[[variable]], na.rm = TRUE)[1] >= 0 &
+        range(x[[variable]], na.rm = TRUE)[2] <= 1 &
+        range(x[[variable]], na.rm = TRUE)[2] > 0) {
       data.hist <- x[[variable]]
       p[[i]] <- sjPlot::sjp.frq(data.hist,
                         type = "hist",
@@ -24,7 +28,8 @@ plot_freq <- function(x){
       p[[i]] <- sjPlot::sjp.frq(data.hist,
                         type = "hist",
                         axis.title = variable,
-                        xlim = c(min(x[[variable]], na.rm = TRUE), max(x[[variable]], na.rm = TRUE)))
+                        xlim = c(min(x[[variable]], na.rm = TRUE),
+                                 max(x[[variable]], na.rm = TRUE)))
     }
     plot(p[[i]])
     i <- i + 1

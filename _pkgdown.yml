@@ -1,0 +1,21 @@
+url: https://dr-jt.github.io/resultsoutput/
+
+authors:
+  Jason Tsukahara:
+    href: https://englelab.gatech.edu/jason
+
+template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+
+reference:
+- title: Tables
+  contents:
+  - descriptives_table
+- title: Plots
+  contents:
+  - pairs_scatterplots
+  - freq_plots
+
