@@ -8,18 +8,6 @@
 
 anova_comparisons <- function(x, term = NULL, digits = 3) {
 
-  format_table <- function(x, digits = digits) {
-    x <- as.data.frame(x)
-    x <- dplyr::mutate(x,
-                       dplyr::across(b:df, ~ round(.x, digits = digits)))
-    x <- dplyr::mutate(x,
-                       p = round(p, 3))
-    x <- tidyr::unite(x, CI, CI_low, CI_high, sep = ", ")
-    x <- dplyr::mutate(x,
-                       CI = paste("[", CI, "]", sep = ""))
-    return(x)
-  }
-
   term_levels <- levels(insight::get_data(x)[[term]])
 
   table <- modelbased::estimate_contrasts(x, contrast = term)
