@@ -46,7 +46,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                      digits = digits)
 
   table <- dplyr::mutate(table, Model = "H1")
-  x_formula <- insight::find_formula(x)$conditional
+  x_formula <- insight::get_call(x)
   x_n <- insight::model_info(x)$n_obs
   dv <- insight::find_response(x)
 

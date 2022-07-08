@@ -23,6 +23,7 @@ Imports:
     kableExtra,
     car,
     parameters,
+    modelbased,
     insight,
     broom
 Encoding: UTF-8

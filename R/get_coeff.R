@@ -16,7 +16,7 @@ get_coeff <- function(x,
                       bootstrap = FALSE, iterations = NULL,
                       digits = 3) {
 
-  format_table <- function(x) {
+  format_table <- function(x, digits = digits) {
     x <- as.data.frame(x)
     x <- dplyr::select(x, Term = Parameter, b = Coefficient,
                        SE, CI_low, CI_high,
