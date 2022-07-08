@@ -35,7 +35,7 @@ get_coeff <- function(x,
                                   standardize = NULL,
                                   ci = ci, ci_method = ci_method,
                                   bootstrap = bootstrap, iterations = iterations)
-  table <- format_table(table)
+  table <- format_table(table, digits = digits)
   table <- dplyr::rename(table, CI_unstd = CI)
 
   if (standardized == TRUE) {

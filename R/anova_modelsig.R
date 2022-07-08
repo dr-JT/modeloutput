@@ -41,7 +41,7 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
   table <- dplyr::relocate(table, Eta2_partial, .before = Omega2_partial)
 
-  table <- format_table(table)
+  table <- format_table(table, digits = digits)
 
   table <- knitr::kable(table, digits = digits, format = "html",
                         caption = paste("ANOVA Table: ", dv, sep = ""),
