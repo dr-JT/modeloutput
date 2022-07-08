@@ -44,7 +44,7 @@ get_coeff <- function(x,
                                         ci = ci, ci_method = ci_method,
                                         bootstrap = bootstrap,
                                         iterations = iterations)
-    table_std <- format_table(table_std)
+    table_std <- format_table(table_std, digits = digits)
     table_std <- dplyr::rename(table_std, B = b, SE_B = SE, CI_std = CI)
     table_std <- dplyr::select(table_std, -t, -df, -p)
 
