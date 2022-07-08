@@ -51,13 +51,13 @@ anova_tables <- function(x, standardized = TRUE,
   table_comparisons <- list()
   i <- 1
   for (term in model_terms) {
-    table_comparisons[i] <- anova_comparisons(x, term = term, digits = digits)
+    table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits)
     i <- i + 1
   }
 
   print(table_modelsig)
   print(table_contrasts)
-  print(table_comparisons[1])
-  ifelse((i - 1) > 1, print(table_comparisons[2]), "")
-  ifelse((i - 1) > 2, print(table_comparisons[3]), "")
+  print(table_comparisons[[1]])
+  ifelse((i - 1) > 1, print(table_comparisons[[2]]), "")
+  ifelse((i - 1) > 2, print(table_comparisons[[3]]), "")
 }

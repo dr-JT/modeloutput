@@ -29,7 +29,7 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   x_anova <- dplyr::mutate(x_anova, Parameter = rownames(x_anova))
   x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
 
-  table <- parameters::model_parameters(x_anova, type = 3,
+  table <- parameters::model_parameters(anova(x), type = 3,
                                         eta_squared = TRUE,
                                         omega_squared = TRUE,
                                         epsilon_squared = TRUE)
