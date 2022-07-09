@@ -13,6 +13,8 @@ anova_tables(
   ci_method = NULL,
   bootstrap = FALSE,
   iterations = NULL,
+  pbkrtest.limit = NULL,
+  lmerTest.limit = NULL,
   digits = 3,
   id_col = "Subject",
   print = TRUE
@@ -50,6 +52,14 @@ of Bayesian regressions apply (see also bootstrap_parameters()).}
 \item{iterations}{Documention based on ?parameters::parameters.
 The number of bootstrap replicates. This only apply in the case of
 bootstrapped frequentist models.}
+
+\item{pbkrtest.limit}{Optional parameter that can be set to help calculate dfs.
+If you need to use this a warning message will appear in the console
+telling you what to set this at.}
+
+\item{lmerTest.limit}{Optional parameter that can be set to help calculate dfs.
+If you need to use this a warning message will appear in the console
+telling you what to set this at.}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
 

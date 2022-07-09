@@ -24,6 +24,12 @@
 #' @param iterations Documention based on ?parameters::parameters.
 #'     The number of bootstrap replicates. This only apply in the case of
 #'     bootstrapped frequentist models.
+#' @param pbkrtest.limit Optional parameter that can be set to help calculate dfs.
+#'     If you need to use this a warning message will appear in the console
+#'     telling you what to set this at.
+#' @param lmerTest.limit Optional parameter that can be set to help calculate dfs.
+#'     If you need to use this a warning message will appear in the console
+#'     telling you what to set this at.
 #' @param digits How many decimal places to round to? Default is 3.
 #' @param id_col The column containing subject ids. Default is "Subject"
 #' @param print Create a knitr table for displaying as html table?
@@ -36,6 +42,8 @@ anova_tables <- function(x, effects = "fixed",
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
                          bootstrap = FALSE, iterations = NULL,
+                         pbkrtest.limit = NULL,
+                         lmerTest.limit = NULL,
                          digits = 3, id_col = "Subject",
                          print = TRUE) {
 
@@ -53,7 +61,9 @@ anova_tables <- function(x, effects = "fixed",
   table_comparisons <- list()
   i <- 1
   for (term in model_terms) {
-    table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits)
+    table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits,
+                                                pbkrtest.limit = pbkrtest.limit,
+                                                lmerTest.limit = lmerTest.limit)
     i <- i + 1
   }
 

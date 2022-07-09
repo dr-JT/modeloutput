@@ -4,7 +4,13 @@
 \alias{anova_comparisons}
 \title{ANOVA F-Table for Overall Main Effect and Interaction Terms}
 \usage{
-anova_comparisons(x, term = NULL, digits = 3)
+anova_comparisons(
+  x,
+  term = NULL,
+  digits = 3,
+  pbkrtest.limit = NULL,
+  lmerTest.limit = NULL
+)
 }
 \arguments{
 \item{x}{an lmer model object}
@@ -12,6 +18,14 @@ anova_comparisons(x, term = NULL, digits = 3)
 \item{term}{The factor at which to compare levels at}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
+
+\item{pbkrtest.limit}{Optional parameter that can be set to help calculate dfs.
+If you need to use this a warning message will appear in the console
+telling you what to set this at.}
+
+\item{lmerTest.limit}{Optional parameter that can be set to help calculate dfs.
+If you need to use this a warning message will appear in the console
+telling you what to set this at.}
 }
 \description{
 ANOVA F-Table for Overall Main Effect and Interaction Terms
