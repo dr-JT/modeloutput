@@ -1,6 +1,7 @@
 #' ANOVA F-Table for Overall Main Effect and Interaction Terms
 #'
 #' @param x an lmer model object
+#' @param effects "fixed" or "all". default is "fixed" to reduce computation time
 #' @param standardized Logical, indicating whether or not to print standardized
 #'      estimates. Standardized estimates are based on "refit" of the model
 #'      on standardized data but it will not standardize categorical predictors.
@@ -30,7 +31,8 @@
 #' @export
 #'
 
-anova_tables <- function(x, standardized = TRUE,
+anova_tables <- function(x, effects = "fixed",
+                         standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
                          bootstrap = FALSE, iterations = NULL,
@@ -39,7 +41,7 @@ anova_tables <- function(x, standardized = TRUE,
 
   table_modelsig <- anova_modelsig(x, digits = digits, id_col = id_col)
 
-  table_contrasts <- regression_coeff(x,
+  table_contrasts <- regression_coeff(x, effects = effects,
                                       standardized = standardized,
                                       unstandardized = unstandardized,
                                       ci = ci, ci_method = ci_method,

@@ -6,6 +6,8 @@
 #' @param ci_method see regression_coeff()
 #' @param bootstrap see regression_coeff()
 #' @param iterations see regression_coeff()
+#' @param effects "fixed" or "all" fixed and random effects.
+#'     default is "all"
 #' @param digits see regression_coeff()
 #' @export
 #'
@@ -13,7 +15,7 @@
 get_coeff <- function(x,
                       standardized = TRUE,
                       ci = 0.95, ci_method = NULL,
-                      bootstrap = FALSE, iterations = NULL,
+                      bootstrap = FALSE, iterations = NULL, effects = "all",
                       digits = 3) {
 
   format_table <- function(x, digits = digits) {
@@ -31,7 +33,7 @@ get_coeff <- function(x,
     return(x)
   }
 
-  table <- parameters::parameters(x,
+  table <- parameters::parameters(x, effects = effects,
                                   standardize = NULL,
                                   ci = ci, ci_method = ci_method,
                                   bootstrap = bootstrap, iterations = iterations)
@@ -39,7 +41,7 @@ get_coeff <- function(x,
   table <- dplyr::rename(table, CI_unstd = CI)
 
   if (standardized == TRUE) {
-    table_std <- parameters::parameters(x,
+    table_std <- parameters::parameters(x, effects = effects,
                                         standardize = "refit",
                                         ci = ci, ci_method = ci_method,
                                         bootstrap = bootstrap,

@@ -27,6 +27,8 @@
 #' @param iterations Documention based on ?parameters::parameters.
 #'     The number of bootstrap replicates. This only apply in the case of
 #'     bootstrapped frequentist models.
+#' @param effects "fixed" or "all" fixed and random effects.
+#'     default is "all"
 #' @param digits How many decimal places to round to? Default is 3.
 #' @export
 #'
@@ -36,9 +38,10 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                              unstandardized = TRUE,
                              ci = 0.95, ci_method = NULL,
                              bootstrap = FALSE, iterations = NULL,
+                             effects = "all",
                              digits = 3) {
 
-  table <- get_coeff(x,
+  table <- get_coeff(x, effects = effects,
                      standardized = standardized,
                      ci = ci, ci_method = ci_method,
                      bootstrap = bootstrap,
@@ -51,7 +54,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
   dv <- insight::find_response(x)
 
   if (!is.null(y)) {
-    y_table <- get_coeff(y,
+    y_table <- get_coeff(y, effects = effects,
                          standardized = standardized,
                          ci = ci, ci_method = ci_method,
                          bootstrap = bootstrap,
@@ -63,7 +66,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
     table <- dplyr::bind_rows(table, y_table)
   }
   if (!is.null(z)) {
-    z_table <- get_coeff(z,
+    z_table <- get_coeff(z, effects = effects,
                          standardized = standardized,
                          ci = ci, ci_method = ci_method,
                          bootstrap = bootstrap,

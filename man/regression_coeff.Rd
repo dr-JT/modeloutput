@@ -14,6 +14,7 @@ regression_coeff(
   ci_method = NULL,
   bootstrap = FALSE,
   iterations = NULL,
+  effects = "all",
   digits = 3
 )
 }
@@ -51,6 +52,9 @@ of Bayesian regressions apply (see also bootstrap_parameters()).}
 \item{iterations}{Documention based on ?parameters::parameters.
 The number of bootstrap replicates. This only apply in the case of
 bootstrapped frequentist models.}
+
+\item{effects}{"fixed" or "all" fixed and random effects.
+default is "all"}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
 }

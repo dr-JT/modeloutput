@@ -11,6 +11,7 @@ get_coeff(
   ci_method = NULL,
   bootstrap = FALSE,
   iterations = NULL,
+  effects = "all",
   digits = 3
 )
 }
@@ -26,6 +27,9 @@ get_coeff(
 \item{bootstrap}{see regression_coeff()}
 
 \item{iterations}{see regression_coeff()}
+
+\item{effects}{"fixed" or "all" fixed and random effects.
+default is "all"}
 
 \item{digits}{see regression_coeff()}
 }

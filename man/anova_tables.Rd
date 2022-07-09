@@ -6,6 +6,7 @@
 \usage{
 anova_tables(
   x,
+  effects = "fixed",
   standardized = TRUE,
   unstandardized = TRUE,
   ci = 0.95,
@@ -19,6 +20,8 @@ anova_tables(
 }
 \arguments{
 \item{x}{an lmer model object}
+
+\item{effects}{"fixed" or "all". default is "fixed" to reduce computation time}
 
 \item{standardized}{Logical, indicating whether or not to print standardized
 estimates. Standardized estimates are based on "refit" of the model
