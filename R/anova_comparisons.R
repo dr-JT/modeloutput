@@ -44,7 +44,7 @@ anova_comparisons <- function(x, term = NULL, digits = 3,
   table <- dplyr::arrange(table, Level1, Level2)
 
   table <- knitr::kable(table, digits = digits, format = "html",
-                        caption = "Post-hoc Comparisons: ",
+                        caption = paste("Post-hoc Comparisons: ", term, sep = ""),
                         row.names = FALSE,
                         align = c("l", "l", rep("c", 7)))
   table <- kableExtra::kable_classic(table, position = "left")
