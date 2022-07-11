@@ -2,6 +2,9 @@
 #'
 #' @param x an lmer model object
 #' @param effects "fixed" or "all". default is "fixed" to reduce computation time
+#' @param contrasts Specify which variables to print a contrast tables for.
+#'     Or FALSE to not print any contrast tables. Default is "all" and will print
+#'     contrasts tables for all fixed effects.
 #' @param standardized Logical, indicating whether or not to print standardized
 #'      estimates. Standardized estimates are based on "refit" of the model
 #'      on standardized data but it will not standardize categorical predictors.
@@ -37,7 +40,7 @@
 #' @export
 #'
 
-anova_tables <- function(x, effects = "fixed",
+anova_tables <- function(x, effects = "fixed", contrasts = "all",
                          standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
@@ -57,19 +60,25 @@ anova_tables <- function(x, effects = "fixed",
                                       iterations = iterations,
                                       digits = digits)
 
-  model_terms <- insight::find_variables(x)$conditional
-  table_comparisons <- list()
-  i <- 1
-  for (term in model_terms) {
-    table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits,
-                                                pbkrtest.limit = pbkrtest.limit,
-                                                lmerTest.limit = lmerTest.limit)
-    i <- i + 1
-  }
-
   print(table_modelsig)
   print(table_contrasts)
   print(table_comparisons[[1]])
-  ifelse((i - 1) > 1, print(table_comparisons[[2]]), "")
-  ifelse((i - 1) > 2, print(table_comparisons[[3]]), "")
+
+  if (contrasts != FALSE) {
+    if (contrasts == "all") {
+      model_terms <- insight::find_variables(x)$conditional
+    }
+    if (contrasts != "all") {
+      model_terms <- contrasts
+    }
+    table_comparisons <- list()
+    i <- 1
+    for (term in model_terms) {
+      table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits,
+                                                  pbkrtest.limit = pbkrtest.limit,
+                                                  lmerTest.limit = lmerTest.limit)
+      print(table_comparisons[[i]])
+      i <- i + 1
+    }
+  }
 }

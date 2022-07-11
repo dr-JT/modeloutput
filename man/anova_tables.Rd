@@ -7,6 +7,7 @@
 anova_tables(
   x,
   effects = "fixed",
+  contrasts = "all",
   standardized = TRUE,
   unstandardized = TRUE,
   ci = 0.95,
@@ -24,6 +25,10 @@ anova_tables(
 \item{x}{an lmer model object}
 
 \item{effects}{"fixed" or "all". default is "fixed" to reduce computation time}
+
+\item{contrasts}{Specify which variables to print a contrast tables for.
+Or FALSE to not print any contrast tables. Default is "all" and will print
+contrasts tables for all fixed effects.}
 
 \item{standardized}{Logical, indicating whether or not to print standardized
 estimates. Standardized estimates are based on "refit" of the model
