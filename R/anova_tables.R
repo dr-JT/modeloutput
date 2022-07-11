@@ -62,7 +62,6 @@ anova_tables <- function(x, effects = "fixed", contrasts = "all",
 
   print(table_modelsig)
   print(table_contrasts)
-  print(table_comparisons[[1]])
 
   if (contrasts != FALSE) {
     if (contrasts == "all") {
