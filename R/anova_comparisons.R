@@ -19,7 +19,9 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
                               lmerTest.limit = NULL) {
 
   contrast_levels <- levels(insight::get_data(x)[[contrast]])
-  at_levels <- levels(insight::get_data(x)[[at]])
+  if (!is.null(at)) {
+    at_levels <- levels(insight::get_data(x)[[at]])
+  }
 
   if (is.null(pbkrtest.limit) & is.null(lmerTest.limit)) {
     table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at)
