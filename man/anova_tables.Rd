@@ -7,7 +7,8 @@
 anova_tables(
   x,
   effects = "fixed",
-  contrasts = "all",
+  contrast = NULL,
+  at = NULL,
   standardized = TRUE,
   unstandardized = TRUE,
   ci = 0.95,
@@ -26,9 +27,9 @@ anova_tables(
 
 \item{effects}{"fixed" or "all". default is "fixed" to reduce computation time}
 
-\item{contrasts}{Specify which variables to print a contrast tables for.
-Or FALSE to not print any contrast tables. Default is "all" and will print
-contrasts tables for all fixed effects.}
+\item{contrast}{The factor(s) at which to compare levels at}
+
+\item{at}{Additional interacting factor(s) to compare the effect of contrast at}
 
 \item{standardized}{Logical, indicating whether or not to print standardized
 estimates. Standardized estimates are based on "refit" of the model

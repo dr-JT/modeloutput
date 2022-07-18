@@ -2,9 +2,8 @@
 #'
 #' @param x an lmer model object
 #' @param effects "fixed" or "all". default is "fixed" to reduce computation time
-#' @param contrasts Specify which variables to print a contrast tables for.
-#'     Or FALSE to not print any contrast tables. Default is "all" and will print
-#'     contrasts tables for all fixed effects.
+#' @param contrast The factor(s) at which to compare levels at
+#' @param at Additional interacting factor(s) to compare the effect of contrast at
 #' @param standardized Logical, indicating whether or not to print standardized
 #'      estimates. Standardized estimates are based on "refit" of the model
 #'      on standardized data but it will not standardize categorical predictors.
@@ -40,7 +39,7 @@
 #' @export
 #'
 
-anova_tables <- function(x, effects = "fixed", contrasts = "all",
+anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                          standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
@@ -63,21 +62,26 @@ anova_tables <- function(x, effects = "fixed", contrasts = "all",
   print(table_modelsig)
   print(table_contrasts)
 
-  if (contrasts != FALSE) {
-    if (contrasts == "all") {
-      model_terms <- insight::find_variables(x)$conditional
-    }
-    if (contrasts != "all") {
-      model_terms <- contrasts
-    }
-    table_comparisons <- list()
-    i <- 1
-    for (term in model_terms) {
-      table_comparisons[[i]] <- anova_comparisons(x, term = term, digits = digits,
-                                                  pbkrtest.limit = pbkrtest.limit,
-                                                  lmerTest.limit = lmerTest.limit)
-      print(table_comparisons[[i]])
-      i <- i + 1
+  table_comparisons <- list()
+  i <- 1
+  for (contr in contrast) {
+    table_comparisons[[i]] <- anova_comparisons(x, contrast = contr,
+                                                digits = digits,
+                                                pbkrtest.limit = pbkrtest.limit,
+                                                lmerTest.limit = lmerTest.limit)
+    print(table_comparisons[[i]])
+    i <- i + 1
+
+    if (!is.null(at)) {
+      interaction <- at[which(at != contr)]
+      for (int in interaction) {
+        table_comparisons[[i]] <- anova_comparisons(x, contrast = contr, at = int,
+                                                    digit = digits,
+                                                    pbkrtest.limit = pbkrtest.limit,
+                                                    lmerTest.limit = lmerTest.limit)
+        print(table_comparisons[[i]])
+        i <- i + 1
+      }
     }
   }
 }

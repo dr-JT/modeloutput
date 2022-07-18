@@ -2,11 +2,12 @@
 % Please edit documentation in R/anova_comparisons.R
 \name{anova_comparisons}
 \alias{anova_comparisons}
-\title{ANOVA F-Table for Overall Main Effect and Interaction Terms}
+\title{Post-hoc Comparison Tables}
 \usage{
 anova_comparisons(
   x,
-  term = NULL,
+  contrast = NULL,
+  at = NULL,
   digits = 3,
   pbkrtest.limit = NULL,
   lmerTest.limit = NULL
@@ -15,7 +16,9 @@ anova_comparisons(
 \arguments{
 \item{x}{an lmer model object}
 
-\item{term}{The factor at which to compare levels at}
+\item{contrast}{The factor at which to compare levels at}
+
+\item{at}{A second interacting factor to compare the effect of contrast at}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
 
@@ -28,5 +31,5 @@ If you need to use this a warning message will appear in the console
 telling you what to set this at.}
 }
 \description{
-ANOVA F-Table for Overall Main Effect and Interaction Terms
+Post-hoc Comparison Tables
 }
