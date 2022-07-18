@@ -71,8 +71,10 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                                 lmerTest.limit = lmerTest.limit)
     print(table_comparisons[[i]])
     i <- i + 1
+  }
 
-    if (!is.null(at)) {
+  if (!is.null(at)) {
+    for (contr in contrast) {
       interaction <- at[which(at != contr)]
       for (int in interaction) {
         table_comparisons[[i]] <- anova_comparisons(x, contrast = contr, at = int,
