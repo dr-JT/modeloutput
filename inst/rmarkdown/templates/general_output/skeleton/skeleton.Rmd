@@ -18,7 +18,6 @@ Required Packages
 
 ```{r setup, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(error = TRUE, message = FALSE, warning = TRUE)
-options(kableExtra_view_html = FALSE)
 
 library(here)
 library(readr)

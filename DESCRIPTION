@@ -1,6 +1,6 @@
-Package: resultsoutput
+Package: modeloutput
 Type: Package
-Title: Convenient functions and templates to create nicer looking output
+Title: Get full output from statistical models in nice looking tables
 Version: 0.0.1
 Authors@R: c(
     person("Jason", "Tsukahara", ,"jason.tsukahara@gatech.edu", role = c("aut", "cre"),
