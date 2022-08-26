@@ -2,7 +2,7 @@
 % Please edit documentation in R/descriptives_table.R
 \name{descriptives_table}
 \alias{descriptives_table}
-\title{Descriptive statistics table}
+\title{Descriptive Statistics Table}
 \usage{
 descriptives_table(x)
 }
@@ -10,5 +10,5 @@ descriptives_table(x)
 \item{x}{dataframe}
 }
 \description{
-This function will display basic descriptive statistics for a dataframe
+This function will display a table of descriptive statistics
 }

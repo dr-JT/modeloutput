@@ -11,11 +11,23 @@ template:
       index_name: INDEX_NAME
 
 reference:
-- title: Tables
+- title: Main Output Tables
   contents:
   - descriptives_table
+  - anova_tables
+  - regression_tables
+- title: Other Tables
+  contents:
+  - anova_modelsig
+  - anova_comparisons
+  - regression_modelsig
+  - regression_rsquared
+  - regression_coeff
 - title: Plots
   contents:
   - pairs_scatterplots
-  - freq_plots
+  - freq_plot
+- title: Other functions
+  contents:
+  - get_coeff
 

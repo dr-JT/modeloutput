@@ -1,6 +1,6 @@
-#' Descriptive statistics table
+#' Descriptive Statistics Table
 #'
-#' This function will display basic descriptive statistics for a dataframe
+#' This function will display a table of descriptive statistics
 #' @param x dataframe
 #' @export
 #'

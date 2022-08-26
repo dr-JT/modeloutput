@@ -9,8 +9,6 @@
 #' @param all_pairs Logical. If TRUE then will overwrite x, and y parameters
 #' and just print out all combinations of paris in the dataframe. (Default: FALSE)
 #' @export
-#' @examples
-#' pairs_scatterplots(x, variable.list = colnames(x))
 
 pairs_scatterplots <- function(data, x = c(), y = c(), all_pairs = FALSE) {
 

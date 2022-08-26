@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova_tables.R
 \name{anova_tables}
 \alias{anova_tables}
-\title{ANOVA F-Table for Overall Main Effect and Interaction Terms}
+\title{ANOVA Tables}
 \usage{
 anova_tables(
   x,
@@ -75,5 +75,5 @@ telling you what to set this at.}
 (default = TRUE)}
 }
 \description{
-ANOVA F-Table for Overall Main Effect and Interaction Terms
+Get ANOVA F-Table, contrasts, and pairwise comparisons
 }

@@ -1,4 +1,6 @@
-#' ANOVA F-Table for Overall Main Effect and Interaction Terms
+#' ANOVA Tables
+#'
+#' Get ANOVA F-Table, contrasts, and pairwise comparisons
 #'
 #' @param x an lmer model object
 #' @param effects "fixed" or "all". default is "fixed" to reduce computation time
