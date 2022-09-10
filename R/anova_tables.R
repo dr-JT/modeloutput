@@ -61,8 +61,8 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                       iterations = iterations,
                                       digits = digits)
 
-  print(table_modelsig)
-  print(table_contrasts)
+  writeLines(table_modelsig)
+  writeLines(table_contrasts)
 
   table_comparisons <- list()
   i <- 1
@@ -71,7 +71,7 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                                 digits = digits,
                                                 pbkrtest.limit = pbkrtest.limit,
                                                 lmerTest.limit = lmerTest.limit)
-    print(table_comparisons[[i]])
+    writeLines(table_comparisons[[i]])
     i <- i + 1
   }
 
@@ -83,7 +83,7 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                                     digit = digits,
                                                     pbkrtest.limit = pbkrtest.limit,
                                                     lmerTest.limit = lmerTest.limit)
-        print(table_comparisons[[i]])
+        writeLines(table_comparisons[[i]])
         i <- i + 1
       }
     }

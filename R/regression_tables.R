@@ -51,7 +51,7 @@ regression_tables <- function(x, y = NULL, z = NULL,
                                   iterations = iterations,
                                   digits = digits)
 
-  print(table_rsquared)
-  print(table_modelsig)
-  print(table_coeff)
+  writeLines(table_rsquared)
+  writeLines(table_modelsig)
+  writeLines(table_coeff)
 }
