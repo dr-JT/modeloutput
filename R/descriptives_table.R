@@ -24,7 +24,7 @@ descriptives_table <- function(x) {
   N <- dplyr::summarise(x, N.total = dplyr::n())
   N <- N$N.total[1]
   table <- dplyr::ungroup(table)
-  table <- knitr::kable(table, digits = 2, format = "html",
+  table <- knitr::kable(table, digits = 2,
                         caption = "Descriptive Statistics")
   table <- kableExtra::kable_classic(table, position = "left")
   table <- kableExtra::kable_styling(table, full_width = FALSE,
