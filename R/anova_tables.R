@@ -50,6 +50,15 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                          lmerTest.limit = NULL,
                          digits = 3, id_col = "Subject",
                          print = TRUE) {
+  # Function to make sure table prints whether running code in R code chunk,
+  # with knit button or with rmarkdown::render()
+  print_table <- function(x) {
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      writeLines(x)
+    } else {
+      print(x)
+    }
+  }
 
   table_modelsig <- anova_modelsig(x, digits = digits, id_col = id_col)
 
@@ -61,8 +70,8 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                       iterations = iterations,
                                       digits = digits)
 
-  writeLines(table_modelsig)
-  writeLines(table_contrasts)
+  print_table(table_modelsig)
+  print_table(table_contrasts)
 
   table_comparisons <- list()
   i <- 1
@@ -71,7 +80,7 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                                 digits = digits,
                                                 pbkrtest.limit = pbkrtest.limit,
                                                 lmerTest.limit = lmerTest.limit)
-    writeLines(table_comparisons[[i]])
+    print_table(table_comparisons[[i]])
     i <- i + 1
   }
 
@@ -83,7 +92,7 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
                                                     digit = digits,
                                                     pbkrtest.limit = pbkrtest.limit,
                                                     lmerTest.limit = lmerTest.limit)
-        writeLines(table_comparisons[[i]])
+        print_table(table_comparisons[[i]])
         i <- i + 1
       }
     }

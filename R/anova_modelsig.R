@@ -43,7 +43,7 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
 
   table <- format_table(table, digits = digits)
 
-  table <- knitr::kable(table, digits = digits, format = "html",
+  table <- knitr::kable(table, digits = digits,
                         caption = paste("ANOVA Table: ", dv, sep = ""),
                         row.names = FALSE,
                         align = c("l", rep("c", 10)))
