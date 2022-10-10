@@ -18,7 +18,12 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
                               pbkrtest.limit = NULL,
                               lmerTest.limit = NULL) {
 
+  model_type <- insight::model_name(x)
+
   contrast_levels <- levels(insight::get_data(x)[[contrast]])
+  if (model_type == "afex_aov") {
+    contrast_levels <- stringr::str_remove(contrast_levels, "X")
+  }
   if (!is.null(at)) {
     at_levels <- levels(insight::get_data(x)[[at]])
   }
@@ -39,7 +44,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
   }
 
   if (!is.null(at)) {
-    table_std <- dplyr::select(table_std, Level1, Level2, at, Cohen_D = Difference)
+    table_std <- dplyr::select(table_std, Level1, Level2,
+                               at, Cohen_D = Difference)
     table <- merge(table, table_std, by = c("Level1", "Level2", at))
   }
 
@@ -51,6 +57,11 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
   table <- dplyr::mutate(table,
                      CI = paste("[", CI, "]", sep = ""))
 
+  if (model_type == "afex_aov") {
+    table <- dplyr::mutate(table,
+                           Level1 = stringr::str_remove(Level1, "X"),
+                           Level2 = stringr::str_remove(Level2, "X"))
+  }
   table <- dplyr::mutate(table,
                          Level1 = factor(Level1, levels = contrast_levels),
                          Level2 = factor(Level2, levels = contrast_levels))
@@ -59,7 +70,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
 
   if (is.null(at)) {
     table <- knitr::kable(table, digits = digits,
-                          caption = paste("Post-hoc Comparisons: ", contrast, sep = ""),
+                          caption = paste("Post-hoc Comparisons: ",
+                                          contrast, sep = ""),
                           row.names = FALSE,
                           align = c("l", "l", rep("c", 7)))
   }
@@ -67,7 +79,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
   if (!is.null(at)) {
     colnames(table)[which(colnames(table) == at)] <- "placeholder"
     table <- dplyr::mutate(table,
-                           placeholder = factor(placeholder, levels = at_levels))
+                           placeholder =
+                             factor(placeholder, levels = at_levels))
     table <- dplyr::arrange(table, Level1, Level2, placeholder)
     colnames(table)[which(colnames(table) == "placeholder")] <- at
 
