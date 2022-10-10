@@ -7,10 +7,6 @@
 #'
 
 anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
-  x_formula <- insight::get_call(x)
-  x_obs <- insight::model_info(x)$n_obs
-  x_n <- length(unique(insight::get_data(x)[[id_col]]))
-  dv <- insight::find_response(x)
 
   format_table <- function(x, digits = digits) {
     x <- dplyr::rename(x, Term = Parameter, Sum_of_Squares = Sum_Squares)
@@ -25,18 +21,36 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
     return(x)
   }
 
-  x_anova <- anova(x)
-  x_anova <- dplyr::mutate(x_anova, Parameter = rownames(x_anova))
-  x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
+  model_type <- insight::model_name(x)
+  if (stringr::str_detect(model_type, "lmer")) {
+    x_formula <- insight::get_call(x)
+    add_fun_name <- ""
+    add_parenth <- ""
+    x_obs <- insight::model_info(x)$n_obs
+    x_n <- length(unique(insight::get_data(x)[[id_col]]))
+    x_parameters <- anova(x)
+    x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_anova))
+    x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
+  }
+  if (model_type == "afex_aov") {
+    x_formula <- insight::find_formula(x)$conditional
+    add_fun_name <- "afex_aov("
+    add_parenth <- ")"
+    x_obs <- ""
+    x_n <- insight::model_info(x)$n_obs
+    x_parameters <- x
+  }
+  dv <- insight::find_response(x)
 
-  table <- parameters::model_parameters(anova(x), type = 3,
+  table <- parameters::model_parameters(x_parameters, type = 3,
                                         eta_squared = TRUE,
                                         omega_squared = TRUE,
                                         epsilon_squared = TRUE)
   table <- as.data.frame(table)
   table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
-
-  table <- merge(table, x_anova, by = "Parameter", all = TRUE)
+  if (stringr::str_detect(model_type, "lmer")) {
+    table <- merge(table, x_anova, by = "Parameter", all = TRUE)
+  }
   table <- dplyr::relocate(table, df_error, .after = df)
   table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
   table <- dplyr::relocate(table, Eta2_partial, .before = Omega2_partial)
@@ -53,8 +67,9 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   table <- kableExtra::row_spec(table, 0, bold = TRUE)
   table <- kableExtra::footnote(table,
                                 number =
-                                  c(paste("<small>", "Model: ", deparse(x_formula),
-                                          "</small>", sep = ""),
+                                  c(paste("<small>", "Model: ",
+                                          add_fun_name, deparse1(x_formula),
+                                          add_parenth, "</small>", sep = ""),
                                     paste("<small>", "N = ", x_n,
                                           "</small>", sep = ""),
                                     paste("<small>", "Observations = ", x_obs,

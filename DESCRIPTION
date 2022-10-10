@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     ggExtra,
     tidyr,
+    stringr,
     dplyr,
     e1071,
     knitr,

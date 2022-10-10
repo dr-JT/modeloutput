@@ -61,17 +61,19 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
   }
 
   table_modelsig <- anova_modelsig(x, digits = digits, id_col = id_col)
-
-  table_contrasts <- regression_coeff(x, effects = effects,
-                                      standardized = standardized,
-                                      unstandardized = unstandardized,
-                                      ci = ci, ci_method = ci_method,
-                                      bootstrap = bootstrap,
-                                      iterations = iterations,
-                                      digits = digits)
-
   print_table(table_modelsig)
-  print_table(table_contrasts)
+
+  model_type <- insight::model_name(x)
+  if (stringr::str_detect(model_type, "lmer")) {
+    table_contrasts <- regression_coeff(x, effects = effects,
+                                        standardized = standardized,
+                                        unstandardized = unstandardized,
+                                        ci = ci, ci_method = ci_method,
+                                        bootstrap = bootstrap,
+                                        iterations = iterations,
+                                        digits = digits)
+    print_table(table_contrasts)
+  }
 
   table_comparisons <- list()
   i <- 1

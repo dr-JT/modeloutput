@@ -106,24 +106,36 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     table <- kableExtra::row_spec(table, 0, bold = TRUE)
     if (is.null(y) & is.null(z)) {
       table <- kableExtra::footnote(table,
-                                    number = paste("<small>", "H1: ", deparse(x_formula),
-                                                   "; N = ", x_n, "</small>", sep = ""),
+                                    number = paste("<small>", "H1: ",
+                                                   deparse1(x_formula),
+                                                   "; N = ", x_n, "</small>",
+                                                   sep = ""),
                                     escape = FALSE)
     } else if (!is.null(y) & is.null(z)) {
       table <- kableExtra::footnote(table,
-                                    number = c(paste("<small>", "H1: ", deparse(x_formula),
-                                                     "; N = ", x_n, "</small>", sep = ""),
-                                               paste("<small>", "H2: ", deparse(y_formula),
-                                                     "; N = ", y_n, "</small>", sep = "")),
+                                    number = c(paste("<small>", "H1: ",
+                                                     deparse1(x_formula),
+                                                     "; N = ", x_n, "</small>",
+                                                     sep = ""),
+                                               paste("<small>", "H2: ",
+                                                     deparse1(y_formula),
+                                                     "; N = ", y_n, "</small>",
+                                                     sep = "")),
                                     escape = FALSE)
     } else {
       table <- kableExtra::footnote(table,
-                                    number = c(paste("<small>", "H1: ", deparse(x_formula),
-                                                     "; N = ", x_n, "</small>", sep = ""),
-                                               paste("<small>", "H2: ", deparse(y_formula),
-                                                     "; N = ", y_n, "</small>", sep = ""),
-                                               paste("<small>", "H3: ", deparse(z_formula),
-                                                     "; N = ", z_n, "</small>", sep = "")),
+                                    number = c(paste("<small>", "H1: ",
+                                                     deparse1(x_formula),
+                                                     "; N = ", x_n, "</small>",
+                                                     sep = ""),
+                                               paste("<small>", "H2: ",
+                                                     deparse1(y_formula),
+                                                     "; N = ", y_n, "</small>",
+                                                     sep = ""),
+                                               paste("<small>", "H3: ",
+                                                     deparse1(z_formula),
+                                                     "; N = ", z_n, "</small>",
+                                                     sep = "")),
                                     escape = FALSE)
     }
   } else if (print == FALSE) {
