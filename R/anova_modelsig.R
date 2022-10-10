@@ -51,6 +51,9 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   if (stringr::str_detect(model_type, "lmer")) {
     table <- merge(table, x_anova, by = "Parameter", all = TRUE)
   }
+  if (model_type == "afex_aov") {
+    table <- dplyr::select(table, -Method)
+  }
   table <- dplyr::relocate(table, df_error, .after = df)
   table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
   table <- dplyr::relocate(table, Eta2_partial, .before = Omega2_partial)
@@ -65,16 +68,27 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   table <- kableExtra::kable_styling(table, full_width = FALSE,
                                      position = "left")
   table <- kableExtra::row_spec(table, 0, bold = TRUE)
-  table <- kableExtra::footnote(table,
-                                number =
-                                  c(paste("<small>", "Model: ",
-                                          add_fun_name, deparse1(x_formula),
-                                          add_parenth, "</small>", sep = ""),
-                                    paste("<small>", "N = ", x_n,
-                                          "</small>", sep = ""),
-                                    paste("<small>", "Observations = ", x_obs,
-                                          "</small>", sep = "")),
-                                escape = FALSE)
+  if (stringr::str_detect(model_type, "lmer")) {
+    table <- kableExtra::footnote(table,
+                                  number =
+                                    c(paste("<small>", "Model: ",
+                                            add_fun_name, deparse1(x_formula),
+                                            add_parenth, "</small>", sep = ""),
+                                      paste("<small>", "N = ", x_n,
+                                            "</small>", sep = ""),
+                                      paste("<small>", "Observations = ", x_obs,
+                                            "</small>", sep = "")),
+                                  escape = FALSE)
+  } else {
+    table <- kableExtra::footnote(table,
+                                  number =
+                                    c(paste("<small>", "Model: ",
+                                            add_fun_name, deparse1(x_formula),
+                                            add_parenth, "</small>", sep = ""),
+                                      paste("<small>", "N = ", x_n,
+                                            "</small>", sep = "")),
+                                  escape = FALSE)
+  }
 
   return(table)
 }
