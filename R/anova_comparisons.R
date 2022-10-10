@@ -26,6 +26,9 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
   }
   if (!is.null(at)) {
     at_levels <- levels(insight::get_data(x)[[at]])
+    if (model_type == "afex_aov") {
+      at_levels <- stringr::str_remove(at_levels, "X")
+    }
   }
 
   if (is.null(pbkrtest.limit) & is.null(lmerTest.limit)) {
@@ -78,6 +81,11 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
 
   if (!is.null(at)) {
     colnames(table)[which(colnames(table) == at)] <- "placeholder"
+    if (model_type == "afex_aov") {
+      table <- dplyr::mutate(table,
+                             placeholder =
+                               stringr::str_remove(placeholder, "X"))
+    }
     table <- dplyr::mutate(table,
                            placeholder =
                              factor(placeholder, levels = at_levels))
