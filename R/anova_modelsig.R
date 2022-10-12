@@ -32,9 +32,9 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
     x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_anova))
     x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
   }
-  if (model_type == "afex_aov") {
+  if (model_type == "aov_car") {
     x_formula <- insight::find_formula(x)$conditional
-    add_fun_name <- "afex_aov("
+    add_fun_name <- "aov_car("
     add_parenth <- ")"
     x_obs <- ""
     x_n <- insight::model_info(x)$n_obs
@@ -51,7 +51,7 @@ anova_modelsig <- function(x, digits = 3, id_col = "Subject") {
   if (stringr::str_detect(model_type, "lmer")) {
     table <- merge(table, x_anova, by = "Parameter", all = TRUE)
   }
-  if (model_type == "afex_aov") {
+  if (model_type == "aov_car") {
     table <- dplyr::select(table, -Method)
   }
   table <- dplyr::relocate(table, df_error, .after = df)
