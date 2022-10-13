@@ -6,6 +6,9 @@
 \usage{
 anova_tables(
   x,
+  eta_squared = TRUE,
+  omega_squared = TRUE,
+  epsilon_squared = FALSE,
   effects = "fixed",
   contrast = NULL,
   at = NULL,
@@ -24,6 +27,15 @@ anova_tables(
 }
 \arguments{
 \item{x}{an lmer model object}
+
+\item{eta_squared}{logical. Include partial-eta sqaured effect size?
+Default: TRUE}
+
+\item{omega_squared}{logical. Include omega sqaured effect size?
+Default: TRUE}
+
+\item{epsilon_squared}{logical. Include epsilon sqaured effect size?
+Default: FALSE}
 
 \item{effects}{"fixed" or "all". default is "fixed" to reduce computation time}
 

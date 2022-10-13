@@ -3,6 +3,12 @@
 #' Get ANOVA F-Table, contrasts, and pairwise comparisons
 #'
 #' @param x an lmer model object
+#' @param eta_squared logical. Include partial-eta sqaured effect size?
+#'     Default: TRUE
+#' @param omega_squared logical. Include omega sqaured effect size?
+#'     Default: TRUE
+#' @param epsilon_squared logical. Include epsilon sqaured effect size?
+#'     Default: FALSE
 #' @param effects "fixed" or "all". default is "fixed" to reduce computation time
 #' @param contrast The factor(s) at which to compare levels at
 #' @param at Additional interacting factor(s) to compare the effect of contrast at
@@ -41,7 +47,11 @@
 #' @export
 #'
 
-anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
+anova_tables <- function(x,
+                         eta_squared = TRUE,
+                         omega_squared = TRUE,
+                         epsilon_squared = FALSE,
+                         effects = "fixed", contrast = NULL, at = NULL,
                          standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
@@ -60,7 +70,10 @@ anova_tables <- function(x, effects = "fixed", contrast = NULL, at = NULL,
     }
   }
 
-  table_modelsig <- anova_modelsig(x, digits = digits, id_col = id_col)
+  table_modelsig <- anova_modelsig(x, eta_squared = eta_squared,
+                                   omega_squared = omega_squared,
+                                   epsilon_squared = epsilon_squared,
+                                   digits = digits, id_col = id_col)
   print_table(table_modelsig)
 
   model_type <- insight::model_name(x)
