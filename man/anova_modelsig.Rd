@@ -4,10 +4,26 @@
 \alias{anova_modelsig}
 \title{ANOVA F-Table for Overall Main Effect and Interaction Terms}
 \usage{
-anova_modelsig(x, digits = 3, id_col = "Subject")
+anova_modelsig(
+  x,
+  eta_squared = TRUE,
+  omega_squared = TRUE,
+  epsilon_squared = FALSE,
+  digits = 3,
+  id_col = "Subject"
+)
 }
 \arguments{
 \item{x}{an lmer model object}
+
+\item{eta_squared}{logical. Include partial-eta sqaured effect size?
+Default: TRUE}
+
+\item{omega_squared}{logical. Include omega sqaured effect size?
+Default: TRUE}
+
+\item{epsilon_squared}{logical. Include epsilon sqaured effect size?
+Default: FALSE}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
 
