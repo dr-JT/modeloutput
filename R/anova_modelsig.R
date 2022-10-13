@@ -55,7 +55,7 @@ anova_modelsig <- function(x,
     x_obs <- insight::model_info(x)$n_obs
     x_n <- length(unique(insight::get_data(x)[[id_col]]))
     x_parameters <- anova(x)
-    x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_anova))
+    x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_parameters))
     x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
   }
   if (model_type == "afex_aov") {
