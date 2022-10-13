@@ -51,7 +51,7 @@ Defualt is TRUE.}
 \item{unstandardized}{Logical, indicating whether or not to print
 unstandardized estimates. Default is TRUE.}
 
-\item{ci}{Confidence Interval (CI) level. Default to 0.95 (95%)}
+\item{ci}{Confidence Interval (CI) level. Default to 0.95}
 
 \item{ci_method}{Documention based on ?parameters::parameters.
 Method for computing degrees of freedom for confidence

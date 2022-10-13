@@ -18,7 +18,7 @@
 #'      Defualt is TRUE.
 #' @param unstandardized Logical, indicating whether or not to print
 #'      unstandardized estimates. Default is TRUE.
-#' @param ci Confidence Interval (CI) level. Default to 0.95 (95%)
+#' @param ci Confidence Interval (CI) level. Default to 0.95
 #' @param ci_method Documention based on ?parameters::parameters.
 #'     Method for computing degrees of freedom for confidence
 #'     intervals (CI) and the related p-values. Allowed are following options

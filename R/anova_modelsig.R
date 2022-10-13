@@ -23,9 +23,15 @@ anova_modelsig <- function(x,
     x <- dplyr::mutate(x,
                        dplyr::across(Sum_of_Squares:`F`,
                                      ~ round(.x, digits = digits)))
-    x <- dplyr::mutate(x,
-                       dplyr::across(Eta2_partial:Epsilon2_partial,
-                                     ~ round(.x, digits = digits)))
+    if (eta_squared == TRUE) {
+      x <- dplyr::mutate(x, Eta2_partial = round(Eta2_partial, digits))
+    }
+    if (omega_squared == TRUE) {
+      x <- dplyr::mutate(x, Omega2_partial = round(Omega2_partial, digits))
+    }
+    if (epsilon_squared == TRUE) {
+      x <- dplyr::mutate(x, Epsilon2_partial = round(Epsilon2_partial, digits))
+    }
     x <- dplyr::mutate(x,
                        p = round(p, 3))
     return(x)
@@ -74,7 +80,6 @@ anova_modelsig <- function(x,
   }
   table <- dplyr::relocate(table, df_error, .after = df)
   table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
-  table <- dplyr::relocate(table, Eta2_partial, .before = Omega2_partial)
 
   table <- format_table(table, digits = digits)
 
