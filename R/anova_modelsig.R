@@ -69,7 +69,9 @@ anova_modelsig <- function(x,
   dv <- insight::find_response(x)
 
   table <- parameters::model_parameters(x_parameters, type = 3,
-                                        effectsize_type = effectsize_list)
+                                        eta_squared = eta_squared,
+                                        omega_squared = omega_squared,
+                                        epsilon_squared = epsilon_squared)
   table <- as.data.frame(table)
   table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
   if (stringr::str_detect(model_type, "lmer")) {
