@@ -9,9 +9,11 @@
 #'     Default: TRUE
 #' @param epsilon_squared logical. Include epsilon sqaured effect size?
 #'     Default: FALSE
-#' @param effects "fixed" or "all". default is "fixed" to reduce computation time
+#' @param effects "fixed" or "all". default is "fixed" to reduce computation
+#'     time
 #' @param contrast The factor(s) at which to compare levels at
-#' @param at Additional interacting factor(s) to compare the effect of contrast at
+#' @param at Additional interacting factor(s) to compare the effect of contrast
+#'      at
 #' @param standardized Logical, indicating whether or not to print standardized
 #'      estimates. Standardized estimates are based on "refit" of the model
 #'      on standardized data but it will not standardize categorical predictors.
@@ -28,16 +30,22 @@
 #'     "bci", or "bcai". See section Confidence intervals and approximation of
 #'     degrees of freedom in model_parameters() for further details.
 #'     When ci_method=NULL, in most cases "wald" is used then.
+#' @param adjust The p-values adjustment method for frequentist multiple
+#'     comparisons. Can be one of "holm", "tukey", "hochberg",
+#'     "hommel", "bonferroni", "BH", "BY", "fdr" or "none" (default). See the
+#'     p-value adjustment section in the emmeans::test documentation.
 #' @param bootstrap Documention based on ?parameters::parameters.
 #'     Should estimates be based on bootstrapped model? If TRUE, then arguments
 #'     of Bayesian regressions apply (see also bootstrap_parameters()).
 #' @param iterations Documention based on ?parameters::parameters.
 #'     The number of bootstrap replicates. This only apply in the case of
 #'     bootstrapped frequentist models.
-#' @param pbkrtest.limit Optional parameter that can be set to help calculate dfs.
+#' @param pbkrtest.limit Optional parameter that can be set to help calculate
+#'     dfs.
 #'     If you need to use this a warning message will appear in the console
 #'     telling you what to set this at.
-#' @param lmerTest.limit Optional parameter that can be set to help calculate dfs.
+#' @param lmerTest.limit Optional parameter that can be set to help calculate
+#'     dfs.
 #'     If you need to use this a warning message will appear in the console
 #'     telling you what to set this at.
 #' @param digits How many decimal places to round to? Default is 3.
@@ -55,6 +63,7 @@ anova_tables <- function(x,
                          standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
+                         adjust = "none",
                          bootstrap = FALSE, iterations = NULL,
                          pbkrtest.limit = NULL,
                          lmerTest.limit = NULL,
@@ -92,6 +101,7 @@ anova_tables <- function(x,
   i <- 1
   for (contr in contrast) {
     table_comparisons[[i]] <- anova_comparisons(x, contrast = contr,
+                                                adjust = adjust,
                                                 digits = digits,
                                                 pbkrtest.limit = pbkrtest.limit,
                                                 lmerTest.limit = lmerTest.limit)
@@ -103,10 +113,15 @@ anova_tables <- function(x,
     for (contr in contrast) {
       interaction <- at[which(at != contr)]
       for (int in interaction) {
-        table_comparisons[[i]] <- anova_comparisons(x, contrast = contr, at = int,
+        table_comparisons[[i]] <- anova_comparisons(x,
+                                                    contrast = contr,
+                                                    at = int,
+                                                    adjust = adjust,
                                                     digit = digits,
-                                                    pbkrtest.limit = pbkrtest.limit,
-                                                    lmerTest.limit = lmerTest.limit)
+                                                    pbkrtest.limit =
+                                                      pbkrtest.limit,
+                                                    lmerTest.limit =
+                                                      lmerTest.limit)
         print_table(table_comparisons[[i]])
         i <- i + 1
       }

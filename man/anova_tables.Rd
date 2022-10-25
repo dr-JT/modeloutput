@@ -16,6 +16,7 @@ anova_tables(
   unstandardized = TRUE,
   ci = 0.95,
   ci_method = NULL,
+  adjust = "none",
   bootstrap = FALSE,
   iterations = NULL,
   pbkrtest.limit = NULL,
@@ -37,11 +38,13 @@ Default: TRUE}
 \item{epsilon_squared}{logical. Include epsilon sqaured effect size?
 Default: FALSE}
 
-\item{effects}{"fixed" or "all". default is "fixed" to reduce computation time}
+\item{effects}{"fixed" or "all". default is "fixed" to reduce computation
+time}
 
 \item{contrast}{The factor(s) at which to compare levels at}
 
-\item{at}{Additional interacting factor(s) to compare the effect of contrast at}
+\item{at}{Additional interacting factor(s) to compare the effect of contrast
+at}
 
 \item{standardized}{Logical, indicating whether or not to print standardized
 estimates. Standardized estimates are based on "refit" of the model
@@ -63,6 +66,11 @@ intervals (CI) and the related p-values. Allowed are following options
 degrees of freedom in model_parameters() for further details.
 When ci_method=NULL, in most cases "wald" is used then.}
 
+\item{adjust}{The p-values adjustment method for frequentist multiple
+comparisons. Can be one of "holm", "tukey", "hochberg",
+"hommel", "bonferroni", "BH", "BY", "fdr" or "none" (default). See the
+p-value adjustment section in the emmeans::test documentation.}
+
 \item{bootstrap}{Documention based on ?parameters::parameters.
 Should estimates be based on bootstrapped model? If TRUE, then arguments
 of Bayesian regressions apply (see also bootstrap_parameters()).}
@@ -71,11 +79,13 @@ of Bayesian regressions apply (see also bootstrap_parameters()).}
 The number of bootstrap replicates. This only apply in the case of
 bootstrapped frequentist models.}
 
-\item{pbkrtest.limit}{Optional parameter that can be set to help calculate dfs.
+\item{pbkrtest.limit}{Optional parameter that can be set to help calculate
+dfs.
 If you need to use this a warning message will appear in the console
 telling you what to set this at.}
 
-\item{lmerTest.limit}{Optional parameter that can be set to help calculate dfs.
+\item{lmerTest.limit}{Optional parameter that can be set to help calculate
+dfs.
 If you need to use this a warning message will appear in the console
 telling you what to set this at.}
 
