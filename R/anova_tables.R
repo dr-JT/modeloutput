@@ -30,7 +30,7 @@
 #'     "bci", or "bcai". See section Confidence intervals and approximation of
 #'     degrees of freedom in model_parameters() for further details.
 #'     When ci_method=NULL, in most cases "wald" is used then.
-#' @param adjust The p-values adjustment method for frequentist multiple
+#' @param p_adjust The p-values adjustment method for frequentist multiple
 #'     comparisons. Can be one of "holm", "tukey", "hochberg",
 #'     "hommel", "bonferroni", "BH", "BY", "fdr" or "none" (default). See the
 #'     p-value adjustment section in the emmeans::test documentation.
@@ -63,7 +63,7 @@ anova_tables <- function(x,
                          standardized = TRUE,
                          unstandardized = TRUE,
                          ci = 0.95, ci_method = NULL,
-                         adjust = "none",
+                         p_adjust = "none",
                          bootstrap = FALSE, iterations = NULL,
                          pbkrtest.limit = NULL,
                          lmerTest.limit = NULL,
@@ -101,7 +101,7 @@ anova_tables <- function(x,
   i <- 1
   for (contr in contrast) {
     table_comparisons[[i]] <- anova_comparisons(x, contrast = contr,
-                                                adjust = adjust,
+                                                p_adjust = p_adjust,
                                                 digits = digits,
                                                 pbkrtest.limit = pbkrtest.limit,
                                                 lmerTest.limit = lmerTest.limit)
@@ -116,7 +116,7 @@ anova_tables <- function(x,
         table_comparisons[[i]] <- anova_comparisons(x,
                                                     contrast = contr,
                                                     at = int,
-                                                    adjust = adjust,
+                                                    p_adjust = p_adjust,
                                                     digit = digits,
                                                     pbkrtest.limit =
                                                       pbkrtest.limit,
