@@ -3,6 +3,10 @@
 #' @param x an lmer model object
 #' @param contrast The factor at which to compare levels at
 #' @param at A second interacting factor to compare the effect of contrast at
+#' @param adjust The p-values adjustment method for frequentist multiple
+#'     comparisons. Can be one of "holm", "tukey", "hochberg",
+#'     "hommel", "bonferroni", "BH", "BY", "fdr" or "none" (default). See the
+#'     p-value adjustment section in the emmeans::test documentation.
 #' @param digits How many decimal places to round to? Default is 3.
 #' @param pbkrtest.limit Optional parameter that can be set to help calculate dfs.
 #'     If you need to use this a warning message will appear in the console
@@ -13,7 +17,7 @@
 #' @export
 #'
 
-anova_comparisons <- function(x, contrast = NULL, at = NULL,
+anova_comparisons <- function(x, contrast = NULL, at = NULL, adjust = "none",
                               digits = 3,
                               pbkrtest.limit = NULL,
                               lmerTest.limit = NULL) {
@@ -32,9 +36,11 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL,
   }
 
   if (is.null(pbkrtest.limit) & is.null(lmerTest.limit)) {
-    table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at)
+    table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at,
+                                            adjust = adjust)
   } else {
     table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at,
+                                            adjust = ajust,
                                             pbkrtest.limit = pbkrtest.limit,
                                             lmerTest.limit = lmerTest.limit)
   }

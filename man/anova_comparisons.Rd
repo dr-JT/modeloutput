@@ -8,6 +8,7 @@ anova_comparisons(
   x,
   contrast = NULL,
   at = NULL,
+  adjust = "none",
   digits = 3,
   pbkrtest.limit = NULL,
   lmerTest.limit = NULL
@@ -19,6 +20,11 @@ anova_comparisons(
 \item{contrast}{The factor at which to compare levels at}
 
 \item{at}{A second interacting factor to compare the effect of contrast at}
+
+\item{adjust}{The p-values adjustment method for frequentist multiple
+comparisons. Can be one of "holm", "tukey", "hochberg",
+"hommel", "bonferroni", "BH", "BY", "fdr" or "none" (default). See the
+p-value adjustment section in the emmeans::test documentation.}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
 
