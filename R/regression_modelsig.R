@@ -95,7 +95,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
                        "F-value", "p")
 
   if (print == TRUE) {
-    table <- knitr::kable(table, digits = 3,
+    table <- knitr::kable(table, digits = 3, format = "html",
                           caption = paste("ANOVA Table: ", dv, sep = ""),
                           row.names = FALSE,
                           align = c("l", "l", rep("c", 5)))

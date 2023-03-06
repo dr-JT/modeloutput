@@ -107,7 +107,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
   }
 
   if (print == TRUE) {
-    table <- knitr::kable(table, digits = 3,
+    table <- knitr::kable(table, digits = 3, format = "html",
                           caption = paste("Model Summary: ", dv, sep = ""),
                           row.names = FALSE,
                           align = column_align)

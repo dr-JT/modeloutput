@@ -78,7 +78,7 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
   table <- dplyr::arrange(table, Level1, Level2)
 
   if (is.null(at)) {
-    table <- knitr::kable(table, digits = digits,
+    table <- knitr::kable(table, digits = digits, format = "html",
                           caption = paste("Post-hoc Comparisons: ",
                                           contrast, sep = ""),
                           row.names = FALSE,
@@ -98,7 +98,7 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
     table <- dplyr::arrange(table, Level1, Level2, placeholder)
     colnames(table)[which(colnames(table) == "placeholder")] <- at
 
-    table <- knitr::kable(table, digits = digits,
+    table <- knitr::kable(table, digits = digits, format = "html",
                           caption = paste("Post-hoc Comparisons: ", contrast,
                                           " x ", at, sep = ""),
                           row.names = FALSE,

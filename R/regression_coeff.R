@@ -84,7 +84,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
     if (standardized == TRUE) {
       header_names <- c("Model", "Term", "b", "SE", "95% CI", "B", "SE",
                         "95% CI", "t", "df", "p")
-      table <- knitr::kable(table,
+      table <- knitr::kable(table, format = "html",
                             caption = paste("Regression Coefficients: ",
                                             dv, sep = ""),
                             row.names = FALSE,
@@ -103,7 +103,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
 
     if (standardized == FALSE) {
       header_names <- c("Model", "Term", "b", "SE", "95% CI", "t", "df", "p")
-      table <- knitr::kable(table,
+      table <- knitr::kable(table, format = "html",
                             caption = paste("Regression Coefficients: ",
                                             dv, sep = ""),
                             row.names = FALSE,
@@ -125,7 +125,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
       table <- dplyr::select(table, -b, -SE, -CI_unstd)
       header_names <- c("Model", "Term", "B", "SE",
                         "95% CI", "t", "df", "p")
-      table <- knitr::kable(table,
+      table <- knitr::kable(table, format = "html",
                             caption = paste("Regression Coefficients: ",
                                             dv, sep = ""),
                             row.names = FALSE,

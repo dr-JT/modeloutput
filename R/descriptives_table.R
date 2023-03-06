@@ -6,6 +6,7 @@
 #'
 
 descriptives_table <- function(x) {
+  col_order <- colnames(x)
   x <- tidyr::gather(x, "Variable", "value")
   x <- dplyr::group_by(x, Variable)
   table <- dplyr::summarise(x,
@@ -24,7 +25,8 @@ descriptives_table <- function(x) {
   N <- dplyr::summarise(x, N.total = dplyr::n())
   N <- N$N.total[1]
   table <- dplyr::ungroup(table)
-  table <- knitr::kable(table, digits = 2,
+  table <- dplyr::arrange(table, match(Variable, col_order))
+  table <- knitr::kable(table, digits = 2, format = "html",
                         caption = "Descriptive Statistics")
   table <- kableExtra::kable_classic(table, position = "left")
   table <- kableExtra::kable_styling(table, full_width = FALSE,
