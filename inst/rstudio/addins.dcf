@@ -2,3 +2,8 @@ Name: New Quarto Document
 Description: Start new analysis document
 Binding: new_document
 Interactive: false
+
+Name: ANOVA
+Description: Insert ANOVA section in document
+Binding: add_anova
+Interactive: false
