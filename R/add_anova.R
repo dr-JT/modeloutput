@@ -8,5 +8,5 @@ add_anova <- function() {
 
   # Make a GET request to retrieve the raw content of the file
   anova_text <- httr::content(httr::GET(anova_url), as = "text")
-  writeLines(anova_text)
+  rstudioapi::insertText(anova_text)
 }
