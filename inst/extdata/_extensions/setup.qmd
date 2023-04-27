@@ -1,0 +1,78 @@
+# Setup
+
+::: panel-tabset
+## Required Packages
+
+```{r}
+#| warning: false
+#| code-fold: false
+
+library(here)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+```
+
+## Plot Theme
+
+```{r}
+#| code-fold: false
+
+# set global ggplot theme
+theme_spacious <- function(font.size = 14, bold = TRUE){
+  key.size <- trunc(font.size * .8)
+  if (bold == TRUE) {
+    face.type <- "bold"
+  } else {
+    face.type <- "plain"
+  }
+
+  theme(text = element_text(size = font.size),
+        axis.title.x = element_text(margin = margin(t = 15, r = 0,
+                                                    b = 0, l = 0),
+                                    face = face.type),
+        axis.title.y = element_text(margin = margin(t = 0, r = 15,
+                                                    b = 0, l = 0),
+                                    face = face.type),
+        legend.title = element_text(face = face.type),
+        legend.spacing = unit(20, "pt"),
+        legend.text = element_text(size = key.size),
+        plot.title = element_text(face = face.type, hjust = .5,
+                                  margin = margin(b = 10)),
+        plot.caption = element_text(hjust = 0, size = key.size,
+                                    margin = margin(t = 20)),
+        strip.background = element_rect(fill = "white", color = "white"),
+        strip.text = element_text(color = "black",
+                                  face = face.type))
+}
+
+output_theme <- theme_linedraw() + 
+  theme_spacious(font.size = 12) + 
+  theme(panel.border = element_rect(color = "gray"),
+        axis.line.x = element_line(color = "gray"),
+        axis.line.y = element_line(color = "gray"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+
+theme_set(output_theme)
+```
+
+## Table Theme
+
+```{r}
+#| code-fold: false
+
+table_theme <- function(x, digits = 3, title = NULL, note = NULL) {
+  kable(x, digits = digits, caption = title) |>
+    kable_classic(position = "left") |>
+    kable_styling(full_width = FALSE, position = "left") |>
+    footnote(general = note)
+}
+```
+:::
+
+```{r}
+
+```

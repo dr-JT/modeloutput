@@ -1,0 +1,24 @@
+# Data
+
+::: panel-tabset
+## Import Data
+
+```{r}
+#| message: false
+#| code-fold: false
+
+data_import <- read_csv(here("folder_path", "filename.csv"))
+```
+
+## Get Data Ready For Models
+
+```{r}
+#| code-fold: false
+
+
+```
+:::
+
+```{r}
+
+```

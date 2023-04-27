@@ -1,0 +1,86 @@
+# Block x Wait Time
+
+Model
+
+```{r}
+#| code-fold: false
+
+
+```
+
+::: panel-tabset
+## Tables
+
+```{r}
+#| results: asis
+
+# anova tables and post-hoc comparisons
+anova_tables()
+
+# custom contrasts
+
+emmeans() |>
+  contrast(list()) |>
+  table_theme(title = "Custom contrasts: ")
+```
+
+## Figures
+
+```{r}
+# Main effect
+model_plot <- model |>
+  ggemmeans(terms = "") |>
+  rename()
+
+ggplot(model_plot, aes()) +
+  geom_point(size = 2) +
+  geom_line(group = 1) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), 
+                width = .2, size = .8, alpha = .5) +
+  scale_y_continuous(breaks = seq()) +
+  coord_cartesian(ylim = c())
+
+ggsave(here("analyses/figures", ".png"), 
+       dpi = 300, height = 4, width = 7, units = "in")
+
+# Interaction
+model_plot <- model |>
+  ggemmeans(terms = c("", "")) |>
+  rename()
+
+ggplot(model_plot, aes()) +
+  facet_grid(~, labeller = label_both) +
+  geom_point(size = 2) +
+  geom_line(group = 1) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), 
+                width = .2, size = .8, alpha = .5) +
+  scale_y_continuous(breaks = seq()) +
+  coord_cartesian(ylim = c())
+
+ggsave(here("analyses/figures", ".png"), 
+       dpi = 300, height = 4, width = 7, units = "in")
+```
+
+## Check Assumption
+
+```{r}
+check_sphericity() |>
+  as.data.frame() |>
+  table_theme(title = "Mauchly's Test for Sphericity")
+
+data_qq <- data.frame(resids = residuals())
+ggplot(data_qq, aes(sample = resids)) +
+  geom_qq() +
+  geom_qq_line()
+```
+
+## Summary Output
+
+```{r}
+summary()
+```
+:::
+
+```{r}
+
+```
