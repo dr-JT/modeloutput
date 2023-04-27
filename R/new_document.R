@@ -3,9 +3,6 @@
 #' @export
 #'
 
-# `file_name` will be the name of the sub-directory and new qmd report within it
-# `ext_name` needs to name the specific extension
-
 new_document <- function() {
   yaml_url <- "https://raw.githubusercontent.com/dr-JT/modeloutput/main/inst/extdata/_extensions/yaml.qmd"
   setup_url <- "https://raw.githubusercontent.com/dr-JT/modeloutput/main/inst/extdata/_extensions/setup.qmd"
