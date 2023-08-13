@@ -92,11 +92,12 @@ anova_modelsig <- function(x,
     if (stringr::str_detect(model_type, "lmer")) {
       table <- merge(table, x_anova, by = "Parameter", all = TRUE)
     }
-    if (model_type == "afex_aov") {
-      table <- dplyr::select(table, -Method)
-    }
     table <- dplyr::relocate(table, df_error, .after = df)
     table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
+  }
+
+  if (model_type == "afex_aov") {
+    table <- dplyr::select(table, -Method)
   }
   c_col <- ncol(table) - 1
 
