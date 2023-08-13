@@ -24,13 +24,28 @@ anova_modelsig <- function(x,
                        dplyr::across(Sum_of_Squares:`F`,
                                      ~ round(.x, digits = digits)))
     if (eta_squared == TRUE) {
-      x <- dplyr::mutate(x, Eta2_partial = round(Eta2_partial, digits))
+      if ("Eta2_partial" %in% colnames(x)) {
+        x <- dplyr::mutate(x, Eta2_partial =
+                             round(Eta2_partial, digits))
+      } else {
+        x <- dplyr::mutate(x, Eta2 = round(Eta2, digits))
+      }
     }
     if (omega_squared == TRUE) {
-      x <- dplyr::mutate(x, Omega2_partial = round(Omega2_partial, digits))
+      if ("Omega2_partial" %in% colnames(x)) {
+        x <- dplyr::mutate(x, Omega2_partial =
+                             round(Omega2_partial, digits))
+      } else {
+        x <- dplyr::mutate(x, Omega2 = round(Omega2, digits))
+      }
     }
     if (epsilon_squared == TRUE) {
-      x <- dplyr::mutate(x, Epsilon2_partial = round(Epsilon2_partial, digits))
+      if ("Epsilon2_partial" %in% colnames(x)) {
+        x <- dplyr::mutate(x, Epsilon2_partial =
+                             round(Epsilon2_partial, digits))
+      } else {
+        x <- dplyr::mutate(x, Epsilon2 = round(Epsilon2, digits))
+      }
     }
     x <- dplyr::mutate(x,
                        p = round(p, 3))
