@@ -58,7 +58,7 @@ anova_modelsig <- function(x,
     x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_parameters))
     x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
   }
-  if (model_type == "afex_aov") {
+  if (model_type == "afex_aov" | model_type == "aov") {
     x_formula <- insight::find_formula(x)$conditional
     add_fun_name <- "aov_car("
     add_parenth <- ")"
