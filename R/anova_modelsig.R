@@ -71,22 +71,26 @@ anova_modelsig <- function(x,
   table <- parameters::model_parameters(x_parameters, type = 3,
                                         effectsize_type = effectsize_list)
   table <- as.data.frame(table)
-  table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
-  if (stringr::str_detect(model_type, "lmer")) {
-    table <- merge(table, x_anova, by = "Parameter", all = TRUE)
+
+  if ("df_error" %in% colnames(table)) {
+    table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
+    if (stringr::str_detect(model_type, "lmer")) {
+      table <- merge(table, x_anova, by = "Parameter", all = TRUE)
+    }
+    if (model_type == "afex_aov") {
+      table <- dplyr::select(table, -Method)
+    }
+    table <- dplyr::relocate(table, df_error, .after = df)
+    table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
   }
-  if (model_type == "afex_aov") {
-    table <- dplyr::select(table, -Method)
-  }
-  table <- dplyr::relocate(table, df_error, .after = df)
-  table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
+  c_col <- ncol(table) - 1
 
   table <- format_table(table, digits = digits)
 
   table <- knitr::kable(table, digits = digits, format = "html",
                         caption = paste("ANOVA Table: ", dv, sep = ""),
                         row.names = FALSE,
-                        align = c("l", rep("c", 10)))
+                        align = c("l", rep("c", c_col)))
   table <- kableExtra::kable_classic(table, position = "left")
   table <- kableExtra::kable_styling(table, full_width = FALSE,
                                      position = "left")
