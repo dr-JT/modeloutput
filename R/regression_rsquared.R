@@ -113,7 +113,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                           align = column_align, escape = FALSE)
     table <- kableExtra::kable_classic(table, position = "left")
     table <- kableExtra::kable_styling(table, full_width = FALSE,
-                                       position = "left")
+                                       position = "left", protect_latex = TRUE)
     table <- kableExtra::row_spec(table, 0, bold = TRUE)
     if (is.null(y) & is.null(z)) {
       table <- kableExtra::footnote(table,
