@@ -98,7 +98,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                            `P(Model|Data)` = round(`P(Model|Data)`, 3))
     table[is.na(table)] <- " "
     col_labels <- c("Model", "R.squared", "R.squared adj.",
-                    "R.squared Change$", "F Change", "df1", "df2", "p",
+                    "R.squared Change", "F Change", "df1", "df2", "p",
                     "logLik", "AIC", "BIC", "BF", "P(Model|Data)")
     column_align <- c("l", rep("c", 12))
   } else {
