@@ -97,12 +97,12 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                            `P(Model|Data)` = BF / (BF + 1),
                            `P(Model|Data)` = round(`P(Model|Data)`, 3))
     table[is.na(table)] <- " "
-    col_labels <- c("Model", "$R^2$", "$R^2$ adj.",
-                    "$R^2 \\Delta$", "$F \\Delta$", "df1", "df2", "p",
+    col_labels <- c("Model", "R.squared", "R.squared adj.",
+                    "R.squared Change$", "F Change", "df1", "df2", "p",
                     "logLik", "AIC", "BIC", "BF", "P(Model|Data)")
     column_align <- c("l", rep("c", 12))
   } else {
-    col_labels <- c("Model", "$R^2$", "$R^2$ adj.", "logLik", "AIC", "BIC")
+    col_labels <- c("Model", "R.squared", "R.squared adj.", "logLik", "AIC", "BIC")
     column_align <- c("l", rep("c", 5))
   }
 
