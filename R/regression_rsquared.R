@@ -110,8 +110,9 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
     table <- knitr::kable(table, digits = 3, format = "html",
                           caption = paste("Model Summary: ", dv, sep = ""),
                           row.names = FALSE, col.names = col_labels,
-                          align = column_align, escape = FALSE)
-    table <- kableExtra::kable_classic(table, position = "left")
+                          align = column_align)
+    table <- kableExtra::kable_classic(table, position = "left",
+                                       protect_latex = TRUE)
     table <- kableExtra::kable_styling(table, full_width = FALSE,
                                        position = "left", protect_latex = TRUE)
     table <- kableExtra::row_spec(table, 0, bold = TRUE)
