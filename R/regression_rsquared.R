@@ -97,19 +97,19 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                            `P(Model|Data)` = BF / (BF + 1),
                            `P(Model|Data)` = round(`P(Model|Data)`, 3))
     table[is.na(table)] <- " "
-    colnames(table) <- c("Model", "$R^2$", "$R^2$ adj.",
-                         "$R^2 \\Delta$", "$F \\Delta$", "df1", "df2", "p",
-                         "logLik", "AIC", "BIC", "BF", "P(Model|Data)")
+    col_labels <- c("Model", "$R^2$", "$R^2$ adj.",
+                    "$R^2 \\Delta$", "$F \\Delta$", "df1", "df2", "p",
+                    "logLik", "AIC", "BIC", "BF", "P(Model|Data)")
     column_align <- c("l", rep("c", 12))
   } else {
-    colnames(table) <- c("Model", "$R^2$", "$R^2$ adj.", "logLik", "AIC", "BIC")
+    col_labels <- c("Model", "$R^2$", "$R^2$ adj.", "logLik", "AIC", "BIC")
     column_align <- c("l", rep("c", 5))
   }
 
   if (print == TRUE) {
     table <- knitr::kable(table, digits = 3, format = "html",
                           caption = paste("Model Summary: ", dv, sep = ""),
-                          row.names = FALSE,
+                          row.names = FALSE, col.names = col_labels,
                           align = column_align)
     table <- kableExtra::kable_classic(table, position = "left")
     table <- kableExtra::kable_styling(table, full_width = FALSE,
