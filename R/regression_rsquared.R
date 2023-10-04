@@ -118,7 +118,8 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
         gt::cols_label(r2_change = "{{:Delta:R^2}}",
                        F_change = "{{:Delta:F}}") |>
         gt::fmt_number(columns = c(df1, df2), decimals = 0) |>
-        gt::fmt_scientific(columns = BF)
+        gt::fmt_scientific(columns = BF) |>
+        gt::sub_small_vals(columns = p, threshold = .001)
     }
     if (!is.null(z)) {
       table <- gt::tab_footnote(table, footer_z)
