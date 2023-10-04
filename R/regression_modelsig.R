@@ -34,6 +34,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
   x_table <- dplyr::select(x_table,
                            Model, Term, `Sum Sq`, Df, `Mean Sq`,
                            statistic, p.value)
+  footer_x <- paste("H1: ", deparse(x_formula), "; N = ", x_n, sep = "")
 
   if (!is.null(y)) {
     y_formula <- insight::find_formula(y)$conditional
@@ -57,6 +58,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     y_table <- dplyr::select(y_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
+    footer_y <- paste("H1: ", deparse(y_formula), "; N = ", y_n, sep = "")
   } else {
     y_table <- data.frame()
     y_top <- data.frame()
@@ -83,61 +85,35 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     z_table <- dplyr::select(z_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
+    footer_z <- paste("H1: ", deparse(z_formula), "; N = ", z_n, sep = "")
   } else {
     z_table <- data.frame()
   }
 
   table <- dplyr::bind_rows(x_table, y_table, z_table)
-  table <- dplyr::mutate(table, statistic = round(statistic, 3),
-                         p.value = round(p.value, 3))
-  table[is.na(table)] <- " "
   colnames(table) <- c("Model", "Term", "Sum of Squares", "df", "Mean Square",
-                       "F-value", "p")
+                       "F", "p")
 
   if (print == TRUE) {
-    table <- knitr::kable(table, digits = 3, format = "html",
-                          caption = paste("ANOVA Table: ", dv, sep = ""),
-                          row.names = FALSE,
-                          align = c("l", "l", rep("c", 5)))
-    table <- kableExtra::kable_classic(table, position = "left")
-    table <- kableExtra::kable_styling(table, full_width = FALSE,
-                                       position = "left")
-    table <- kableExtra::collapse_rows(table, columns = 1, valign = "top")
-    table <- kableExtra::row_spec(table, 0, bold = TRUE)
-    if (is.null(y) & is.null(z)) {
-      table <- kableExtra::footnote(table,
-                                    number = paste("<small>", "H1: ",
-                                                   deparse1(x_formula),
-                                                   "; N = ", x_n, "</small>",
-                                                   sep = ""),
-                                    escape = FALSE)
-    } else if (!is.null(y) & is.null(z)) {
-      table <- kableExtra::footnote(table,
-                                    number = c(paste("<small>", "H1: ",
-                                                     deparse1(x_formula),
-                                                     "; N = ", x_n, "</small>",
-                                                     sep = ""),
-                                               paste("<small>", "H2: ",
-                                                     deparse1(y_formula),
-                                                     "; N = ", y_n, "</small>",
-                                                     sep = "")),
-                                    escape = FALSE)
-    } else {
-      table <- kableExtra::footnote(table,
-                                    number = c(paste("<small>", "H1: ",
-                                                     deparse1(x_formula),
-                                                     "; N = ", x_n, "</small>",
-                                                     sep = ""),
-                                               paste("<small>", "H2: ",
-                                                     deparse1(y_formula),
-                                                     "; N = ", y_n, "</small>",
-                                                     sep = ""),
-                                               paste("<small>", "H3: ",
-                                                     deparse1(z_formula),
-                                                     "; N = ", z_n, "</small>",
-                                                     sep = "")),
-                                    escape = FALSE)
+
+    table_title <- paste("ANOVA Table: ", dv, sep = "")
+
+    table <- gt::gt(table) |>
+      table_styling() |>
+      gt::tab_header(title = table_title) |>
+      gt::cols_align(align = "left", columns = c(Model, Term)) |>
+      gt::sub_small_vals(columns = p, threshold = .001) |>
+      gt::fmt_number(decimals = 3) |>
+      gt::fmt_number(columns = df, decimals = 0) |>
+      gt::tab_footnote(footer_x)
+
+    if (!is.null(y)) {
+      table <- gt::tab_footnote(table, footer_y)
     }
+    if (!is.null(z)) {
+      table <- gt::tab_footnote(table, footer_z)
+    }
+
   } else if (print == FALSE) {
     table <- as.data.frame(table)
   }
