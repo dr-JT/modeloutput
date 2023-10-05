@@ -52,7 +52,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                             F_change = `F`, df1 = Df, df2 = Res.Df,
                             p = `Pr(>F)`)
     y_table <- dplyr::bind_cols(y_table, y_comp)
-    footer_y <- paste("H1: ", deparse(y_formula), "; N = ", y_n, sep = "")
+    footer_y <- paste("H2: ", deparse(y_formula), "; N = ", y_n, sep = "")
   } else {
     y_table <- data.frame()
   }
@@ -78,7 +78,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                             F_change = `F`, df1 = Df, df2 = Res.Df,
                             p = `Pr(>F)`)
     z_table <- dplyr::bind_cols(z_table, z_comp)
-    footer_z <- paste("H1: ", deparse(z_formula), "; N = ", z_n, sep = "")
+    footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
   } else {
     z_table <- data.frame()
   }

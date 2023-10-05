@@ -23,10 +23,6 @@ get_coeff <- function(x,
     x <- dplyr::select(x, Term = Parameter, b = Coefficient,
                        SE, CI_low, CI_high,
                        t, df = df_error, p)
-    x <- dplyr::mutate(x,
-                       dplyr::across(b:df, ~ round(.x, digits = digits)))
-    x <- dplyr::mutate(x,
-                       p = round(p, 3))
     x <- tidyr::unite(x, CI, CI_low, CI_high, sep = ", ")
     x <- dplyr::mutate(x,
                        CI = paste("[", CI, "]", sep = ""))

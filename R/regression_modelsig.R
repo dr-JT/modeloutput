@@ -58,7 +58,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     y_table <- dplyr::select(y_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
-    footer_y <- paste("H1: ", deparse(y_formula), "; N = ", y_n, sep = "")
+    footer_y <- paste("H2: ", deparse(y_formula), "; N = ", y_n, sep = "")
   } else {
     y_table <- data.frame()
     y_top <- data.frame()
@@ -85,7 +85,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     z_table <- dplyr::select(z_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
-    footer_z <- paste("H1: ", deparse(z_formula), "; N = ", z_n, sep = "")
+    footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
   } else {
     z_table <- data.frame()
   }

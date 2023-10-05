@@ -15,7 +15,8 @@ regression_coeff(
   bootstrap = FALSE,
   iterations = NULL,
   effects = "all",
-  digits = 3
+  digits = 3,
+  print = TRUE
 )
 }
 \arguments{
@@ -57,6 +58,9 @@ bootstrapped frequentist models.}
 default is "all"}
 
 \item{digits}{How many decimal places to round to? Default is 3.}
+
+\item{print}{Create a knitr table for displaying as html table?
+(default = TRUE)}
 }
 \description{
 Displays a table for regression coefficients.
