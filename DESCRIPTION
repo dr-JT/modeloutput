@@ -13,6 +13,7 @@ Description: Convenient functions and templates to create nicer looking output.
     complex tables and plots.
 Imports:
     sjPlot,
+    gt,
     grid,
     ggplot2,
     ggExtra,
