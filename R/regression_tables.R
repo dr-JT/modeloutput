@@ -40,19 +40,10 @@ regression_tables <- function(x, y = NULL, z = NULL,
                               bootstrap = FALSE, iterations = NULL,
                               digits = 3,
                               print = TRUE) {
-  # Function to make sure table prints whether running code in R code chunk,
-  # with knit button or with rmarkdown::render()
-  print_table <- function(x) {
-    if (isTRUE(getOption('knitr.in.progress'))) {
-      writeLines(x)
-    } else {
-      print(x)
-    }
-  }
 
-  table_rsquared <- regression_rsquared(x, y, z, print = TRUE)
-  table_modelsig <- regression_modelsig(x, y, z, print = TRUE)
-  table_coeff <- regression_coeff(x, y, z,
+  rsqaured_table <- regression_rsquared(x, y, z, print = TRUE)
+  modelsig_table <- regression_modelsig(x, y, z, print = TRUE)
+  coeff_table <- regression_coeff(x, y, z,
                                   standardized = standardized,
                                   unstandardized = unstandardized,
                                   ci = ci, ci_method = ci_method,
@@ -60,7 +51,5 @@ regression_tables <- function(x, y = NULL, z = NULL,
                                   iterations = iterations,
                                   digits = digits)
 
-  print_table(table_rsquared)
-  print_table(table_modelsig)
-  print_table(table_coeff)
+  gt::gt_group(rsqaured_table, modelsig_table, coeff_table)
 }
