@@ -85,7 +85,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
     footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
   }
 
-  table <- dplyr::relocate(table, Model, .befor = Term)
+  table <- dplyr::relocate(table, Model, .before = Term)
 
   if (print == TRUE) {
     table_title <- paste("Regression Coefficients: ", dv, sep = "")
