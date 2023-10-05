@@ -113,6 +113,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
 
     if (unstandardized == TRUE & standardized == FALSE) {
       table <- table |>
+        gt::cols_hide(B, SE_B, CI_std) |>
         gt::tab_spanner(label = "Unstandardized",
                         columns = c(b, SE, CI_unstd)) |>
         gt::cols_label(CI_unstd = "95% CI")
@@ -120,6 +121,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
 
     if (unstandardized == FALSE & standardized == TRUE) {
       table <- table |>
+        gt::cols_hide(b, SE, CI_unstd) |>
         gt::tab_spanner(label = "Standardized",
                         columns = c(B, SE_B, CI_std)) |>
         gt::cols_label(B = "{{:Beta:}}",
