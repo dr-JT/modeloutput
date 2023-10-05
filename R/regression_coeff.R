@@ -122,7 +122,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
       table <- table |>
         gt::tab_spanner(label = "Standardized",
                         columns = c(B, SE_B, CI_std)) |>
-        gt::cols_label(B = ":Beta:",
+        gt::cols_label(B = "{{:Beta:}}",
                        SE_B = "SE",
                        CI_std = "95% CI")
     }
