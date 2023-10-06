@@ -18,39 +18,6 @@ anova_modelsig <- function(x,
                            epsilon_squared = FALSE,
                            digits = 3, id_col = "Subject") {
 
-  format_table <- function(x, digits = digits) {
-    x <- dplyr::rename(x, Term = Parameter, Sum_of_Squares = Sum_Squares)
-    x <- dplyr::mutate(x,
-                       dplyr::across(Sum_of_Squares:`F`,
-                                     ~ round(.x, digits = digits)))
-    if (eta_squared == TRUE) {
-      if ("Eta2_partial" %in% colnames(x)) {
-        x <- dplyr::mutate(x, Eta2_partial =
-                             round(Eta2_partial, digits))
-      } else {
-        x <- dplyr::mutate(x, Eta2 = round(Eta2, digits))
-      }
-    }
-    if (omega_squared == TRUE) {
-      if ("Omega2_partial" %in% colnames(x)) {
-        x <- dplyr::mutate(x, Omega2_partial =
-                             round(Omega2_partial, digits))
-      } else {
-        x <- dplyr::mutate(x, Omega2 = round(Omega2, digits))
-      }
-    }
-    if (epsilon_squared == TRUE) {
-      if ("Epsilon2_partial" %in% colnames(x)) {
-        x <- dplyr::mutate(x, Epsilon2_partial =
-                             round(Epsilon2_partial, digits))
-      } else {
-        x <- dplyr::mutate(x, Epsilon2 = round(Epsilon2, digits))
-      }
-    }
-    x <- dplyr::mutate(x,
-                       p = round(p, 3))
-    return(x)
-  }
   effectsize_list <- c()
   if (eta_squared == TRUE) {
     effectsize_list <- c(effectsize_list, "eta")
@@ -103,7 +70,7 @@ anova_modelsig <- function(x,
     table <- dplyr::select(table, -Method)
   }
 
-  table <- format_table(table, digits = digits)
+  table <- dplyr::rename(table, Term = Parameter, Sum_of_Squares = Sum_Squares)
 
   table_title <- paste("ANOVA Table: ", dv, sep = "")
   df_correction <- attr(x$anova_table, "correction")
@@ -125,18 +92,36 @@ anova_modelsig <- function(x,
   }
 
   if (eta_squared == TRUE) {
-    table <- gt::cols_label(table,
-                            Eta2_partial = "{{:eta:_p^2}}")
+    if ("Eta2_partial" %in% colnames(x)) {
+      table <- gt::cols_label(table,
+                              Eta2_partial = "{{:eta:_p^2}}")
+    } else {
+      table <- gt::cols_label(table,
+                              Eta2 = "{{:eta:^2}}")
+    }
+
   }
 
   if (omega_squared == TRUE) {
-    table <- gt::cols_label(table,
-                            Omega2_partial = "{{:omega:_p^2}}")
+    if ("Omega2_partial" %in% colnames(x)) {
+      table <- gt::cols_label(table,
+                              Omega2_partial = "{{:omega:_p^2}}")
+    } else {
+      table <- gt::cols_label(table,
+                              Omega2 = "{{:omega:^2}}")
+    }
+
   }
 
   if (epsilon_squared == TRUE) {
-    table <- gt::cols_label(table,
-                            Epsilon2_partial = "{{:epsilon:_p^2}}")
+    if ("Epsilon2_partial" %in% colnames(x)) {
+      table <- gt::cols_label(table,
+                              Epsilon2_partial = "{{:epsilon:_p^2}}")
+    } else {
+      table <- gt::cols_label(table,
+                              Epsilon2 = "{{:epsilon:^2}}")
+    }
+
   }
 
   table <- table |>
