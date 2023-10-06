@@ -78,53 +78,53 @@ anova_modelsig <- function(x,
     df_correction <- "Greenhouse-Geisser Correction"
   }
 
-  table <- gt::gt(table) |>
+  gt_table <- gt::gt(table) |>
     table_styling() |>
     gt::tab_header(title = table_title) |>
     gt::cols_label(Sum_of_Squares = "SS",
                    Mean_Square = "MS")
 
   if (ws_design == TRUE) {
-    table <- gt::cols_label(table,
-                            Sum_Squares_Error = "SS_Error",
-                            df_error = "df_Error",
-                            Mean_Square_Error = "MS_Error")
+    gt_table <- gt::cols_label(gt_table,
+                               Sum_Squares_Error = "SS_Error",
+                               df_error = "df_Error",
+                               Mean_Square_Error = "MS_Error")
   }
 
   if (eta_squared == TRUE) {
-    if ("Eta2_partial" %in% colnames(x)) {
-      table <- gt::cols_label(table,
-                              Eta2_partial = "{{:eta:_p^2}}")
+    if ("Eta2_partial" %in% colnames(table)) {
+      gt_table <- gt::cols_label(gt_table,
+                                 Eta2_partial = "{{:eta:_p^2}}")
     } else {
-      table <- gt::cols_label(table,
-                              Eta2 = "{{:eta:^2}}")
+      gt_table <- gt::cols_label(gt_table,
+                                 Eta2 = "{{:eta:^2}}")
     }
 
   }
 
   if (omega_squared == TRUE) {
-    if ("Omega2_partial" %in% colnames(x)) {
-      table <- gt::cols_label(table,
-                              Omega2_partial = "{{:omega:_p^2}}")
+    if ("Omega2_partial" %in% colnames(table)) {
+      gt_table <- gt::cols_label(gt_table,
+                                 Omega2_partial = "{{:omega:_p^2}}")
     } else {
-      table <- gt::cols_label(table,
-                              Omega2 = "{{:omega:^2}}")
+      gt_table <- gt::cols_label(gt_table,
+                                 Omega2 = "{{:omega:^2}}")
     }
 
   }
 
   if (epsilon_squared == TRUE) {
-    if ("Epsilon2_partial" %in% colnames(x)) {
-      table <- gt::cols_label(table,
-                              Epsilon2_partial = "{{:epsilon:_p^2}}")
+    if ("Epsilon2_partial" %in% colnames(table)) {
+      gt_table <- gt::cols_label(gt_table,
+                                 Epsilon2_partial = "{{:epsilon:_p^2}}")
     } else {
-      table <- gt::cols_label(table,
-                              Epsilon2 = "{{:epsilon:^2}}")
+      gt_table <- gt::cols_label(gt_table,
+                                 Epsilon2 = "{{:epsilon:^2}}")
     }
 
   }
 
-  table <- table |>
+  gt_table <- gt_table |>
     gt::cols_align(align = "left", columns = 1) |>
     gt::sub_small_vals(columns = p, threshold = .001) |>
     gt::fmt_number(decimals = digits) |>
@@ -133,10 +133,10 @@ anova_modelsig <- function(x,
     gt::tab_footnote(paste("N = ", x_n, sep = ""))
 
   if (stringr::str_detect(model_type, "lmer")) {
-    table <- gt::tab_footnote(table, paste("Observations = ", x_obs, sep = ""))
+    gt_table <- gt::tab_footnote(gt_table, paste("Observations = ", x_obs, sep = ""))
   }
 
-  table <- gt::tab_footnote(table, df_correction)
+  gt_table <- gt::tab_footnote(gt_table, df_correction)
 
-  return(table)
+  return(gt_table)
 }
