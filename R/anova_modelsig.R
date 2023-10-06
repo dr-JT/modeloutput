@@ -94,6 +94,9 @@ anova_modelsig <- function(x,
     }
     table <- dplyr::relocate(table, df_error, .after = df)
     table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
+    ws_design <- TRUE
+  } else {
+    ws_design <- FALSE
   }
 
   if (model_type == "afex_aov") {
@@ -112,10 +115,14 @@ anova_modelsig <- function(x,
     table_styling() |>
     gt::tab_header(title = table_title) |>
     gt::cols_label(Sum_of_Squares = "SS",
-                   Sum_Squares_Error = "SS_Error",
-                   df_error = "df_Error",
-                   Mean_Square = "MS",
-                   Mean_Square_Error = "MS_Error")
+                   Mean_Square = "MS")
+
+  if (ws_design == TRUE) {
+    table <- gt::cols_label(table,
+                            Sum_Squares_Error = "SS_Error",
+                            df_error = "df_Error",
+                            Mean_Square_Error = "MS_Error")
+  }
 
   if (eta_squared == TRUE) {
     table <- gt::cols_label(table,
