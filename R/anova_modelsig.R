@@ -99,39 +99,52 @@ anova_modelsig <- function(x,
   if (model_type == "afex_aov") {
     table <- dplyr::select(table, -Method)
   }
-  c_col <- ncol(table) - 1
 
   table <- format_table(table, digits = digits)
 
-  table <- knitr::kable(table, digits = digits, format = "html",
-                        caption = paste("ANOVA Table: ", dv, sep = ""),
-                        row.names = FALSE,
-                        align = c("l", rep("c", c_col)))
-  table <- kableExtra::kable_classic(table, position = "left")
-  table <- kableExtra::kable_styling(table, full_width = FALSE,
-                                     position = "left")
-  table <- kableExtra::row_spec(table, 0, bold = TRUE)
-  if (stringr::str_detect(model_type, "lmer")) {
-    table <- kableExtra::footnote(table,
-                                  number =
-                                    c(paste("<small>", "Model: ",
-                                            add_fun_name, deparse1(x_formula),
-                                            add_parenth, "</small>", sep = ""),
-                                      paste("<small>", "N = ", x_n,
-                                            "</small>", sep = ""),
-                                      paste("<small>", "Observations = ", x_obs,
-                                            "</small>", sep = "")),
-                                  escape = FALSE)
-  } else {
-    table <- kableExtra::footnote(table,
-                                  number =
-                                    c(paste("<small>", "Model: ",
-                                            add_fun_name, deparse1(x_formula),
-                                            add_parenth, "</small>", sep = ""),
-                                      paste("<small>", "N = ", x_n,
-                                            "</small>", sep = "")),
-                                  escape = FALSE)
+  table_title <- paste("ANOVA Table: ", dv, sep = "")
+  df_correction <- attr(x$anova_table, "correction")
+  if (df_correction == "GG") {
+    df_correction <- "Greenhouse-Geisser Correction"
   }
+
+  table <- gt::gt(table) |>
+    table_styling() |>
+    gt::tab_header(title = table_title) |>
+    gt::cols_label(Sum_of_Squares = "SS",
+                   Sum_Squares_Error = "SS_Error",
+                   df_error = "df_Error",
+                   Mean_Square = "MS",
+                   Mean_Square_Error = "MS_Error")
+
+  if (eta_squared == TRUE) {
+    table <- gt::cols_label(table,
+                            Eta2_partial = "{{:eta:_p^2}}")
+  }
+
+  if (omega_squared == TRUE) {
+    table <- gt::cols_label(table,
+                            Omega2_partial = "{{:omega:_p^2}}")
+  }
+
+  if (epsilon_squared == TRUE) {
+    table <- gt::cols_label(table,
+                            Epsilon2_partial = "{{:epsilon:_p^2}}")
+  }
+
+  table <- table |>
+    gt::cols_align(align = "left", columns = 1) |>
+    gt::sub_small_vals(columns = p, threshold = .001) |>
+    gt::fmt_number(decimals = digits) |>
+    gt::tab_footnote(paste("Model: ", add_fun_name,
+                           deparse1(x_formula), sep = "")) |>
+    gt::tab_footnote(paste("N = ", x_n, sep = ""))
+
+  if (stringr::str_detect(model_type, "lmer")) {
+    table <- gt::tab_footnote(table, paste("Observations = ", x_obs, sep = ""))
+  }
+
+  table <- gt::tab_footnote(table, df_correction)
 
   return(table)
 }

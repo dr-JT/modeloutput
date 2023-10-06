@@ -4,10 +4,12 @@
 \alias{descriptives_table}
 \title{Descriptive Statistics Table}
 \usage{
-descriptives_table(x)
+descriptives_table(x, digits = 2)
 }
 \arguments{
 \item{x}{dataframe}
+
+\item{digits}{How many decimal places to round to? Default is 3.}
 }
 \description{
 This function will display a table of descriptive statistics

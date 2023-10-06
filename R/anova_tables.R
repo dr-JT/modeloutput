@@ -69,21 +69,12 @@ anova_tables <- function(x,
                          lmerTest.limit = NULL,
                          digits = 3, id_col = "Subject",
                          print = TRUE) {
-  # Function to make sure table prints whether running code in R code chunk,
-  # with knit button or with rmarkdown::render()
-  print_table <- function(x) {
-    if (isTRUE(getOption('knitr.in.progress'))) {
-      writeLines(x)
-    } else {
-      print(x)
-    }
-  }
 
   table_modelsig <- anova_modelsig(x, eta_squared = eta_squared,
                                    omega_squared = omega_squared,
                                    epsilon_squared = epsilon_squared,
                                    digits = digits, id_col = id_col)
-  print_table(table_modelsig)
+  tables <- gt::gt_group(table_modelsig)
 
   model_type <- insight::model_name(x)
   if (stringr::str_detect(model_type, "lmer")) {
@@ -94,37 +85,34 @@ anova_tables <- function(x,
                                         bootstrap = bootstrap,
                                         iterations = iterations,
                                         digits = digits)
-    print_table(table_contrasts)
+    tables <- gt::grp_add(tables, table_contrasts)
   }
 
-  table_comparisons <- list()
-  i <- 1
   for (contr in contrast) {
-    table_comparisons[[i]] <- anova_comparisons(x, contrast = contr,
-                                                p_adjust = p_adjust,
-                                                digits = digits,
-                                                pbkrtest.limit = pbkrtest.limit,
-                                                lmerTest.limit = lmerTest.limit)
-    print_table(table_comparisons[[i]])
-    i <- i + 1
+    table_comparisons <- anova_comparisons(x, contrast = contr,
+                                           p_adjust = p_adjust,
+                                           digits = digits,
+                                           pbkrtest.limit = pbkrtest.limit,
+                                           lmerTest.limit = lmerTest.limit)
+    tables <- gt::grp_add(tables, table_comparisons)
   }
 
   if (!is.null(at)) {
     for (contr in contrast) {
       interaction <- at[which(at != contr)]
       for (int in interaction) {
-        table_comparisons[[i]] <- anova_comparisons(x,
-                                                    contrast = contr,
-                                                    at = int,
-                                                    p_adjust = p_adjust,
-                                                    digit = digits,
-                                                    pbkrtest.limit =
-                                                      pbkrtest.limit,
-                                                    lmerTest.limit =
-                                                      lmerTest.limit)
-        print_table(table_comparisons[[i]])
-        i <- i + 1
+        table_comparisons <- anova_comparisons(x,
+                                               contrast = contr,
+                                               at = int,
+                                               p_adjust = p_adjust,
+                                               digit = digits,
+                                               pbkrtest.limit =
+                                                 pbkrtest.limit,
+                                               lmerTest.limit =
+                                                 lmerTest.limit)
+        tables <- gt::grp_add(tables, table_comparisons)
       }
     }
   }
+  return(tables)
 }

@@ -45,6 +45,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
                                             lmerTest.limit = lmerTest.limit)
   }
 
+  p_adjust <- stringr::str_split(attr(table, "table_footer")[1], "\n")[[1]][3]
+
   table_std <- effectsize::standardize(table)
 
   if (is.null(at)) {
@@ -54,17 +56,16 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
 
   if (!is.null(at)) {
     table_std <- dplyr::select(table_std, Level1, Level2,
-                               at, Cohen_D = Difference)
+                               dplyr::all_of(at), Cohen_D = Difference)
     table <- merge(table, table_std, by = c("Level1", "Level2", at))
   }
 
   table <- dplyr::mutate(table,
-                         dplyr::across(Difference:Cohen_D, ~
-                                         round(.x, digits = digits)),
-                         p = round(p, 3))
+                         CI_low = round(CI_low, digits),
+                         CI_high = round(CI_high, digits))
   table <- tidyr::unite(table, CI, CI_low, CI_high, sep = ", ")
   table <- dplyr::mutate(table,
-                     CI = paste("[", CI, "]", sep = ""))
+                         CI = paste("[", CI, "]", sep = ""))
 
   if (model_type == "afex_aov") {
     table <- dplyr::mutate(table,
@@ -77,13 +78,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
 
   table <- dplyr::arrange(table, Level1, Level2)
 
-  if (is.null(at)) {
-    table <- knitr::kable(table, digits = digits, format = "html",
-                          caption = paste("Post-hoc Comparisons: ",
-                                          contrast, sep = ""),
-                          row.names = FALSE,
-                          align = c("l", "l", rep("c", 7)))
-  }
+  table_title <- paste("Post-hoc Comparisons: ", contrast, sep = "")
+  cols_left_align <- c(1,2)
 
   if (!is.null(at)) {
     colnames(table)[which(colnames(table) == at)] <- "placeholder"
@@ -98,24 +94,22 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
     table <- dplyr::arrange(table, Level1, Level2, placeholder)
     colnames(table)[which(colnames(table) == "placeholder")] <- at
 
-    table <- knitr::kable(table, digits = digits, format = "html",
-                          caption = paste("Post-hoc Comparisons: ", contrast,
-                                          " x ", at, sep = ""),
-                          row.names = FALSE,
-                          align = c("l", "l", "l", rep("c", 7)))
+    table_title <- paste("Post-hoc Comparisons: ", contrast, " x ", at, sep = "")
+    cols_left_align <- c(1,2,3)
   }
 
-  table <- kableExtra::kable_classic(table, position = "left")
-  table <- kableExtra::kable_styling(table, full_width = FALSE,
-                                     position = "left")
-  table <- kableExtra::collapse_rows(table, columns = 1, valign = "top")
-  table <- kableExtra::row_spec(table, 0, bold = TRUE)
-  table <- kableExtra::footnote(table,
-                                number =
-                                  paste("<small>",
-                                        "p-value adjustment method: Holm(1979)",
-                                        "</small>", sep = ""),
-                                escape = FALSE)
+  table <- gt::gt(table) |>
+    table_styling() |>
+    gt::tab_header(title = table_title) |>
+    gt::cols_label(Level1 = "Level 1",
+                   Level2 = "Level 2",
+                   Cohen_D = "Cohen's D",
+                   CI = "CI 95%") |>
+    gt::cols_align(align = "left", columns = cols_left_align) |>
+    gt::sub_small_vals(columns = p, threshold = .001) |>
+    gt::fmt_number(decimals = digits) |>
+    gt::fmt_number(columns = df, decimals = 0) |>
+    gt::tab_footnote(p_adjust)
 
   return(table)
 }

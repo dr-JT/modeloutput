@@ -24,7 +24,8 @@ get_coeff <- function(x,
                        SE, CI_low, CI_high,
                        t, df = df_error, p)
     x <- dplyr::mutate(x,
-                       CI_low = round(CI_low, 3), CI_high = round(CI_high, 3))
+                       CI_low = round(CI_low, digits),
+                       CI_high = round(CI_high, digits))
     x <- tidyr::unite(x, CI, CI_low, CI_high, sep = ", ")
     x <- dplyr::mutate(x,
                        CI = paste("[", CI, "]", sep = ""))

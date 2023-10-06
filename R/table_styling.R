@@ -8,14 +8,16 @@ table_styling <- function(x) {
   x <- x |>
     gt::tab_options(
       table.align = "left",
+      heading.border.bottom.color = "black",
       heading.title.font.size = 12,
       heading.align = "center",
+      table.border.top.color = "black",
       heading.title.font.weight = "bolder",
       column_labels.font.weight = "bold",
       footnotes.font.size = 12,
       table.border.top.width = 0,
       table.border.bottom.width = 0,
-      column_labels.border.top.width = 3,
+      column_labels.border.top.width = 2,
       column_labels.border.top.color = "black",
       column_labels.border.bottom.width = 0,
       column_labels.border.bottom.color = "black",

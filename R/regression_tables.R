@@ -49,7 +49,8 @@ regression_tables <- function(x, y = NULL, z = NULL,
                                   ci = ci, ci_method = ci_method,
                                   bootstrap = bootstrap,
                                   iterations = iterations,
-                                  digits = digits)
+                                  digits = digits,
+                                  print = TRUE)
 
   gt::gt_group(rsqaured_table, modelsig_table, coeff_table)
 }
