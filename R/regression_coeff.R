@@ -94,36 +94,45 @@ regression_coeff <- function(x, y = NULL, z = NULL,
       gt::sub_small_vals(columns = p, threshold = .001) |>
       gt::fmt_number(decimals = 3) |>
       gt::fmt_number(columns = df, decimals = 0) |>
-      gt::tab_footnote(footer_x)
+      gt::tab_footnote(footer_x) |>
+      gt::cols_merge_range(col_begin = ci_low_unstd,
+                           col_end = ci_high_unstd,
+                           sep = gt::html("&nbsp;&ndash;&nbsp")) |>
+      gt::cols_merge_range(col_begin = ci_low_std,
+                           col_end = ci_high_std,
+                           sep = gt::html("&nbsp;&ndash;&nbsp")) |>
 
     if (unstandardized == TRUE & standardized == TRUE) {
       table <- table |>
         gt::cols_hide(columns = c(SE)) |>
         gt::tab_spanner(label = "Unstandardized",
-                        columns = c(b, CI_unstd)) |>
+                        columns = c(b, ci_low_unstd)) |>
         gt::tab_spanner(label = "Standardized",
-                        columns = c(B, CI_std, SE_B)) |>
-        gt::cols_label(CI_unstd = "95% CI",
+                        columns = c(B, ci_low_std, SE_B)) |>
+        gt::cols_label(ci_low_unstd = "95% CI",
                        B = "β",
-                       SE_B = "SE",
-                       CI_std = "95% CI")
+                       ci_low_std = "95% CI",
+                       SE_B = "SE")
     }
 
     if (unstandardized == TRUE & standardized == FALSE) {
       table <- table |>
+        gt::cols_merge_range(col_begin = ci_low_unstd,
+                             col_end = ci_high_unstd,
+                             sep = gt::html("&nbsp;&ndash;&nbsp")) |>
         gt::tab_spanner(label = "Unstandardized",
-                        columns = c(b, CI_unstd, SE)) |>
-        gt::cols_label(CI_unstd = "95% CI")
+                        columns = c(b, ci_low_unstd, SE)) |>
+        gt::cols_label(ci_low_unstd = "95% CI")
     }
 
     if (unstandardized == FALSE & standardized == TRUE) {
       table <- table |>
-        gt::cols_hide(columns = c(b, CI_unstd, SE)) |>
+        gt::cols_hide(columns = c(b, ci_low_unstd, SE)) |>
         gt::tab_spanner(label = "Standardized",
-                        columns = c(B, CI_std, SE_B)) |>
+                        columns = c(B, ci_low_std, SE_B)) |>
         gt::cols_label(B = "β",
-                       SE_B = "SE",
-                       CI_std = "95% CI")
+                       ci_low_std = "95% CI",
+                       SE_B = "SE")
     }
 
     if (!is.null(y)) {
