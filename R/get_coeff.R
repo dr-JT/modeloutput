@@ -36,7 +36,7 @@ get_coeff <- function(x, standardized = TRUE,
       dplyr::select(Term = Parameter, B = Coefficient,
                     ci_low_std = CI_low, ci_high_std = CI_high, SE_B = SE)
 
-    table <- merge(table, table_std, by = "Term", all = TRUE)
+    table <- dplyr::full_join(table, table_std, by = "Term")
     table <- dplyr::relocate(table, t, df, p, .after = SE_B)
   }
 
