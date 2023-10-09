@@ -16,10 +16,10 @@ table_styling <- function(x) {
       heading.title.font.size = 18,
       heading.title.font.weight = "bolder",
       column_labels.border.top.width = 0,
+      column_labels.border.bottom.color = "black",
       column_labels.font.weight = "bold",
       column_labels.padding = 6,
       table_body.border.bottom.color = "black",
-      table_body.border.top.color = "black",
       footnotes.font.size = 14
     ) |>
     gt::tab_style(style = gt::cell_text(align = 'center'),
