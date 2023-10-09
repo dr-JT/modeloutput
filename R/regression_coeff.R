@@ -47,8 +47,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                      standardized = standardized,
                      ci_level = ci_level, ci_method = ci_method,
                      bootstrap = bootstrap,
-                     iterations = iterations,
-                     digits = digits)
+                     iterations = iterations)
 
   table <- dplyr::mutate(table, Model = "H1")
   x_formula <- insight::find_formula(x)$conditional
@@ -63,8 +62,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                          standardized = standardized,
                          ci_level = ci_level, ci_method = ci_method,
                          bootstrap = bootstrap,
-                         iterations = iterations,
-                         digits = digits)
+                         iterations = iterations)
     y_table <- dplyr::mutate(y_table, Model = "H2")
     y_formula <- insight::find_formula(y)$conditional
     y_n <- insight::model_info(y)$n_obs
@@ -76,8 +74,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                          standardized = standardized,
                          ci_level = ci_level, ci_method = ci_method,
                          bootstrap = bootstrap,
-                         iterations = iterations,
-                         digits = digits)
+                         iterations = iterations)
     z_table <- dplyr::mutate(z_table, Model = "H3")
     z_formula <- insight::find_formula(z)$conditional
     z_n <- insight::model_info(z)$n_obs
