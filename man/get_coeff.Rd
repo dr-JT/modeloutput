@@ -7,12 +7,11 @@
 get_coeff(
   x,
   standardized = TRUE,
-  ci = 0.95,
+  ci_level = 0.95,
   ci_method = NULL,
   bootstrap = FALSE,
   iterations = NULL,
-  effects = "all",
-  digits = 3
+  effects = "all"
 )
 }
 \arguments{
@@ -20,7 +19,7 @@ get_coeff(
 
 \item{standardized}{see regression_coeff()}
 
-\item{ci}{see regression_coeff()}
+\item{ci_level}{see regression_coeff()}
 
 \item{ci_method}{see regression_coeff()}
 
@@ -30,8 +29,6 @@ get_coeff(
 
 \item{effects}{"fixed" or "all" fixed and random effects.
 default is "all"}
-
-\item{digits}{see regression_coeff()}
 }
 \description{
 Create Coefficients Data Frame

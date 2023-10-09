@@ -11,7 +11,7 @@
 #'      Defualt is TRUE.
 #' @param unstandardized Logical, indicating whether or not to print
 #'      unstandardized estimates. Default is TRUE.
-#' @param ci Confidence Interval (CI) level. Default to 0.95 (95%)
+#' @param ci_level Confidence Interval (CI) level. Default to 0.95 (95%)
 #' @param ci_method Documention based on ?parameters::parameters.
 #'     Method for computing degrees of freedom for confidence
 #'     intervals (CI) and the related p-values. Allowed are following options
@@ -38,14 +38,14 @@
 regression_coeff <- function(x, y = NULL, z = NULL,
                              standardized = TRUE,
                              unstandardized = TRUE,
-                             ci = 0.95, ci_method = NULL,
+                             ci_level = 0.95, ci_method = NULL,
                              bootstrap = FALSE, iterations = NULL,
                              effects = "all",
                              digits = 3, print = TRUE) {
 
   table <- get_coeff(x, effects = effects,
                      standardized = standardized,
-                     ci = ci, ci_method = ci_method,
+                     ci_level = ci_level, ci_method = ci_method,
                      bootstrap = bootstrap,
                      iterations = iterations,
                      digits = digits)
@@ -61,7 +61,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
   if (!is.null(y)) {
     y_table <- get_coeff(y, effects = effects,
                          standardized = standardized,
-                         ci = ci, ci_method = ci_method,
+                         ci_level = ci_level, ci_method = ci_method,
                          bootstrap = bootstrap,
                          iterations = iterations,
                          digits = digits)
@@ -74,7 +74,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
   if (!is.null(z)) {
     z_table <- get_coeff(z, effects = effects,
                          standardized = standardized,
-                         ci = ci, ci_method = ci_method,
+                         ci_level = ci_level, ci_method = ci_method,
                          bootstrap = bootstrap,
                          iterations = iterations,
                          digits = digits)
@@ -101,12 +101,13 @@ regression_coeff <- function(x, y = NULL, z = NULL,
 
     if (unstandardized == TRUE & standardized == TRUE) {
       table <- table |>
+        gt::cols_hide(columns = c(SE)) |>
         gt::tab_spanner(label = "Unstandardized",
-                        columns = c(b, SE, CI_unstd)) |>
+                        columns = c(b, CI_unstd)) |>
         gt::tab_spanner(label = "Standardized",
-                        columns = c(B, SE_B, CI_std)) |>
+                        columns = c(B, CI_std, SE_B)) |>
         gt::cols_label(CI_unstd = "95% CI",
-                       B = "{{:Beta:}}",
+                       B = "β",
                        SE_B = "SE",
                        CI_std = "95% CI")
     }
@@ -114,16 +115,16 @@ regression_coeff <- function(x, y = NULL, z = NULL,
     if (unstandardized == TRUE & standardized == FALSE) {
       table <- table |>
         gt::tab_spanner(label = "Unstandardized",
-                        columns = c(b, SE, CI_unstd)) |>
+                        columns = c(b, CI_unstd, SE)) |>
         gt::cols_label(CI_unstd = "95% CI")
     }
 
     if (unstandardized == FALSE & standardized == TRUE) {
       table <- table |>
-        gt::cols_hide(columns = c(b, SE, CI_unstd)) |>
+        gt::cols_hide(columns = c(b, CI_unstd, SE)) |>
         gt::tab_spanner(label = "Standardized",
-                        columns = c(B, SE_B, CI_std)) |>
-        gt::cols_label(B = "{{:Beta:}}",
+                        columns = c(B, CI_std, SE_B)) |>
+        gt::cols_label(B = "β",
                        SE_B = "SE",
                        CI_std = "95% CI")
     }

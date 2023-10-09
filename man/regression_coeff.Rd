@@ -10,7 +10,7 @@ regression_coeff(
   z = NULL,
   standardized = TRUE,
   unstandardized = TRUE,
-  ci = 0.95,
+  ci_level = 0.95,
   ci_method = NULL,
   bootstrap = FALSE,
   iterations = NULL,
@@ -34,7 +34,7 @@ Defualt is TRUE.}
 \item{unstandardized}{Logical, indicating whether or not to print
 unstandardized estimates. Default is TRUE.}
 
-\item{ci}{Confidence Interval (CI) level. Default to 0.95 (95%)}
+\item{ci_level}{Confidence Interval (CI) level. Default to 0.95 (95%)}
 
 \item{ci_method}{Documention based on ?parameters::parameters.
 Method for computing degrees of freedom for confidence
