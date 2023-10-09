@@ -21,7 +21,7 @@ get_coeff <- function(x, standardized = TRUE,
                            ci = ci_level, ci_method = ci_method,
                            bootstrap = bootstrap, iterations = iterations) |>
     as.data.frame() |>
-    dpylr::select(Term = Parameter, b = Coefficient, CI_low, CI_high,
+    dplyr::select(Term = Parameter, b = Coefficient, CI_low, CI_high,
                   SE, t, df = df_error, p) |>
     dplyr::rename(ci_low_unstd = CI_low, ci_high_unstd = CI_high)
 
@@ -33,7 +33,7 @@ get_coeff <- function(x, standardized = TRUE,
                              bootstrap = bootstrap,
                              iterations = iterations) |>
       as.data.frame() |>
-      dpylr::select(Term = Parameter, B = Coefficient,
+      dplyr::select(Term = Parameter, B = Coefficient,
                     ci_low_std = CI_low, ci_high_std = CI_high, SE_B = SE)
 
     table <- merge(table, table_std, by = "Term", all = TRUE)
