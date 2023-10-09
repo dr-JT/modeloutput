@@ -18,6 +18,8 @@ table_styling <- function(x) {
       column_labels.border.top.width = 0,
       column_labels.font.weight = "bold",
       column_labels.padding = 6,
+      table_body.border.bottom.color = "black",
+      table_body.border.top.color = "black",
       footnotes.font.size = 14
     ) |>
     gt::tab_style(style = gt::cell_text(align = 'center'),
