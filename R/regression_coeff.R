@@ -100,7 +100,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                            sep = gt::html("&nbsp;&ndash;&nbsp")) |>
       gt::cols_merge_range(col_begin = ci_low_std,
                            col_end = ci_high_std,
-                           sep = gt::html("&nbsp;&ndash;&nbsp")) |>
+                           sep = gt::html("&nbsp;&ndash;&nbsp"))
 
     if (unstandardized == TRUE & standardized == TRUE) {
       table <- table |>
@@ -117,9 +117,6 @@ regression_coeff <- function(x, y = NULL, z = NULL,
 
     if (unstandardized == TRUE & standardized == FALSE) {
       table <- table |>
-        gt::cols_merge_range(col_begin = ci_low_unstd,
-                             col_end = ci_high_unstd,
-                             sep = gt::html("&nbsp;&ndash;&nbsp")) |>
         gt::tab_spanner(label = "Unstandardized",
                         columns = c(b, ci_low_unstd, SE)) |>
         gt::cols_label(ci_low_unstd = "95% CI")
