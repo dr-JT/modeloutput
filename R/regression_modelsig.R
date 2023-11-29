@@ -11,7 +11,10 @@
 #'
 
 regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
-  x_formula <- insight::find_formula(x)$conditional
+  x_formula <- insight::find_formula(x)$conditional |>
+    deparse() |>
+    stringr::str_trim("left") |>
+    paste(collapse = "")
   x_n <- insight::model_info(x)$n_obs
   dv <- insight::find_response(x)
 
@@ -34,10 +37,15 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
   x_table <- dplyr::select(x_table,
                            Model, Term, `Sum Sq`, Df, `Mean Sq`,
                            statistic, p.value)
-  footer_x <- paste("H1: ", deparse(x_formula), "; N = ", x_n, sep = "")
+  footer_x <- paste("H1: ", x_formula, "; N = ", x_n, sep = "")
 
   if (!is.null(y)) {
-    y_formula <- deparse(insight::find_formula(y)$conditional)
+    y_formula <- insight::find_formula(y)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
+
+    y_formula
     y_n <- insight::model_info(y)$n_obs
     y_table <- car::Anova(y, type = "III")
     y_table <- dplyr::mutate(y_table,
@@ -63,7 +71,10 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     y_table <- data.frame()
   }
   if (!is.null(z)) {
-    z_formula <- insight::find_formula(z)$conditional
+    z_formula <- insight::find_formula(z)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
     z_n <- insight::model_info(z)$n_obs
     z_table <- car::Anova(z, type = "III")
     z_table <- dplyr::mutate(z_table,
@@ -84,7 +95,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     z_table <- dplyr::select(z_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
-    footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
+    footer_z <- paste("H2: ", z_formula, "; N = ", z_n, sep = "")
   } else {
     z_table <- data.frame()
   }
