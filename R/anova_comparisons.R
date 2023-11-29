@@ -104,8 +104,8 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
                    CI_low = "CI 95%") |>
     gt::cols_align(align = "left", columns = cols_left_align) |>
     gt::sub_small_vals(columns = p, threshold = .001) |>
-    gt::fmt_number(decimals = digits) |>
-    gt::fmt_number(columns = df, decimals = 0) |>
+    gt::fmt_number(decimals = digits, use_seps = FALSE) |>
+    gt::fmt_number(columns = df, decimals = 0, use_seps = FALSE) |>
     gt::tab_footnote(p_adjust)
 
   return(table)

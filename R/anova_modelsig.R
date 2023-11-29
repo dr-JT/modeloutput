@@ -86,9 +86,9 @@ anova_modelsig <- function(x,
 
   if (ws_design == TRUE) {
     gt_table <- gt::cols_label(gt_table,
-                               Sum_Squares_Error = "SS_Error",
-                               df_error = "df_Error",
-                               Mean_Square_Error = "MS_Error")
+                               Sum_Squares_Error = "SS Error",
+                               df_error = "df Error",
+                               Mean_Square_Error = "MS Error")
   }
 
   if (eta_squared == TRUE) {
@@ -127,7 +127,7 @@ anova_modelsig <- function(x,
   gt_table <- gt_table |>
     gt::cols_align(align = "left", columns = 1) |>
     gt::sub_small_vals(columns = p, threshold = .001) |>
-    gt::fmt_number(decimals = digits) |>
+    gt::fmt_number(decimals = digits, use_seps = FALSE) |>
     gt::tab_footnote(paste("Model: ", add_fun_name,
                            deparse1(x_formula), sep = "")) |>
     gt::tab_footnote(paste("N = ", x_n, sep = ""))
