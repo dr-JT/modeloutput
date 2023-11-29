@@ -60,13 +60,6 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
     table <- merge(table, table_std, by = c("Level1", "Level2", at))
   }
 
-  table <- dplyr::mutate(table,
-                         CI_low = round(CI_low, digits),
-                         CI_high = round(CI_high, digits))
-  table <- tidyr::unite(table, CI, CI_low, CI_high, sep = ", ")
-  table <- dplyr::mutate(table,
-                         CI = paste("[", CI, "]", sep = ""))
-
   if (model_type == "afex_aov") {
     table <- dplyr::mutate(table,
                            Level1 = stringr::str_remove(Level1, "X"),
@@ -94,17 +87,21 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
     table <- dplyr::arrange(table, Level1, Level2, placeholder)
     colnames(table)[which(colnames(table) == "placeholder")] <- at
 
-    table_title <- paste("Post-hoc Comparisons: ", contrast, " x ", at, sep = "")
+    table_title <- paste("Post-hoc Comparisons: ",
+                         contrast, " x ", at, sep = "")
     cols_left_align <- c(1,2,3)
   }
 
   table <- gt::gt(table) |>
     table_styling() |>
     gt::tab_header(title = table_title) |>
+    gt::cols_merge_range(col_begin = CI_low,
+                         col_end = CI_high,
+                         sep = gt::html("&nbsp;&ndash;&nbsp;")) |>
     gt::cols_label(Level1 = "Level 1",
                    Level2 = "Level 2",
                    Cohen_D = "Cohen's D",
-                   CI = "CI 95%") |>
+                   CI_low = "CI 95%") |>
     gt::cols_align(align = "left", columns = cols_left_align) |>
     gt::sub_small_vals(columns = p, threshold = .001) |>
     gt::fmt_number(decimals = digits) |>

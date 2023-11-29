@@ -110,14 +110,14 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                      r2_adj = "{{R^2 adj.}}") |>
       gt::cols_align(align = "left", columns = model) |>
       gt::tab_footnote(footer_x) |>
-      gt::fmt_number(decimals = 3)
+      gt::fmt_number(decimals = 3, use_seps = FALSE)
 
     if (!is.null(y)) {
       table <- table |>
         gt::tab_footnote(footer_y) |>
         gt::cols_label(r2_change = "{{:Delta:R^2}}",
                        F_change = "{{:Delta:F}}") |>
-        gt::fmt_number(columns = c(df1, df2), decimals = 0) |>
+        gt::fmt_number(columns = c(df1, df2), decimals = 0, use_seps = FALSE) |>
         gt::fmt_scientific(columns = BF) |>
         gt::sub_small_vals(columns = p, threshold = .001)
     }

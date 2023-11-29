@@ -103,8 +103,8 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
       gt::tab_header(title = table_title) |>
       gt::cols_align(align = "left", columns = c(Model, Term)) |>
       gt::sub_small_vals(columns = p, threshold = .001) |>
-      gt::fmt_number(decimals = 3) |>
-      gt::fmt_number(columns = df, decimals = 0) |>
+      gt::fmt_number(decimals = 3, use_seps = FALSE) |>
+      gt::fmt_number(columns = df, decimals = 0, use_seps = FALSE) |>
       gt::tab_footnote(footer_x)
 
     if (!is.null(y)) {
