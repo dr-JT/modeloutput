@@ -11,7 +11,10 @@
 #'
 
 regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
-  x_formula <- insight::find_formula(x)$conditional
+  x_formula <- insight::find_formula(x)$conditional |>
+    deparse() |>
+    stringr::str_trim("left") |>
+    paste(collapse = "")
   x_n <- insight::model_info(x)$n_obs
   dv <- insight::find_response(x)
 
@@ -25,13 +28,16 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
   x_fit <- dplyr::select(x_fit, BIC)
 
   x_table <- dplyr::bind_cols(x_table, x_fit)
-  footer_x <- paste("H1: ", deparse(x_formula), "; N = ", x_n, sep = "")
+  footer_x <- paste("H1: ", x_formula, "; N = ", x_n, sep = "")
 
   if (!is.null(y)) {
     x_table <- dplyr::mutate(x_table, r2_change = NA, F_change = NA,
                              df1 = NA, df2 = NA, p = NA)
 
-    y_formula <- insight::find_formula(y)$conditional
+    y_formula <- insight::find_formula(y)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
     y_n <- insight::model_info(y)$n_obs
     y_summary <- summary(y)
     y_table <- data.frame(model = "H2",
@@ -52,12 +58,15 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                             F_change = `F`, df1 = Df, df2 = Res.Df,
                             p = `Pr(>F)`)
     y_table <- dplyr::bind_cols(y_table, y_comp)
-    footer_y <- paste("H2: ", deparse(y_formula), "; N = ", y_n, sep = "")
+    footer_y <- paste("H2: ", y_formula, "; N = ", y_n, sep = "")
   } else {
     y_table <- data.frame()
   }
   if (!is.null(z)) {
-    z_formula <- insight::find_formula(z)$conditional
+    z_formula <- insight::find_formula(z)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
     z_n <- insight::model_info(z)$n_obs
     z_summary <- summary(z)
     z_table <- data.frame(model = "H3",
@@ -78,7 +87,7 @@ regression_rsquared <- function(x, y = NULL, z = NULL, print = TRUE) {
                             F_change = `F`, df1 = Df, df2 = Res.Df,
                             p = `Pr(>F)`)
     z_table <- dplyr::bind_cols(z_table, z_comp)
-    footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
+    footer_z <- paste("H3: ", z_formula, "; N = ", z_n, sep = "")
   } else {
     z_table <- data.frame()
   }

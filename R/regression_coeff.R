@@ -50,12 +50,15 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                      iterations = iterations)
 
   table <- dplyr::mutate(table, Model = "H1")
-  x_formula <- insight::find_formula(x)$conditional
+  x_formula <- insight::find_formula(x)$conditional |>
+    deparse() |>
+    stringr::str_trim("left") |>
+    paste(collapse = "")
   x_n <- insight::model_info(x)$n_obs
   dv <- insight::find_response(x)
 
 
-  footer_x <- paste("H1: ", deparse(x_formula), "; N = ", x_n, sep = "")
+  footer_x <- paste("H1: ", x_formula, "; N = ", x_n, sep = "")
 
   if (!is.null(y)) {
     y_table <- get_coeff(y, effects = effects,
@@ -64,10 +67,13 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                          bootstrap = bootstrap,
                          iterations = iterations)
     y_table <- dplyr::mutate(y_table, Model = "H2")
-    y_formula <- insight::find_formula(y)$conditional
+    y_formula <- insight::find_formula(y)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
     y_n <- insight::model_info(y)$n_obs
     table <- dplyr::bind_rows(table, y_table)
-    footer_y <- paste("H2: ", deparse(y_formula), "; N = ", y_n, sep = "")
+    footer_y <- paste("H2: ", y_formula, "; N = ", y_n, sep = "")
   }
   if (!is.null(z)) {
     z_table <- get_coeff(z, effects = effects,
@@ -76,10 +82,13 @@ regression_coeff <- function(x, y = NULL, z = NULL,
                          bootstrap = bootstrap,
                          iterations = iterations)
     z_table <- dplyr::mutate(z_table, Model = "H3")
-    z_formula <- insight::find_formula(z)$conditional
+    z_formula <- insight::find_formula(z)$conditional |>
+      deparse() |>
+      stringr::str_trim("left") |>
+      paste(collapse = "")
     z_n <- insight::model_info(z)$n_obs
     table <- dplyr::bind_rows(table, z_table)
-    footer_z <- paste("H3: ", deparse(z_formula), "; N = ", z_n, sep = "")
+    footer_z <- paste("H3: ", z_formula, "; N = ", z_n, sep = "")
   }
 
   table <- dplyr::relocate(table, Model, .before = Term)
