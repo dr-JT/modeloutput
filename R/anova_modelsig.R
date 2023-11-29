@@ -75,7 +75,7 @@ anova_modelsig <- function(x,
   table_title <- paste("ANOVA Table: ", dv, sep = "")
   df_correction <- attr(x$anova_table, "correction")
   if (df_correction == "GG") {
-    df_correction <- "Greenhouse-Geisser Correction"
+    df_correction <- "Greenhouse-Geisser"
   }
 
   gt_table <- gt::gt(table) |>
@@ -137,7 +137,9 @@ anova_modelsig <- function(x,
                                  paste("Observations = ", x_obs, sep = ""))
   }
 
-  gt_table <- gt::tab_footnote(gt_table, df_correction)
+  gt_table <- gt::tab_footnote(gt_table,
+                               paste("df correction: ",
+                                     df_correction, sep = ""))
 
   return(gt_table)
 }
