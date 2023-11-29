@@ -37,7 +37,7 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
   footer_x <- paste("H1: ", deparse(x_formula), "; N = ", x_n, sep = "")
 
   if (!is.null(y)) {
-    y_formula <- insight::find_formula(y)$conditional
+    y_formula <- deparse(insight::find_formula(y)$conditional)
     y_n <- insight::model_info(y)$n_obs
     y_table <- car::Anova(y, type = "III")
     y_table <- dplyr::mutate(y_table,
@@ -58,10 +58,9 @@ regression_modelsig <- function(x, y = NULL, z = NULL, print = TRUE) {
     y_table <- dplyr::select(y_table,
                              Model, Term, `Sum Sq`, Df, `Mean Sq`,
                              statistic, p.value)
-    footer_y <- paste("H2: ", deparse(y_formula), "; N = ", y_n, sep = "")
+    footer_y <- paste("H2: ", y_formula, "; N = ", y_n, sep = "")
   } else {
     y_table <- data.frame()
-    y_top <- data.frame()
   }
   if (!is.null(z)) {
     z_formula <- insight::find_formula(z)$conditional
