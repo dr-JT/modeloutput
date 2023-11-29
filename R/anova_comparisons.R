@@ -97,7 +97,7 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
     gt::tab_header(title = table_title) |>
     gt::cols_merge_range(col_begin = CI_low,
                          col_end = CI_high,
-                         sep = gt::html("&nbsp;&ndash;&nbsp;")) |>
+                         sep = gt::html("&nbsp;&mdash;&nbsp;")) |>
     gt::cols_label(Level1 = "Level 1",
                    Level2 = "Level 2",
                    Cohen_D = "Cohen's D",
