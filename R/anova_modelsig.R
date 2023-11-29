@@ -129,11 +129,12 @@ anova_modelsig <- function(x,
     gt::sub_small_vals(columns = p, threshold = .001) |>
     gt::fmt_number(decimals = digits, use_seps = FALSE) |>
     gt::tab_footnote(paste("Model: ", add_fun_name,
-                           deparse1(x_formula), sep = "")) |>
+                           deparse1(x_formula), add_parenth, sep = "")) |>
     gt::tab_footnote(paste("N = ", x_n, sep = ""))
 
   if (stringr::str_detect(model_type, "lmer")) {
-    gt_table <- gt::tab_footnote(gt_table, paste("Observations = ", x_obs, sep = ""))
+    gt_table <- gt::tab_footnote(gt_table,
+                                 paste("Observations = ", x_obs, sep = ""))
   }
 
   gt_table <- gt::tab_footnote(gt_table, df_correction)
