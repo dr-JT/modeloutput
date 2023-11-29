@@ -39,6 +39,7 @@ anova_modelsig <- function(x,
     x_parameters <- anova(x)
     x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_parameters))
     x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
+    df_correction <- "none"
   }
   if (model_type == "afex_aov" | model_type == "aov") {
     x_formula <- insight::find_formula(x)$conditional
@@ -47,6 +48,11 @@ anova_modelsig <- function(x,
     x_obs <- ""
     x_n <- insight::model_info(x)$n_obs
     x_parameters <- x
+
+    df_correction <- attr(x$anova_table, "correction")
+    if (df_correction == "GG") {
+      df_correction <- "Greenhouse-Geisser"
+    }
   }
   dv <- insight::find_response(x)
 
@@ -73,10 +79,6 @@ anova_modelsig <- function(x,
   table <- dplyr::rename(table, Term = Parameter, Sum_of_Squares = Sum_Squares)
 
   table_title <- paste("ANOVA Table: ", dv, sep = "")
-  df_correction <- attr(x$anova_table, "correction")
-  if (df_correction == "GG") {
-    df_correction <- "Greenhouse-Geisser"
-  }
 
   gt_table <- gt::gt(table) |>
     table_styling() |>
