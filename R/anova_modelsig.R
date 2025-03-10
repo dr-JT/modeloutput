@@ -87,15 +87,14 @@ anova_modelsig <- function(x,
                    Mean_Square = "MS")
 
   if (ws_design == TRUE) {
-    if (model_type != "lmer") {
+    if (stringr::str_detect(model_type, "lmer")) {
+      gt_table <- gt::cols_label(gt_table,
+                               df_error = "df Error")
+    } else {
       gt_table <- gt::cols_label(gt_table,
                                Sum_Squares_Error = "SS Error",
                                df_error = "df Error",
                                Mean_Square_Error = "MS Error")
-    }
-    if (model_type == "lmer") {
-      gt_table <- gt::cols_label(gt_table,
-                               df_error = "df Error")
     }
   }
 
