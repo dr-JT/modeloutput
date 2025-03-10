@@ -63,7 +63,7 @@ anova_modelsig <- function(x,
   if ("df_error" %in% colnames(table)) {
     table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
     if (stringr::str_detect(model_type, "lmer")) {
-      table <- merge(table, x_anova, by = "Parameter", all = TRUE)
+      table <- merge(table, x_anova, by = c("Parameter", "df_error"), all = TRUE)
     }
     table <- dplyr::relocate(table, df_error, .after = df)
     table <- dplyr::relocate(table, Mean_Square_Error, .after = Mean_Square)
