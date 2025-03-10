@@ -101,7 +101,7 @@ regression_coeff <- function(x, y = NULL, z = NULL,
       gt::tab_header(title = table_title) |>
       gt::cols_align(align = "left", columns = c(Model, Term)) |>
       gt::sub_small_vals(columns = p, threshold = .001) |>
-      gt::fmt_number(decimals = 3, use_seps = FALSE) |>
+      gt::fmt_number(decimals = digits, use_seps = FALSE) |>
       gt::fmt_number(columns = df, decimals = 0, use_seps = FALSE) |>
       gt::tab_footnote(footer_x) |>
       gt::cols_merge_range(col_begin = ci_low_unstd,
