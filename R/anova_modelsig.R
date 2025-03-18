@@ -99,7 +99,7 @@ anova_modelsig <- function(x,
     }
   }
 
-  if (eta_squared == TRUE) {
+  if (any(c("Eta2_partial", "Eta2") %in% colnames(table))) {
     if ("Eta2_partial" %in% colnames(table)) {
       gt_table <- gt::cols_label(gt_table,
                                  Eta2_partial = "{{:eta:_p^2}}")
@@ -110,7 +110,7 @@ anova_modelsig <- function(x,
 
   }
 
-  if (omega_squared == TRUE) {
+  if (any(c("Omega2_partial", "Omega2") %in% colnames(table))) {
     if ("Omega2_partial" %in% colnames(table)) {
       gt_table <- gt::cols_label(gt_table,
                                  Omega2_partial = "{{:omega:_p^2}}")
@@ -121,7 +121,7 @@ anova_modelsig <- function(x,
 
   }
 
-  if (epsilon_squared == TRUE) {
+  if (any(c("Epsilon2_partial", "Epsilon2") %in% colnames(table))) {
     if ("Epsilon2_partial" %in% colnames(table)) {
       gt_table <- gt::cols_label(gt_table,
                                  Epsilon2_partial = "{{:epsilon:_p^2}}")
