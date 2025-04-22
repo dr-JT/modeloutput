@@ -36,10 +36,10 @@ anova_comparisons <- function(x, contrast = NULL, at = NULL, p_adjust = "none",
   }
 
   if (is.null(pbkrtest.limit) & is.null(lmerTest.limit)) {
-    table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at,
+    table <- modelbased::estimate_contrasts(x, contrast = contrast, by = at,
                                             p_adjust = p_adjust)
   } else {
-    table <- modelbased::estimate_contrasts(x, contrast = contrast, at = at,
+    table <- modelbased::estimate_contrasts(x, contrast = contrast, by = at,
                                             p_adjust = p_adjust,
                                             pbkrtest.limit = pbkrtest.limit,
                                             lmerTest.limit = lmerTest.limit)
