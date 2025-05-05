@@ -60,6 +60,8 @@ anova_modelsig <- function(x,
                                         effectsize_type = effectsize_list)
   table <- as.data.frame(table)
 
+  parameter_order <- table$Parameter
+
   if ("df_error" %in% colnames(table)) {
     table <- dplyr::mutate(table, Mean_Square_Error = Mean_Square / `F`)
     if (stringr::str_detect(model_type, "lmer")) {
@@ -79,6 +81,8 @@ anova_modelsig <- function(x,
   table <- dplyr::rename(table, Term = Parameter, Sum_of_Squares = Sum_Squares)
 
   table_title <- paste("ANOVA Table: ", dv, sep = "")
+
+  table <- arrange(table, match(Term, parameter_order))
 
   gt_table <- gt::gt(table) |>
     table_styling() |>
