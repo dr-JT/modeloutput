@@ -35,7 +35,7 @@ anova_modelsig <- function(x,
     add_fun_name <- ""
     add_parenth <- ""
     x_obs <- insight::model_info(x)$n_obs
-    x_n <- length(unique(insight::get_data(x)[[id_col]]))
+    x_n <- length(lme4::getME(x, "flist")[[id_col]] |> unique())
     x_parameters <- anova(x)
     x_anova <- dplyr::mutate(x_parameters, Parameter = rownames(x_parameters))
     x_anova <- dplyr::select(x_anova, Parameter, df_error = DenDF)
