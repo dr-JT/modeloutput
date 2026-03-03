@@ -23,7 +23,10 @@ get_coeff <- function(x, standardized = TRUE,
       stop("Package 'lmerTest' is required to compute Satterthwaite df from summary().")
     }
 
-    s <- lmerTest::summary(mod)
+    if (!inherits(mod, "lmerModLmerTest")) {
+      mod <- lmerTest::as_lmerModLmerTest(mod)
+    }
+    s <- summary(mod)
     tab <- as.data.frame(coef(s))
     tab$Term <- rownames(tab)
     rownames(tab) <- NULL
