@@ -12,9 +12,12 @@
 #'
 
 get_coeff <- function(x, standardized = TRUE,
-                      ci_level = 0.95, ci_method = "satterthwaite",
+                      ci_level = 0.95, ci_method = NULL,
                       bootstrap = FALSE, iterations = NULL, effects = "all") {
 
+  model_type <- insight::model_name(x)
+  if (stringr::str_detect(model_type, "lmer")) ci_method <- "satterthwaite"
+  
   table <- x |>
     parameters::parameters(effects = effects,
                            standardize = NULL,
