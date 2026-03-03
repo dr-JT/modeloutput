@@ -12,7 +12,7 @@
 #'
 
 get_coeff <- function(x, standardized = TRUE,
-                      ci_level = 0.95, ci_method = NULL,
+                      ci_level = 0.95, ci_method = "satterthwaite",
                       bootstrap = FALSE, iterations = NULL, effects = "all") {
 
   table <- x |>
