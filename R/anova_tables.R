@@ -81,7 +81,7 @@ anova_tables <- function(x,
     table_contrasts <- regression_coeff(x, effects = effects,
                                         standardized = standardized,
                                         unstandardized = unstandardized,
-                                        ci_level = ci, ci_method = ci_method,
+                                        ci_level = ci_level, ci_method = ci_method,
                                         bootstrap = bootstrap,
                                         iterations = iterations,
                                         digits = digits)
