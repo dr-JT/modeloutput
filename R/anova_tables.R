@@ -20,7 +20,7 @@
 #'      Defualt is TRUE.
 #' @param unstandardized Logical, indicating whether or not to print
 #'      unstandardized estimates. Default is TRUE.
-#' @param ci Confidence Interval (CI) level. Default to 0.95
+#' @param ci_level Confidence Interval (CI) level. Default to 0.95
 #' @param ci_method Documention based on ?parameters::parameters.
 #'     Method for computing degrees of freedom for confidence
 #'     intervals (CI) and the related p-values. Allowed are following options
@@ -62,7 +62,7 @@ anova_tables <- function(x,
                          effects = "fixed", contrast = NULL, at = NULL,
                          standardized = TRUE,
                          unstandardized = TRUE,
-                         ci = 0.95, ci_method = NULL,
+                         ci_level = 0.95, ci_method = NULL,
                          p_adjust = "none",
                          bootstrap = FALSE, iterations = NULL,
                          pbkrtest.limit = NULL,
@@ -81,7 +81,7 @@ anova_tables <- function(x,
     table_contrasts <- regression_coeff(x, effects = effects,
                                         standardized = standardized,
                                         unstandardized = unstandardized,
-                                        ci = ci, ci_method = ci_method,
+                                        ci_level = ci, ci_method = ci_method,
                                         bootstrap = bootstrap,
                                         iterations = iterations,
                                         digits = digits)
