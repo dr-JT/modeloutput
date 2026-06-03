@@ -3,7 +3,7 @@ Type: Package
 Title: Get full output from statistical models in nice looking tables
 Version: 0.0.1
 Authors@R: c(
-    person("Jason", "Tsukahara", ,"jason.tsukahara@gatech.edu")
+    person("Jason", "Tsukahara", ,"jason.tsukahara@gatech.edu"), role = c("aut", "cre")
     )
 Description: Convenient functions and templates to create nicer looking output.
     The RMarkdown template provided by this package makes it easier to start
